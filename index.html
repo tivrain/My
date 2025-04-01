@@ -776,129 +776,122 @@ a.event-link::before {
     <!-- JavaScript -->
     <script>
         // List of Indian cities (expand this as needed)
-       // List of cities for autocomplete
-const cities = [
-    "Abu Road", "Agra","kuchaman city","", "Ahmedabad", "Aizawl", "Ajmer", "Aligarh", "Allahabad", "Alwar", "Ambala", 
-    "Amritsar", "Asansol", "Aurangabad", "Ayodhya", "Bagru", "Bali", "Bangalore", "Banswara", 
-    "Bareilly", "Baran", "Bari", "Barmer", "Baswa", "Bassi", "Bayana", "Beawar", "Begun", 
-    "Belgaum", "Bhadra", "Bhadesar", "Bharatpur", "Bhavnagar", "Bhilwara", "Bhinder", "Bhiwandi", 
-    "Bhopal", "Bhubaneswar", "Bikaner", "Bilaspur", "Bokaro Steel City", "Bulandshahr", "Chandigarh", 
-    "Chennai", "Chhabra", "Chittorgarh", "Chomu", "Churu", "Coimbatore", "Cuttack", "Dausa", 
-    "Davanagere", "Dehradun", "Deogarh", "Delhi", "Dhanbad", "Dharampur", "Dholpur", "Didwana", 
-    "Dungarpur", "Durg", "Durgapur", "Etawah", "Faizabad", "Falna", "Faridabad", "Fatehpur Shekhawati", 
-    "Firozabad","Green Heaven Resort", "Gangapur City", "Gangtok", "Gaya", "Ghaziabad", "Gorakhpur", "Gulbarga", "Guntur", 
-    "Guwahati", "Gwalior", "Haldia", "Hanumangarh", "Haridwar", "Hindaun", "Hisar", "Hubli", 
-    "Hyderabad", "Imphal", "Indore", "Itanagar", "Jabalpur", "Jaipur", "Jaisalmer", "Jalandhar", 
-    "Jalgaon", "Jamnagar", "Jamshedpur", "Jaunpur", "Jhansi", "Jhalawar", "Jhunjhunu", "Jodhpur", 
-    "Kolkata", "Kanpur", "Kapasan", "Karauli", "Karnal", "Kekri", "Kharagpur", "Khetri", "Kishangarh", 
-    "Kochi", "Kohima", "Kolhapur", "Korba", "Kota", "Kurnool", "Latur", "Laxmangarh", "Loni", 
-    "Losal", "Lucknow", "Ludhiana", "Madurai", "Makrana", "Malda", "Malpura", "Mandawa", "Mangalore", 
-    "Mathura", "Mavli", "Meerut", "Merta City", "Mirzapur", "Moradabad", "Mumbai", "Muzaffarnagar", 
-    "Mysore", "Nanded", "Nagaur", "Nagpur", "Nasirabad", "Nashik", "Nathdwara", "Nawa", "Nellore", 
-    "Noida", "Nokha", "Pali", "Panipat", "Patiala", "Patna", "Phagi", "Phalodi", "Pilani", 
-    "Pindwara", "Pipar City", "Port Blair", "Pratapgarh", "Puducherry", "Pune", "Pushkar", "Raebareli", 
-    "Raigarh", "Raipur", "Rajkot", "Rajsamand", "Ramganj Mandi", "Rampur", "Ranchi", "Ratangarh", 
-    "Rawatbhata", "Rohtak", "Saharanpur", "Salem", "Salumber", "Sanchore", "Satna", "Sawai Madhopur", 
-    "Shahjahanpur", "Shahpura", "Shiliguri", "Shillong", "Shimla", "Sikar", "Siliguri", "Sirsa", 
-    "Sirohi", "Sitapur", "Sonipat", "Sri Ganganagar", "Srinagar", "Sujangarh", "Talwara", "Taranagar", 
-    "Thane", "Thiruvananthapuram", "Tiruchirappalli", "Tirupati", "Tiruppur", "Todaraisingh", "Tonk", 
-    "Tonk Khurd", "Udaipur", "Ujjain", "Vadodara", "Varanasi", "Vijayawada", "Visakhapatnam", "Warangal"
-];
+       // List of cities for autocomplete//
+    const cities = [
+        "Abu Road", "Agra", "kuchaman city", "", "Ahmedabad", "Aizawl", "Ajmer", "Aligarh", "Allahabad", "Alwar", "Ambala", 
+        "Amritsar", "Asansol", "Aurangabad", "Ayodhya", "Bagru", "Bali", "Bangalore", "Banswara", 
+        "Bareilly", "Baran", "Bari", "Barmer", "Baswa", "Bassi", "Bayana", "Beawar", "Begun", 
+        "Belgaum", "Bhadra", "Bhadesar", "Bharatpur", "Bhavnagar", "Bhilwara", "Bhinder", "Bhiwandi", 
+        "Bhopal", "Bhubaneswar", "Bikaner", "Bilaspur", "Bokaro Steel City", "Bulandshahr", "Chandigarh", 
+        "Chennai", "Chhabra", "Chittorgarh", "Chomu", "Churu", "Coimbatore", "Cuttack", "Dausa", 
+        "Davanagere", "Dehradun", "Deogarh", "Delhi", "Dhanbad", "Dharampur", "Dholpur", "Didwana", 
+        "Dungarpur", "Durg", "Durgapur", "Etawah", "Faizabad", "Falna", "Faridabad", "Fatehpur Shekhawati", 
+        "Firozabad", "Green Heaven Resort", "Gangapur City", "Gangtok", "Gaya", "Ghaziabad", "Gorakhpur", "Gulbarga", "Guntur", 
+        "Guwahati", "Gwalior", "Haldia", "Hanumangarh", "Haridwar", "Hindaun", "Hisar", "Hubli", 
+        "Hyderabad", "Imphal", "Indore", "Itanagar", "Jabalpur", "Jaipur", "Jaisalmer", "Jalandhar", 
+        "Jalgaon", "Jamnagar", "Jamshedpur", "Jaunpur", "Jhansi", "Jhalawar", "Jhunjhunu", "Jodhpur", 
+        "Kolkata", "Kanpur", "Kapasan", "Karauli", "Karnal", "Kekri", "Kharagpur", "Khetri", "Kishangarh", 
+        "Kochi", "Kohima", "Kolhapur", "Korba", "Kota", "Kurnool", "Latur", "Laxmangarh", "Loni", 
+        "Losal", "Lucknow", "Ludhiana", "Madurai", "Makrana", "Malda", "Malpura", "Mandawa", "Mangalore", 
+        "Mathura", "Mavli", "Meerut", "Merta City", "Mirzapur", "Moradabad", "Mumbai", "Muzaffarnagar", 
+        "Mysore", "Nanded", "Nagaur", "Nagpur", "Nasirabad", "Nashik", "Nathdwara", "Nawa", "Nellore", 
+        "Noida", "Nokha", "Pali", "Panipat", "Patiala", "Patna", "Phagi", "Phalodi", "Pilani", 
+        "Pindwara", "Pipar City", "Port Blair", "Pratapgarh", "Puducherry", "Pune", "Pushkar", "Raebareli", 
+        "Raigarh", "Raipur", "Rajkot", "Rajsamand", "Ramganj Mandi", "Rampur", "Ranchi", "Ratangarh", 
+        "Rawatbhata", "Rohtak", "Saharanpur", "Salem", "Salumber", "Sanchore", "Satna", "Sawai Madhopur", 
+        "Shahjahanpur", "Shahpura", "Shiliguri", "Shillong", "Shimla", "Sikar", "Siliguri", "Sirsa", 
+        "Sirohi", "Sitapur", "Sonipat", "Sri Ganganagar", "Srinagar", "Sujangarh", "Talwara", "Taranagar", 
+        "Thane", "Thiruvananthapuram", "Tiruchirappalli", "Tirupati", "Tiruppur", "Todaraisingh", "Tonk", 
+        "Tonk Khurd", "Udaipur", "Ujjain", "Vadodara", "Varanasi", "Vijayawada", "Visakhapatnam", "Warangal"
+    ];
 
-// Function to setup autocomplete
-function setupAutocomplete(inputId, suggestionListId) {
-    const input = document.getElementById(inputId);
-    const suggestionList = document.getElementById(suggestionListId);
+    function setupAutocomplete(inputId, suggestionListId) {
+        const input = document.getElementById(inputId);
+        const suggestionList = document.getElementById(suggestionListId);
 
-    input.addEventListener('input', function() {
-        const value = this.value.toLowerCase().trim();
-        suggestionList.innerHTML = '';
-        suggestionList.style.display = 'none';
-
-        if (value.length === 0) return;
-
-        const matches = cities.filter(city => city.toLowerCase().startsWith(value));
-
-        if (matches.length > 0) {
-            matches.forEach(city => {
-                const li = document.createElement('li');
-                li.textContent = city;
-                li.addEventListener('click', () => {
-                    input.value = city;
-                    suggestionList.style.display = 'none';
-                });
-                suggestionList.appendChild(li);
-            });
-            suggestionList.style.display = 'block';
-        }
-    });
-
-    document.addEventListener('click', (e) => {
-        if (!input.contains(e.target) && !suggestionList.contains(e.target)) {
+        input.addEventListener('input', function() {
+            const value = this.value.toLowerCase().trim();
+            suggestionList.innerHTML = '';
             suggestionList.style.display = 'none';
-        }
-    });
-}
 
-// Function to set the minimum pickup time to the current date and time
-function setMinPickupTime() {
-    const pickupTimeInput = document.getElementById('pickup-time');
-    const now = new Date();
-    
-    // Format: YYYY-MM-DDTHH:MM (for datetime-local input)
-    const formattedNow = now.toISOString().slice(0, 16);
-    
-    pickupTimeInput.min = formattedNow;
-}
+            if (value.length === 0) return;
 
-// Initialize autocomplete and handle form submission
-document.addEventListener('DOMContentLoaded', () => {
-    setupAutocomplete('pickup-location', 'pickup-suggestions');
-    setupAutocomplete('drop-location', 'drop-suggestions');
+            const matches = cities.filter(city => city.toLowerCase().startsWith(value));
 
-    setMinPickupTime(); // Set minimum pickup time when the page loads
+            if (matches.length > 0) {
+                matches.forEach(city => {
+                    const li = document.createElement('li');
+                    li.textContent = city;
+                    li.addEventListener('click', () => {
+                        input.value = city;
+                        suggestionList.style.display = 'none';
+                    });
+                    suggestionList.appendChild(li);
+                });
+                suggestionList.style.display = 'block';
+            }
+        });
 
-    document.getElementById('rental-form').addEventListener('submit', (e) => { // Fixed incorrect 'Submit' event name
-        e.preventDefault(); // Prevent default form submission
+        document.addEventListener('click', (e) => {
+            if (!input.contains(e.target) && !suggestionList.contains(e.target)) {
+                suggestionList.style.display = 'none';
+            }
+        });
+    }
 
-        const pickup = document.getElementById('pickup-location').value.trim();
-        const drop = document.getElementById('drop-location').value.trim();
-        const pickupTime = document.getElementById('pickup-time').value.trim();
-        const pickupDateTime = new Date(pickupTime);
+    function setMinPickupTime() {
+        const pickupTimeInput = document.getElementById('pickup-time');
         const now = new Date();
+        const formattedNow = now.toISOString().slice(0, 16);
+        pickupTimeInput.min = formattedNow;
+    }
 
-        // Check if the entered city exists in the predefined list
-        if (!cities.includes(pickup) || !cities.includes(drop)) {
-            alert('Please select a valid pickup and drop location.');
-            return;
-        }
+    document.addEventListener('DOMContentLoaded', () => {
+        setupAutocomplete('pickup-location', 'pickup-suggestions');
+        setupAutocomplete('drop-location', 'drop-suggestions');
 
-        // Check if pickup and drop locations are the same
-        if (pickup.toLowerCase() === drop.toLowerCase()) {
-            alert('Pickup and drop locations cannot be the same.');
-            return;
-        }
+        setMinPickupTime();
 
-        if (!pickupTime) {
-            alert('Please enter a pickup time.');
-            return;
-        }
+        document.getElementById('rental-form').addEventListener('submit', (e) => {
+            e.preventDefault();
 
-        // Restriction: Pickup time must not be in the past
-        if (pickupDateTime < now) {
-            alert('Pickup time cannot be in the past. Please choose a future time.');
-            return;
-        }
+            const pickup = document.getElementById('pickup-location').value.trim();
+            const drop = document.getElementById('drop-location').value.trim();
+            const pickupTime = document.getElementById('pickup-time').value.trim();
+            const pickupDateTime = new Date(pickupTime);
+            const now = new Date();
+            const datetimeError = document.getElementById('datetime-error');
 
-        // Store values in sessionStorage
-        sessionStorage.setItem("pickup-location", pickup);
-        sessionStorage.setItem("drop-location", drop);
-        sessionStorage.setItem("pickup-time", pickupTime);
+            datetimeError.style.display = 'none';
 
-        // Redirect to book.html
-        window.location.href = `book.html`;
+            if (!cities.includes(pickup) || !cities.includes(drop)) {
+                alert('Please select a valid pickup and drop location.');
+                return;
+            }
+
+            if (pickup.toLowerCase() === drop.toLowerCase()) {
+                alert('Pickup and drop locations cannot be the same.');
+                return;
+            }
+
+            if (!pickupTime) {
+                alert('Please enter a pickup time.');
+                return;
+            }
+
+            if (pickupDateTime < now) {
+                datetimeError.style.display = 'block';
+                return;
+            }
+
+            sessionStorage.setItem("pickup-location", pickup);
+            sessionStorage.setItem("drop-location", drop);
+            sessionStorage.setItem("pickup-time", pickupTime);
+
+            window.location.href = `book.html`;
+        });
     });
-});
+    
 
 
 
