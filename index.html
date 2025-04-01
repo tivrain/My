@@ -1050,44 +1050,67 @@ function setupAutocomplete(inputId, suggestionListId) {
     });
 }
 
+// Function to set the minimum pickup time to the current date and time
+function setMinPickupTime() {
+    const pickupTimeInput = document.getElementById('pickup-time');
+    const now = new Date();
+    
+    // Format: YYYY-MM-DDTHH:MM (for datetime-local input)
+    const formattedNow = now.toISOString().slice(0, 16);
+    
+    pickupTimeInput.min = formattedNow;
+}
+
 // Initialize autocomplete and handle form submission
 document.addEventListener('DOMContentLoaded', () => {
     setupAutocomplete('pickup-location', 'pickup-suggestions');
     setupAutocomplete('drop-location', 'drop-suggestions');
 
-    document.getElementById('rental-form').addEventListener('Submit', (e) => {
+    setMinPickupTime(); // Set minimum pickup time when the page loads
+
+    document.getElementById('rental-form').addEventListener('submit', (e) => { // Fixed incorrect 'Submit' event name
         e.preventDefault(); // Prevent default form submission
 
         const pickup = document.getElementById('pickup-location').value.trim();
         const drop = document.getElementById('drop-location').value.trim();
-        const pickupTime = document.getElementById('pickup-time').value.trim(); // Get pickup time
+        const pickupTime = document.getElementById('pickup-time').value.trim();
+        const pickupDateTime = new Date(pickupTime);
+        const now = new Date();
 
-       // Check if the entered city exists in the predefined list
-if (!cities.includes(pickup) || !cities.includes(drop)) {
-    alert('Please select a valid pickup and drop location .');
-    return;
-}
+        // Check if the entered city exists in the predefined list
+        if (!cities.includes(pickup) || !cities.includes(drop)) {
+            alert('Please select a valid pickup and drop location.');
+            return;
+        }
 
-// Check if pickup and drop locations are the same
-if (pickup.toLowerCase() === drop.toLowerCase()) {
-    alert('Pickup and drop locations cannot be the same.');
-    return;
-}
+        // Check if pickup and drop locations are the same
+        if (pickup.toLowerCase() === drop.toLowerCase()) {
+            alert('Pickup and drop locations cannot be the same.');
+            return;
+        }
 
-if (!pickupTime) {
-    alert('Please enter a pickup time.');
-    return;
-}
+        if (!pickupTime) {
+            alert('Please enter a pickup time.');
+            return;
+        }
 
-// Store values in sessionStorage
-sessionStorage.setItem("pickup-location", pickup);
-sessionStorage.setItem("drop-location", drop);
-sessionStorage.setItem("pickup-time", pickupTime);
+        // Restriction: Pickup time must not be in the past
+        if (pickupDateTime < now) {
+            alert('Pickup time cannot be in the past. Please choose a future time.');
+            return;
+        }
+
+        // Store values in sessionStorage
+        sessionStorage.setItem("pickup-location", pickup);
+        sessionStorage.setItem("drop-location", drop);
+        sessionStorage.setItem("pickup-time", pickupTime);
 
         // Redirect to book.html
         window.location.href = `book.html`;
     });
 });
+
+
 
 // Navbar scroll effect
 window.addEventListener('scroll', () => {
