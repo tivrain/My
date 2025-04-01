@@ -131,6 +131,78 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleAnimation('paused');
     }
 });
+// Set initial active link on page load
+window.addEventListener('load', updateActiveLink);
+
+        // Function to initialize autocomplete for an input field
+        function addStarEffect() {
+  const element = document.querySelector('a.event-link');
+  const numberOfParticles = 15;
+  const duration = 1000;
+  function createStars() {
+    const existingContainer = element.querySelector('.star-container');
+    if (existingContainer) {
+      existingContainer.remove();
+    }
+    const container = document.createElement('div');
+    container.classList.add('star-container');
+    for (let i = 0; i < numberOfParticles; i++) {
+      const particle = document.createElement('span');
+      particle.classList.add('star-particle');
+      const angle = Math.random() * 2 * Math.PI;
+      const distance = Math.random() * 3 + 1;
+      const x = Math.cos(angle) * distance;
+      const y = Math.sin(angle) * distance;
+      particle.style.setProperty('--x', `${x}em`);
+      particle.style.setProperty('--y', `${y}em`);
+      container.appendChild(particle);
+    }
+    element.appendChild(container);
+  }
+  setInterval(createStars, duration);
+}
+
+function changeFirecrackerColor(colors) {
+    function addFirecrackerEffectLoop(colors) {
+      const element = document.querySelector('a.event-link');
+      const numberOfParticles = 20;
+      const duration = 1000;
+      function createFirecracker() {
+          const existingContainer = element.querySelector('.star-container');
+          if (existingContainer) {
+            existingContainer.remove();
+          }
+          const container = document.createElement('div');
+          container.classList.add('star-container');
+      
+          for (let i = 0; i < numberOfParticles; i++) {
+              const particle = document.createElement('span');
+              particle.classList.add('star-particle');
+      
+              const angle = Math.random() * 2 * Math.PI;
+              const distance = Math.random() * 2 + 1;
+              const x = Math.cos(angle) * distance;
+              const y = Math.sin(angle) * distance;
+              particle.style.setProperty('--x', `${x}em`);
+              particle.style.setProperty('--y', `${y}em`);
+              if (colors && colors.length > 0) {
+                  particle.style.backgroundColor = colors[i % colors.length];
+              } else {
+                particle.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+              }
+              container.appendChild(particle);
+          }
+          element.appendChild(container);
+      }
+      setInterval(createFirecracker, duration);
+  }
+  addFirecrackerEffectLoop(colors);
+}
+
+addStarEffect();
+changeFirecrackerColor(['red', 'blue', 'green', 'yellow', 'orange','indigo','red', 'blue', 'green', 'yellow', 'orange','indigo']);
+// event end//
+
 /*bg music*/
     document.addEventListener("DOMContentLoaded", function () {
         const audio = document.getElementById("intro-music");
