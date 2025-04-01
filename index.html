@@ -7,6 +7,7 @@
      <link rel="icon" type="image/x-icon" href="img\atiubest.png">
     <!-- Google Fonts Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 <!-- Link to your CSS file -->
     <link rel="stylesheet" href="style.css">
     
@@ -335,19 +336,19 @@
     }
 }
         /* new css for pd form*/
-        .form-container {
+        
+    .form-container {
         position: relative;
-        background: rgba(0, 0, 0, 0.85); /* Semi-transparent dark background */
-        padding: 30px;
+        background: rgba(0, 0, 0, 0.85);
+        padding: 25px;
         border-radius: 15px;
         width: 100%;
-        max-width: 450px;
-        box-shadow: 0 0 30px rgba(0, 221, 235, 0.3); /* Subtle cyan glow */
+        max-width: 400px;
+        box-shadow: 0 0 30px rgba(0, 221, 235, 0.3);
         overflow: hidden;
-        margin: 20px auto; /* Center the form with some margin */
-        backdrop-filter: blur(5px); /* Adds a frosted glass effect */
+        margin: 20px auto;
+        backdrop-filter: blur(5px);
     }
-    /* Sparkling effect on edges (more subtle) */
     .form-container::before {
         content: '';
         position: absolute;
@@ -358,62 +359,70 @@
         background: linear-gradient(45deg, #00ddeb, #ff007a, #00ddeb, #ff007a);
         z-index: -1;
         filter: blur(8px);
-        opacity: 0.7; /* Reduced opacity for subtlety */
-        animation: sparkle 4s linear infinite; /* Slower animation for a calmer effect */
+        opacity: 0.7;
+        animation: sparkle 4s linear infinite;
     }
     @keyframes sparkle {
         0% { background-position: 0% 50%; }
         50% { background-position: 100% 50%; }
         100% { background-position: 0% 50%; }
     }
+    #rental-form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
     .form-group {
-        margin-bottom: 20px;
+        margin-bottom: 15px;
         position: relative;
+        width: 100%;
     }
     label {
         display: block;
-        font-size: 14px;
+        font-size: 13px;
         color: #ffffff;
-        margin-bottom: 8px;
+        margin-bottom: 6px;
         text-transform: uppercase;
         letter-spacing: 1px;
         font-weight: 500;
     }
-    select, input {
+    input {
         width: 100%;
-        padding: 12px 40px 12px 15px;
-        background: rgba(255, 255, 255, 0.1); /* Slightly transparent input background */
+        padding: 10px 35px 10px 12px;
+        background: rgba(255, 255, 255, 0.1);
         border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 8px;
+        border-radius: 6px;
         font-size: 14px;
         color: #ffffff;
         box-sizing: border-box;
         transition: all 0.3s ease;
     }
-    select:focus, input:focus {
+    input:focus {
         outline: none;
         border-color: #00ddeb;
         background: rgba(255, 255, 255, 0.15);
-        box-shadow: 0 0 10px rgba(0, 221, 235, 0.5); /* Glow on focus */
+        box-shadow: 0 0 8px rgba(0, 221, 235, 0.5);
     }
     .form-group i {
         position: absolute;
-        right: 15px;
-        top: 42px;
-        color: #00ddeb; /* Cyan icons to match the theme */
+        right: 12px;
+        top: 38px;
+        color: #00ddeb;
+        font-size: 14px;
         transition: color 0.3s ease;
     }
-    select:focus + i, input:focus + i {
-        color: #ff007a; /* Pink icons on focus */
+    input:focus + i {
+        color: #ff007a;
     }
     button {
         width: 100%;
-        padding: 12px;
+        padding: 10px;
         background: linear-gradient(45deg, #00ddeb, #ff007a);
         color: #fff;
         border: none;
-        border-radius: 8px;
-        font-size: 16px;
+        border-radius: 6px;
+        font-size: 15px;
         font-weight: bold;
         cursor: pointer;
         transition: all 0.3s ease;
@@ -422,7 +431,7 @@
     }
     button:hover {
         transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(0, 221, 235, 0.5); /* Glow on hover */
+        box-shadow: 0 5px 15px rgba(0, 221, 235, 0.5);
     }
     button:active {
         transform: translateY(0);
@@ -430,19 +439,39 @@
     }
     .error {
         color: #ff007a;
-        font-size: 12px;
-        margin-top: 5px;
+        font-size: 11px;
+        margin-top: 4px;
         display: none;
     }
-    .results {
-        margin-top: 20px;
-        color: #ffffff;
-        font-size: 14px;
-        background: rgba(255, 255, 255, 0.05);
-        padding: 10px;
-        border-radius: 5px;
+    /* Updated styling for autocomplete suggestions with solid background */
+    .suggestions {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        background: #2c2c2c; /* Solid dark gray background */
+        border: 1px solid #555; /* Darker border to match the solid background */
+        border-radius: 6px;
+        max-height: 150px;
+        overflow-y: auto;
+        position: absolute;
+        width: 100%;
+        z-index: 10;
+        display: none;
     }
-        
+    .suggestions li {
+        padding: 8px 12px;
+        color: #00ddeb; /* Cyan text for city names */
+        cursor: pointer;
+        transition: background 0.3s ease, color 0.3s ease;
+    }
+    .suggestions li:hover {
+        background: rgba(0, 221, 235, 0.3);
+        color: #ff007a; /* Pink text on hover */
+    }
+
+    
+    
+    
         /*end here pd form*/
             /* event page styles */
         a.event-link {
