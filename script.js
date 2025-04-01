@@ -269,3 +269,36 @@ changeFirecrackerColor(['red', 'blue', 'green', 'yellow', 'orange','indigo','red
     }
 
     setInterval(createSpark, 200);
+
+// WhatsApp link js 
+document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("contact-form").addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent form from submitting normally
+    
+            // Get user input values
+            const name = document.getElementById("name").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const message = document.getElementById("message").value.trim();
+    
+            // Check if all fields are filled
+            if (name === "" || email === "" || message === "") {
+                alert("Please fill in all fields before sending.");
+                return;
+            }
+    
+            // Format WhatsApp message
+            const whatsappMessage = `Hello, I want to contact you.\n\n*Name:* ${name}\n*Email:* ${email}\n*Message:* ${message}`;
+    
+            // Encode message for URL
+            const encodedMessage = encodeURIComponent(whatsappMessage);
+    
+            // Your WhatsApp number
+            const phoneNumber = "+917014434465"; // Change to your WhatsApp number
+    
+            // WhatsApp URL
+            const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    
+            // Open WhatsApp chat in a new tab
+            window.open(whatsappURL, "_blank");
+        });
+    });
