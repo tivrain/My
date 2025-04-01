@@ -86,23 +86,7 @@ body {
     }
 }
 /* Hero Section Styles */
-.hero {
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 1.25rem 0.9375rem;
-    padding-top: 4.375rem;
-    transition: padding-top 0.3s ease;
-    background-image: url('head.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    overflow: hidden;
-}
+
 
 .hero-overlay {
     position: absolute;
