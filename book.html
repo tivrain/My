@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Book luxury rental cars with Atiuttam Travels for your journey across India.">
+     <title>Book Your Car | Atiuttam Travels</title>
+    <link rel="icon" type="img/atiubest.png" href="img/atiubest.png"> 
+    <!-- OR use .ico format -->
+    
+    <!-- Google Fonts Link -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Open+Sans:wght@400;500;600&display=swap">
+    <!-- Integrated CSS -->
+    <style>
+        /* Reset default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', 'Helvetica', sans-serif;
+            line-height: 1.7;
+            background-color: #f4f4f4;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Utility Classes */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background: linear-gradient(90deg, #ffeb3b 0%, #ffc107 50%, #ffca28 100%);
+            padding: 0.625rem 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 0.125rem 0.3125rem rgba(0, 0, 0, 0.1);
+            transition: background 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 0.5rem 1.25rem;
+            background: linear-gradient(90deg, #ffb300 0%, #ffc107 50%, #ffeb3b 100%);
+            box-shadow: 0 0.1875rem 0.5rem rgba(0, 0, 0, 0.15);
+        }
+
+        .navbar .logo h1 {
+            font-family: 'Montserrat', 'Arial', sans-serif;
+            font-size: 1.25rem; /* Base size */
+            font-weight: 700;
+            color: #1a1a1a;
+            text-transform: uppercase;
+            letter-spacing: 0.09375rem;
+        }
+
+        .navbar .logo a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 0.9375rem;
+            align-items: center;
+        }
+
+        .nav-links li a {
+            font-family: 'Open Sans', 'Helvetica', sans-serif;
+            text-decoration: none;
+            color: #1a1a1a;
+            font-weight: 600;
+            font-size: 0.875rem;
+            padding: 0.3125rem 0.625rem;
+            border-radius: 0.3125rem;
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+
+        .nav-links li a:hover,
+        .nav-links li a:focus {
+            color: #fff;
+            background-color: #ff9800;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.625rem;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 1.5625rem;
+            height: 0.1875rem;
+            background-color: #000;
+            margin: 0.3125rem 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            border-radius: 0.0625rem;
+        }
+
+        .menu-toggle.open span:nth-child(1) {
+            transform: rotate(45deg) translate(0.3125rem, 0.3125rem);
+        }
+
+        .menu-toggle.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.open span:nth-child(3) {
+            transform: rotate(-45deg) translate(0.4375rem, -0.4375rem);
+        }
+
+        /* Booking Page Styles */
+        .booking-page {
+            padding-top: 3.75rem;
+        }
+
+        .available-cars {
+            padding: 2rem 1rem;
+            background: linear-gradient(135deg, #f9f9f9 0%, #f0f0f0 100%);
+            min-height: calc(100vh - 3.75rem);
+        }
+
+        .available-cars h1 {
+            font-family: 'Montserrat', 'Arial', sans-serif;
+            font-size: 1.5rem; /* Base size */
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        .available-cars h1::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4rem;
+            height: 0.1875rem;
+            background: linear-gradient(to right, #ffc107, #e0a800);
+            border-radius: 0.125rem;
+        }
+
+        .trip-details {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-family: 'Open Sans', 'Helvetica', sans-serif;
+            font-size: 0.875rem; /* Base size */
+            color: #555;
+            background: #fff;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.05);
+        }
+
+        .trip-details .arrow {
+            margin: 0 0.5rem;
+            color: #ff9800;
+            font-weight: bold;
+        }
+
+        .car-listings {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            padding: 0 1rem;
+            max-width: 100%;
+            align-items: center;
+        }
+
+        .car-card {
+            background: #fff;
+            border-radius: 0.75rem;
+            box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 18rem; /* Base width */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .car-card:hover,
+        .car-card:focus-within {
+            transform: scale(1.02);
+            box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.15);
+        }
+
+        .car-image img {
+            width: 100%;
+            height: 12rem;
+            object-fit: cover;
+            border-radius: 0.5rem 0.5rem 0 0;
+        }
+
+        .car-details {
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .car-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .car-info-text h2 {
+            font-family: 'Montserrat', 'Arial', sans-serif;
+            font-size: 1.125rem; /* Base size */
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .car-info-text .car-description {
+            font-size: 0.75rem; /* Base size */
+            color: #555;
+            line-height: 1.4;
+        }
+
+        .details-toggle {
+            background: linear-gradient(135deg, #ffc107, #e0a800);
+            color: #1a1a1a;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.375rem;
+            font-family: 'Montserrat', 'Arial', sans-serif;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .details-toggle:hover,
+        .details-toggle:focus {
+            background: linear-gradient(135deg, #e0a800, #ffc107);
+            transform: translateY(-0.125rem);
+            box-shadow: 0 0.25rem 0.5rem rgba(224, 168, 0, 0.3);
+            outline: none;
+        }
+
+        .car-info {
+            font-size: 0.875rem;
+            color: #555;
+            transition: opacity 0.3s ease;
+        }
+
+        .car-info[style*="display: block"] {
+            opacity: 1;
+        }
+
+        .car-info[style*="display: none"] {
+            opacity: 0;
+        }
+
+        .policies,
+        .inclusions,
+        .exclusions {
+            margin-top: 0.75rem;
+        }
+
+        .policies h3,
+        .inclusions h3,
+        .exclusions h3 {
+            font-family: 'Montserrat', 'Arial', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+        }
+
+        .policies ul,
+        .inclusions ul,
+        .exclusions ul {
+            list-style: disc;
+            padding-left: 1.25rem;
+        }
+
+        .contact-btn {
+            background: linear-gradient(135deg, #2196f3, #1976d2);
+            color: #fff;
+            padding: 0.625rem 1.25rem;
+            border: none;
+            border-radius: 0.375rem;
+            text-decoration: none;
+            font-family: 'Montserrat', 'Arial', sans-serif;
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-align: center;
+            transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contact-btn:hover,
+        .contact-btn:focus {
+            background: linear-gradient(135deg, #1976d2, #2196f3);
+            transform: translateY(-0.125rem);
+            box-shadow: 0 0.25rem 0.75rem rgba(33, 150, 243, 0.4);
+            outline: none;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background-color: #000;
+            color: #fff;
+            padding: 3rem 1rem 2rem;
+            font-family: 'Open Sans', 'Helvetica', sans-serif;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1.5rem;
+            max-width: 75rem;
+            margin: 0 auto 2rem;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 13.75rem;
+            text-align: left;
+        }
+
+        .footer-section h4 {
+            font-family: 'Montserrat', 'Arial', sans-serif;
+            font-size: 0.875rem; /* Base size */
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 1.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.0625rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 0.75rem; /* Base size */
+            transition: color 0.3s ease, transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-section ul li a:hover,
+        .footer-section ul li a:focus {
+            color: #ffc107;
+            transform: translateX(0.3125rem);
+        }
+
+        .footer-branding .footer-description {
+            font-size: 0.75rem; /* Base size */
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 1.25rem;
+            max-width: 18.75rem;
+        }
+
+        .footer-contact p {
+            font-size: 0.75rem; /* Base size */
+            color: #ccc;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+        }
+
+        .footer-contact a {
+            color: #ffc107;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-contact a:hover,
+        .footer-contact a:focus {
+            color: #e0a800;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1.25rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 75rem;
+            margin: 0 auto;
+        }
+
+        .footer-text {
+            font-size: 0.625rem; /* Base size */
+            color: #ccc;
+        }
+
+        .footer-text a {
+            color: #ffc107;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-text a:hover,
+        .footer-text a:focus {
+            color: #e0a800;
+        }
+
+        .footer-back-to-top a {
+            color: #ffc107;
+            text-decoration: none;
+            font-size: 0.75rem; /* Base size */
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .footer-back-to-top a:hover,
+        .footer-back-to-top a:focus {
+            color: #e0a800;
+            transform: translateY(-0.1875rem);
+        }
+        /* Reset and Body styles remain unchanged */
+
+/* Update car-listings to align horizontally on desktop */
+.car-listings {
+    display: flex;
+    flex-direction: row; /* Changed from column to row */
+    flex-wrap: wrap; /* Allows cards to wrap to the next line if needed */
+    gap: 1.5rem;
+    padding: 0 1rem;
+    max-width: 100%;
+    width: 100%; /* Ensure it spans the full width */
+    justify-content: center; /* Center the cards horizontally */
+}
+
+/* Update car-card for horizontal layout */
+.car-card {
+    background: #fff;
+    border-radius: 0.75rem;
+    box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 18rem; /* Base width remains, but will adjust with flex */
+    flex: 1 1 auto; /* Allows cards to grow and shrink as needed */
+    max-width: 20rem; /* Optional: cap the maximum width */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Ensure proper spacing and alignment */
+.available-cars {
+    padding: 2rem 1rem;
+    background: linear-gradient(135deg, #f9f9f9 0%, #f0f0f0 100%);
+    min-height: calc(100vh - 3.75rem);
+    width: 100%; /* Ensure full width */
+}
+
+/* Responsive Design: Revert to vertical on smaller screens */
+@media (max-width: 768px) {
+    .car-listings {
+        flex-direction: column; /* Revert to vertical stacking */
+        gap: 1rem;
+        padding: 0 0.5rem;
+    }
+
+    .car-card {
+        width: 16rem; /* Adjusted for smaller screens */
+        max-width: none; /* Remove max-width restriction */
+    }
+}
+
+@media (max-width: 480px) {
+    .car-card {
+        width: 14rem; /* Adjusted for very small screens */
+    }
+}
+
+        /* Keep desktop styles unchanged, only update mobile-specific styles */
+
+/* Responsive Design: Make boxes even bigger on tablets and smaller screens */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0.5rem 1rem;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: linear-gradient(90deg, #ffeb3b 0%, #ffc107 50%, #ffca28 100%);
+        padding: 1rem;
+        box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
+        transform: translateY(-100%);
+        transition: transform 0.3s ease;
+    }
+
+    .nav-links.active {
+        display: flex;
+        transform: translateY(0);
+    }
+
+    .nav-links li a {
+        font-size: 1rem;
+        padding: 0.5rem;
+        text-align: center;
+    }
+
+    .car-listings {
+        flex-direction: column; /* Keep vertical stacking */
+        gap: 2rem; /* More gap for breathing room */
+        padding: 0 1rem; /* Increased padding */
+    }
+
+    .car-card {
+        width: 95%; /* Almost full width */
+        max-width: 24rem; /* Larger max-width for a bigger feel */
+        padding: 1.25rem; /* More internal padding */
+    }
+
+    .car-image img {
+        height: 14rem; /* Larger image height */
+    }
+
+    .car-details {
+        padding: 1.5rem; /* More padding inside details */
+    }
+
+    .car-info-text h2 {
+        font-size: 1.375rem; /* Even larger title */
+    }
+
+    .car-info-text .car-description {
+        font-size: 0.9375rem; /* Larger description text */
+    }
+
+    .details-toggle,
+    .contact-btn {
+        font-size: 1.125rem; /* Bigger buttons */
+        padding: 0.875rem 1.5rem; /* More padding for buttons */
+    }
+}
+
+@media (max-width: 480px) {
+    .available-cars {
+        padding: 1.5rem 0.5rem;
+    }
+
+    .car-card {
+        width: 98%; /* Nearly full width for very small screens */
+        max-width: 22rem; /* Larger than before */
+        padding: 1rem; /* Slightly more padding */
+    }
+
+    .car-image img {
+        height: 12rem; /* Larger image for small screens */
+    }
+
+    .car-info-text h2 {
+        font-size: 1.25rem; /* Larger title */
+    }
+
+    .car-info-text .car-description {
+        font-size: 0.875rem; /* Slightly larger description */
+    }
+
+    .details-toggle,
+    .contact-btn {
+        font-size: 1rem; /* Larger buttons */
+        padding: 0.75rem 1.25rem; /* More padding */
+    }
+}
+
+        .contact-btn {
+    cursor: pointer;
+}
+     
+     
+    .trip-details {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            margin: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Pickup & Drop Text Styling */
+        .pickup-drop-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        #pickup-display {
+            color: #28a745; /* Green color */
+        }
+
+        #drop-display {
+            color: #dc3545; /* Red color */
+        }
+
+        /* Car Styling */
+        .car-container {
+            position: relative;
+            width: 100px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #small-car-icon {
+            width: 50px;
+            position: absolute;
+            animation: moveCar 3s linear infinite;
+        }
+
+        @keyframes moveCar {
+            0% { transform: translateX(-10px); }
+            50% { transform: translateX(40px); }
+            100% { transform: translateX(-10px); }
+        }
+        @keyframes fadeIn {
+    0% { opacity: 0; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+#pickup-display, #drop-display {
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+        /* Trip Details Styling */
+        .trip-info {
+            text-align: left;
+            margin-top: 15px;
+        }
+        #pickup-display, #drop-display {
+    text-shadow: 0px 0px 10px rgba(0, 255, 0, 0.7);
+} 
+         /* spark on edge*/
+       .trip-details {
+  border: 1px solid #62b0bc;
+  padding: 24px;
+  margin: 16px;
+  color: #333;
+  background-color: #e0f2f7; /* Light blue */
+  box-shadow: 
+    0 0 10px 2px rgba(151, 183, 199, 0.7),  /* Inner glow */
+    0 0 15px 4px rgba(173, 216, 230, 0.6), /* Softer glow */
+    0 0 10px 3px rgba(173, 216, 230, 0.8) inset, /* Inner edge glow */
+    -3px -3px 8px rgba(100, 149, 237, 0.6), /* Top-left spark */
+    3px 3px 8px rgba(100, 149, 237, 0.6),  /* Bottom-right spark */
+    -3px 3px 8px rgba(135, 206, 250, 0.5), /* Bottom-left spark */
+    3px -3px 8px rgba(135, 206, 250, 0.5); /* Top-right spark */
+  border-radius: 10px;
+}
+.trip-details {
+  width: fit-content; /* Previously 241.493px, now determined by content */
+  height: 201.068px;
+  padding: 24px;
+  margin: 16px auto; /* margin-left: auto, margin-right: auto condensed */
+  box-sizing: border-box;
+  display: flex;
+  position: relative;
+  max-width: none;
+  min-width: 0px;
+  flex-direction: column;
+}
+
+.pickup-drop-container {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.trip-info {
+  margin-top: 20px;
+}
+       /*logo*/
+       /* Navbar Styling */
+.navbar {
+    background-color: #004466; /* Dark blue background */
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Logo container */
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+/* Logo Image */
+.logo-img {
+    width: 80px; /* Adjust size as needed */
+    height: auto;
+    margin-right: 10px; /* Space between image and text */
+}
+
+/* Logo Text */
+.logo h1 {
+    font-size: 24px;
+    color: white;
+    margin: 0;
+}
+
+/* Link Styling */
+.logo a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+      
+    </style>
+</head>
+<body>
+      <script>
+          
+        document.addEventListener("DOMContentLoaded", function () {
+    // Retrieve stored form data from sessionStorage
+    const pickupLocation = sessionStorage.getItem('pickup-location') || "N/A";
+    const dropLocation = sessionStorage.getItem('drop-location') || "N/A";
+    const pickupTime = sessionStorage.getItem('pickup-time') || "N/A";
+
+    // Update displayed city names
+    document.getElementById("pickup-display").textContent = pickupLocation;
+    document.getElementById("drop-display").textContent = dropLocation;
+
+    // Update trip details
+    document.getElementById("pickup-location-display").textContent = pickupLocation;
+    document.getElementById("drop-location-display").textContent = dropLocation;
+    document.getElementById("pickup-time-display").textContent = pickupTime;
+
+    // WhatsApp Booking Button (If exists)
+    document.querySelectorAll(".contact-btn").forEach(button => {
+        button.addEventListener("click", function (event) {
+            event.preventDefault();
+            const carName = this.closest(".car-details").querySelector("h2").textContent.trim();
+            const message = `I'm interested in booking the ${carName}.\n\nPickup Location: ${pickupLocation}\nDrop Location: ${dropLocation}\nPickup Date & Time: ${pickupTime}`;
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappURL = `https://wa.me/+917014434465?text=${encodedMessage}`;
+            window.open(whatsappURL, "_blank");
+        });
+    });
+
+    // About Details Toggle - Ensures only one is open at a time
+    document.querySelectorAll(".details-toggle").forEach(button => {
+        button.addEventListener("click", function () {
+            const targetDetails = this.nextElementSibling; // The corresponding details section
+            const allDetails = document.querySelectorAll(".car-info"); // All detail sections
+            
+            // Close all details first
+            allDetails.forEach(detail => {
+                if (detail !== targetDetails) {
+                    detail.style.display = "none";
+                }
+            });
+
+            // Toggle the clicked section
+            targetDetails.style.display = (targetDetails.style.display === "block") ? "none" : "block";
+        });
+    });
+});
+document.addEventListener("DOMContentLoaded", function () {
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+
+    if (!menuToggle || !navLinks) {
+        console.error("❌ Navbar elements not found!");
+        return;
+    }
+
+    // Toggle mobile menu
+    menuToggle.addEventListener("click", function () {
+        navLinks.classList.toggle("active"); // Show/Hide menu
+        menuToggle.classList.toggle("open"); // Animate button
+        const isOpen = navLinks.classList.contains("active");
+        menuToggle.setAttribute("aria-expanded", isOpen);
+    });
+
+    // Close menu when clicking outside (optional)
+    document.addEventListener("click", function (event) {
+        if (!menuToggle.contains(event.target) && !navLinks.contains(event.target)) {
+            navLinks.classList.remove("active");
+            menuToggle.classList.remove("open");
+            menuToggle.setAttribute("aria-expanded", "false");
+        }
+    });
+});
+
+    </script>
+
+    
+    
+    
+    <!-- Navbar -->
+    <nav class="navbar" aria-label="Main navigation">
+         <div class="logo">
+        <a href="index.html#home" aria-label="Atiuttam Travels Home">
+            <img src="img/atiubest.png" alt="Atiuttam Travels Logo" class="logo-img">
+            <h1>ATIUTTAM TRAVELS</h1>
+        </a>
+    </div>
+        <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul class="nav-links" role="navigation">
+            <li><a href="index.html#home">Home</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#services">Services</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="booking-page">
+        <section class="available-cars" aria-labelledby="available-cars-heading">
+            <h1 id="available-cars-heading">Book Your Car</h1>
+            
+            <!-- Trip Details -->
+            <div class="trip-details">
+                <div class="pickup-drop-container">
+                    <span id="pickup-display" class="city-name">Pickup</span> 
+    
+                    <div class="car-container">
+                        <img src="img/car.png" id="small-car-icon" alt="Car Icon">
+                    </div>
+    
+                    <span id="drop-display" class="city-name">Drop</span> 
+                </div>
+    
+                <div class="trip-info">
+                    <p><strong>Pickup Location:</strong> <span id="pickup-location-display">N/A</span></p>
+                    <p><strong>Drop Location:</strong> <span id="drop-location-display">N/A</span></p>
+                    <p><strong>Pickup Date & Time:</strong> <span id="pickup-time-display">N/A</span></p>
+                </div>
+            </div>
+            <!-- Car Listings -->
+            <div class="car-listings" role="list">
+                <!-- Car 1 -->
+                <article class="car-card" role="listitem">
+                    <div class="car-image">
+                        <img src="img/etii.png" alt="Mercedes S-Class luxury sedan" loading="lazy">
+                    </div>
+                    <div class="car-details">
+                        <div class="car-header">
+                            <div class="car-info-text">
+                                <h2>Etios</h2>
+                                <p class="car-description">Luxury sedan • AC • 4 Seats </p>
+                            </div>
+                        </div>
+                        <button class="details-toggle" aria-expanded="false" aria-controls="car-info-1">About Details</button>
+                        <div class="car-info" id="car-info-1" style="display: none;">
+                            <p class="car-description">A pinnacle of luxury with advanced comfort and cutting-edge technology.</p>
+                        
+                           <div class="policies">
+                                <h3>Policies</h3>
+                                <ul>
+                                   <li>Advance booking required</li>
+                                    <li>Driver available on request</li>
+                                    <li>No smoking allowed</li>
+                                    <li>Price is not Applicable on special day</li>
+                                    <li>Cancellation fee applies</li>
+                                </ul>
+                            </div>
+                           <div class="inclusions">
+                                <h3>Inclusions</h3>
+                                <ul>
+                                    <li>200ML water/1 time/PP</li>
+                                    <li>Roadside assistance</li>
+                                    <li>GPS navigation</li>
+                                     <li>1st Aid Kit</li>
+                                </ul>
+                            </div>
+                            <div class="exclusions">
+                                <h3>Exclusions</h3>
+                                <ul>
+                                 <li>Night stay Fee/500</li>
+                                    <li>Toll fees</li>
+                                    <li>Parking charges</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <button class="contact-btn">Contact Now</button>
+                    </div>
+                </article>
+
+                <!-- Car 2 -->
+                <article class="car-card" role="listitem">
+                    <div class="car-image">
+                        <img src="img/dzire.jpg" alt="Swift Dzire VXI sedan" loading="lazy">
+                    </div>
+                    <div class="car-details">
+                        <div class="car-header">
+                            <div class="car-info-text">
+                                <h2>Swift Dzire VXI</h2>
+                                <p class="car-description">Luxurious sedan • AC • 4 Seats</p>
+                            </div>
+                        </div>
+                        <button class="details-toggle" aria-expanded="false" aria-controls="car-info-2">About Details</button>
+                        <div class="car-info" id="car-info-2" style="display: none;">
+                            <p class="car-description">Elegance and performance in a sophisticated sedan.</p>
+                            <div class="policies">
+                                <h3>Policies</h3>
+                                <ul>
+                                    <li>Advance booking required</li>
+                                    <li>Driver available on request</li>
+                                    <li>No smoking allowed</li>
+                                    <li>Price is not Applicable on special day</li>
+                                    <li>Cancellation fee applies</li>
+                                </ul>
+                            </div>
+                             <div class="inclusions">
+                                <h3>Inclusions</h3>
+                                <ul>
+                                    <li>200ML water/1 time/PP</li>
+                                    <li>Roadside assistance</li>
+                                    <li>GPS navigation</li>
+                                     <li>1st Aid Kit</li>
+                                </ul>
+                            </div>
+                            <div class="exclusions">
+                                <h3>Exclusions</h3>
+                                <ul>
+                                   <li>Night stay Fee/500</li>
+                                    <li>Toll fees</li>
+                                    <li>Parking charges</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <button class="contact-btn">Contact Now</button>
+                    </div>
+                </article>
+
+                <!-- Car 3 -->
+                <article class="car-card" role="listitem">
+                    <div class="car-image">
+                        <img src="img/for1.png" alt="Fortuner SUV" loading="lazy">
+                    </div>
+                    <div class="car-details">
+                        <div class="car-header">
+                            <div class="car-info-text">
+                                <h2>Fortuner</h2>
+                                <p class="car-description">Luxurious SUV • AC •7 Seats</p>
+                            </div>
+                        </div>
+                        <button class="details-toggle" aria-expanded="false" aria-controls="car-info-3">About Details</button>
+                        <div class="car-info" id="car-info-3" style="display: none;">
+                            <p class="car-description">Sleek design with a luxurious premium interior.</p>
+                            <div class="policies">
+                                <h3>Policies</h3>
+                                <ul>
+                                   <li>Advance booking required</li>
+                                    <li>Driver available on request</li>
+                                    <li>No smoking allowed</li>
+                                    <li>Price is not Applicable on special day</li>
+                                    <li>Cancellation fee applies</li>
+                                </ul>
+                            </div>
+                           <div class="inclusions">
+                                <h3>Inclusions</h3>
+                                <ul>
+                                    <li>200ML water/1 time/PP</li>
+                                    <li>Roadside assistance</li>
+                                    <li>GPS navigation</li>
+                                     <li>1st Aid Kit</li>
+                                </ul>
+                            </div>
+                            <div class="exclusions">
+                                <h3>Exclusions</h3>
+                                <ul>
+                                 <li>Night stay Fee/500</li>
+                                    <li>Toll fees</li>
+                                    <li>Parking charges</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/+917014434465?text=I'm%20interested%20in%20booking%20the%20Fortuner SUV" target="_blank" rel="noopener noreferrer" class="contact-btn">Contact Now</a>
+                    </div>
+                </article>
+
+                <!-- Car 4 -->
+                <article class="car-card" role="listitem">
+                    <div class="car-image">
+                        <img src="img/uinn.png" alt="Innova Crysta SUV" loading="lazy">
+                    </div>
+                    <div class="car-details">
+                        <div class="car-header">
+                            <div class="car-info-text">
+                                <h2>Innova Crysta</h2>
+                                <p class="car-description">Luxurious SUV/MPV • AC • 7 Seats</p>
+                            </div>
+                        </div>
+                        <button class="details-toggle" aria-expanded="false" aria-controls="car-info-4">About Details</button>
+                        <div class="car-info" id="car-info-4" style="display: none;">
+                            <p class="car-description">Sporty luxury SUV for thrill-seekers.</p>
+                            <div class="policies">
+                                <h3>Policies</h3>
+                                <ul>
+                                    <li>Advance booking required</li>
+                                    <li>Driver available on request</li>
+                                    <li>No smoking allowed</li>
+                                    <li>Price is not Applicable on special day</li>
+                                    <li>Cancellation fee applies</li>
+                                </ul>
+                            </div>
+                            <div class="inclusions">
+                                <h3>Inclusions</h3>
+                                <ul>
+                                    <li>200ML water/1 time/PP</li>
+                                    <li>Roadside assistance</li>
+                                    <li>GPS navigation</li>
+                                     <li>1st Aid Kit</li>
+                                </ul>
+                            </div>
+                            <div class="exclusions">
+                                <h3>Exclusions</h3>
+                                <ul>
+                                    <li>Night stay Fee/500</li>
+                                    <li>Toll fees</li>
+                                    <li>Parking charges</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/+917014434465?text=I'm%20interested%20in%20booking%20the%20Innova Crysta SUV" target="_blank" rel="noopener noreferrer" class="contact-btn">Contact Now</a>
+                    </div>
+                </article>
+
+                <!-- Car 5 -->
+                <article class="car-card" role="listitem">
+                    <div class="car-image">
+                        <img src="img/rum.png" alt="Tesla Model S electric sedan" loading="lazy">
+                    </div>
+                    <div class="car-details">
+                        <div class="car-header">
+                            <div class="car-info-text">
+                                <h2>Toyota Rumion</h2>
+                                <p class="car-description">Luxurious MPV • AC •7 Seats </p>
+                            </div>
+                        </div>
+                        <button class="details-toggle" aria-expanded="false" aria-controls="car-info-5">About Details</button>
+                        <div class="car-info" id="car-info-5" style="display: none;">
+                            <p class="car-description">Electric luxury with unmatched performance.</p>
+                             <div class="policies">
+                                <h3>Policies</h3>
+                                <ul>
+                                    <li>Advance booking required</li>
+                                    <li>Driver available on request</li>
+                                    <li>No smoking allowed</li>
+                                    <li>Price is not Applicable on special day</li>
+                                    <li>Cancellation fee applies</li>
+                                </ul>
+                            </div>
+                            <div class="inclusions">
+                                <h3>Inclusions</h3>
+                                <ul>
+                                    <li>200ML water/1 time/PP</li>
+                                    <li>Roadside assistance</li>
+                                    <li>GPS navigation</li>
+                                     <li>1st Aid Kit</li>
+                                </ul>
+                            </div>
+                            <div class="exclusions">
+                                <h3>Exclusions</h3>
+                                <ul>
+                                   <li>Night stay Fee/500</li>
+                                    <li>Toll fees</li>
+                                    <li>Parking charges</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/+917014434465?text=I'm%20interested%20in%20booking%20the%20Tesla%20Model%20S" target="_blank" rel="noopener noreferrer" class="contact-btn">Contact Now</a>
+                    </div>
+                </article>
+                
+                 <!-- Car 6 -->
+               <!-- Car 1 -->
+                <article class="car-card" role="listitem">
+                    <div class="car-image">
+                        <img src="img/kiaa.png" alt="Etios sedan" loading="lazy">
+                    </div>
+                    <div class="car-details">
+                        <div class="car-header">
+                            <div class="car-info-text">
+                                <h2>Kia Carens</h2>
+                                <p class="car-description">Luxurious MPV • AC • 6 Seats </p>
+                            </div>
+                        </div>
+                        <button class="details-toggle" aria-expanded="false" aria-controls="car-info-6">About Details</button>
+                        <div class="car-info" id="car-info-6" style="display: none;">
+                            <p class="car-description">A pinnacle of luxury with advanced comfort and cutting-edge technology.</p>
+                            <div class="policies">
+                                <h3>Policies</h3>
+                                <ul>
+                                    <li>Advance booking required</li>
+                                    <li>Driver available on request</li>
+                                    <li>No smoking allowed</li>
+                                    <li>Price is not Applicable on special day</li>
+                                    <li>Cancellation fee applies</li>
+                                </ul>
+                            </div>
+                            <div class="inclusions">
+                                <h3>Inclusions</h3>
+                                <ul>
+                                    <li>200ML water/1 time/PP</li>
+                                    <li>Roadside assistance</li>
+                                    <li>GPS navigation</li>
+                                     <li>1at Aid Kit</li>
+                                </ul>
+                            </div>
+                            <div class="exclusions">
+                                <h3>Exclusions</h3>
+                                <ul>
+                                  <li>Night stay Fee/500</li>
+                                    <li>Toll fees</li>
+                                    <li>Parking charges</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/+917014434465?text=I'm%20interested%20in%20booking%20the%20Etios sedan" target="_blank" rel="noopener noreferrer" class="contact-btn">Contact Now</a>
+                    </div>
+                </article>
+
+                <!-- Car 2 -->
+                <article class="car-card" role="listitem">
+                    <div class="car-image">
+                        <img src="img/ERT.png" alt="Maruti Suzuki Ertiga " loading="lazy">
+                    </div>
+                    <div class="car-details">
+                        <div class="car-header">
+                            <div class="car-info-text">
+                                <h2>Maruti Suzuki Ertiga</h2>
+                                <p class="car-description">Luxurious MPV • AC • 7 Seats</p>
+                            </div>
+                        </div>
+                        <button class="details-toggle" aria-expanded="false" aria-controls="car-info-2">About Details</button>
+                        <div class="car-info" id="car-info-7" style="display: none;">
+                            <p class="car-description">Elegance and performance in a sophisticated MPV.</p>
+                            <div class="policies">
+                                <h3>Policies</h3>
+                                <ul>
+                                    <li>Advance booking required</li>
+                                    <li>Driver available on request</li>
+                                    <li>No smoking allowed</li>
+                                    <li>Price is not Applicable on special day</li>
+                                    <li>Cancellation fee applies</li>
+                                </ul>
+                            </div>
+                             <div class="inclusions">
+                                <h3>Inclusions</h3>
+                                <ul>
+                                    <li>200ML water/1 time/PP</li>
+                                    <li>Roadside assistance</li>
+                                    <li>GPS navigation</li>
+                                     <li>1st Aid Kit</li>
+                                </ul>
+                            </div>
+                            <div class="exclusions">
+                                <h3>Exclusions</h3>
+                                <ul>
+                                    <li>Night stay Fee/500</li>
+                                    <li>Toll fees</li>
+                                    <li>Parking charges</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/+917014434465?text=I'm%20interested%20in%20booking%20the%20Swift Dzire VXI" target="_blank" rel="noopener noreferrer" class="contact-btn">Contact Now</a>
+                    </div>
+                </article>
+
+                <!-- Car 3 -->
+                <article class="car-card" role="listitem">
+                    <div class="car-image">
+                        <img src="img/furb.png" alt="Force Urbania" loading="lazy">
+                    </div>
+                    <div class="car-details">
+                        <div class="car-header">
+                            <div class="car-info-text">
+                                <h2>Force Urbania</h2>
+                                <p class="car-description">Luxurious VAN • AC •[10],[13],[17] Seats</p>
+                            </div>
+                        </div>
+                        <button class="details-toggle" aria-expanded="false" aria-controls="car-info-3">About Details</button>
+                        <div class="car-info" id="car-info-8" style="display: none;">
+                            <p class="car-description">Sleek design with a luxurious premium interior.</p>
+                            <div class="policies">
+                                <h3>Policies</h3>
+                                <ul>
+                                   <li>Advance booking required</li>
+                                    <li>Driver available on request</li>
+                                    <li>No smoking allowed</li>
+                                    <li>Price is not Applicable on special day</li>
+                                    <li>Cancellation fee applies</li>
+                                </ul>
+                            </div>
+                           <div class="inclusions">
+                                <h3>Inclusions</h3>
+                                <ul>
+                                    <li>200ML water/1 time/PP</li>
+                                    <li>Roadside assistance</li>
+                                    <li>GPS navigation</li>
+                                     <li>1st Aid Kit</li>
+                                </ul>
+                            </div>
+                            <div class="exclusions">
+                                <h3>Exclusions</h3>
+                                <ul>
+                                   <li>Night stay Fee/500</li>
+                                    <li>Toll fees</li>
+                                    <li>Parking charges</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/+917014434465?text=I'm%20interested%20in%20booking%20the%20Fortuner SUV" target="_blank" rel="noopener noreferrer" class="contact-btn">Contact Now</a>
+                    </div>
+                </article>
+
+                <!-- Car 4 -->
+                <article class="car-card" role="listitem">
+                    <div class="car-image">
+                        <img src="img/ftr.png" alt="Force Traveller" loading="lazy">
+                    </div>
+                    <div class="car-details">
+                        <div class="car-header">
+                            <div class="car-info-text">
+                                <h2>Force Traveller</h2>
+                                <p class="car-description"> Semi Luxurious VAN • AC/NON AC • [10],[13],[17],[26] Seats</p>
+                            </div>
+                        </div>
+                        <button class="details-toggle" aria-expanded="false" aria-controls="car-info-4">About Details</button>
+                        <div class="car-info" id="car-info-9" style="display: none;">
+                            <p class="car-description">Sleek design with a luxurious interior.</p>
+                            <div class="policies">
+                                <h3>Policies</h3>
+                                <ul>
+                                    <li>Advance booking required</li>
+                                    <li>Driver available on request</li>
+                                    <li>No smoking allowed</li>
+                                    <li>Price is not Applicable on special day</li>
+                                    <li>Cancellation fee applies</li>
+                                </ul>
+                            </div>
+                            <div class="inclusions">
+                                <h3>Inclusions</h3>
+                                <ul>
+                                    <li>200ML water/1 time/PP</li>
+                                    <li>Roadside assistance</li>
+                                    <li>GPS navigation</li>
+                                     <li>1st Aid Kit</li>
+                                </ul>
+                            </div>
+                            <div class="exclusions">
+                                <h3>Exclusions</h3>
+                                <ul>
+                                   <li>Night stay Fee/500</li>
+                                    <li>Toll fees</li>
+                                    <li>Parking charges</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/+917014434465?text=I'm%20interested%20in%20booking%20the%20Innova Crysta SUV" target="_blank" rel="noopener noreferrer" class="contact-btn">Contact Now</a>
+                    </div>
+                </article>
+
+                <!-- Car 5 -->
+                <article class="car-card" role="listitem">
+                    <div class="car-image">
+                        <img src="img/bus.png" alt="bus" loading="lazy">
+                    </div>
+                    <div class="car-details">
+                        <div class="car-header">
+                            <div class="car-info-text">
+                                <h2>Bus</h2>
+                                <p class="car-description">Luxurious/Semi Luxurious • AC/NON AC • </p>
+                            </div>
+                        </div>
+                        <button class="details-toggle" aria-expanded="false" aria-controls="car-info-5">About Details</button>
+                        <div class="car-info" id="car-info-10" style="display: none;">
+                            <p class="car-description">Sleek design with a luxurious interior</p>
+                            <div class="policies">
+                                <h3>Policies</h3>
+                                <ul>
+                                    <li>Advance booking required</li>
+                                    <li>Driver available on request</li>
+                                    <li>No smoking allowed</li>
+                                    <li>Price is not Applicable on special day</li>
+                                    <li>Cancellation fee applies</li>
+                                </ul>
+                            </div>
+                            <div class="inclusions">
+                                <h3>Inclusions</h3>
+                                <ul>
+                                    <li>Charging cable</li>
+                                    <li>Insurance</li>
+                                    <li>24/7 support</li>
+                                </ul>
+                            </div>
+                            <div class="exclusions">
+                                <h3>Exclusions</h3>
+                                <ul>
+                                    <li>Charging station fees</li>
+                                    <li>Excess wear</li>
+                                    <li>Late return fee</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/+917014434465?text=I'm%20interested%20in%20booking%20the%20Tesla%20Model%20S" target="_blank" rel="noopener noreferrer" class="contact-btn">Contact Now</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" aria-label="Footer">
+        <div class="footer-content">
+            <div class="footer-section footer-branding">
+                <h4>Atiuttam Travels</h4>
+                <p class="footer-description">Embark on Unforgettable Journeys Across India with Atiuttam Travels.</p>
+                <div class="footer-contact">
+                    <p><span class="footer-icon" aria-hidden="true">📧</span><a href="mailto:hari@atiuttamtravels.com" aria-label="Email hari at atiuttamtravels.com">hari@atiuttamtravels.com</a></p>
+                    <p><span class="footer-icon" aria-hidden="true">📧</span><a href="mailto:atiuttamtravels@gmail.com" aria-label="Email atiuttamtravels at gmail.com">atiuttamtravels@gmail.com</a></p>
+                    <p><span class="footer-icon" aria-hidden="true">📞</span><a href="tel:+917014434465" aria-label="Call +91 70144 34465">+91 70144 34465</a></p>
+                </div>
+            </div>
+            <div class="footer-section footer-links">
+                <h4>Pages</h4>
+                <ul role="navigation" aria-label="Main navigation links">
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#services">Services</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section footer-social">
+                <h4>Follow Us</h4>
+                <ul role="navigation" aria-label="Social media links">
+                    <li><a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Facebook"><span class="footer-icon" aria-hidden="true">📘</span>Facebook</a></li>
+                    <li><a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Twitter"><span class="footer-icon" aria-hidden="true">🐦</span>Twitter</a></li>
+                    <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram"><span class="footer-icon" aria-hidden="true">📸</span>Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="footer-text">© 2025 Atiuttam Travels | All Rights Reserved | <a href="#privacy" aria-label="Privacy Policy">Privacy Policy</a> | <a href="#terms" aria-label="Terms and Conditions">Terms & Conditions</a></p>
+            <p class="footer-back-to-top"><a href="#top" class="back-to-top" aria-label="Back to top">Back to Top <span class="footer-icon" aria-hidden="true">⬆️</span></a></p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+   
+
+        // Handle navbar scroll effect with Intersection Observer
+        const handleNavbarScroll = () => {
+            const navbar = document.querySelector('.navbar');
+            if (!navbar) return;
+
+            const observer = new IntersectionObserver(
+                ([entry]) => {
+                    navbar.classList.toggle('scrolled', !entry.isIntersecting);
+                },
+                { rootMargin: '-50px 0px 0px 0px' }
+            );
+            observer.observe(document.querySelector('main'));
+        };
+
+        // Mobile menu toggle
+        const handleMenuToggle = () => {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+
+            if (!menuToggle || !navLinks) {
+                console.warn('Menu elements not found');
+                return;
+            }
+
+            menuToggle.addEventListener('click', () => {
+                const isOpen = navLinks.classList.toggle('active');
+                menuToggle.classList.toggle('open');
+                menuToggle.setAttribute('aria-expanded', isOpen);
+            });
+        };
+
+        // Toggle car details with exclusive opening
+        const handleDetailsToggle = () => {
+            const carListings = document.querySelector('.car-listings');
+            if (!carListings) return;
+
+            // Function to hide all car details except the specified one
+            const hideAllExcept = (exceptCarInfoId) => {
+                const allCarInfos = carListings.querySelectorAll('.car-info');
+                const allToggleButtons = carListings.querySelectorAll('.details-toggle');
+
+                allCarInfos.forEach((carInfo, index) => {
+                    if (carInfo.id !== exceptCarInfoId) {
+                        carInfo.style.display = 'none';
+                        allToggleButtons[index].setAttribute('aria-expanded', 'false');
+                        allToggleButtons[index].textContent = 'About Details';
+                    }
+                });
+            };
+
+            carListings.addEventListener('click', (e) => {
+                const toggleButton = e.target.closest('.details-toggle');
+                if (!toggleButton) return;
+
+                const carInfoId = toggleButton.getAttribute('aria-controls');
+                const carInfo = document.getElementById(carInfoId);
+                if (!carInfo) return;
+
+                const isExpanded = toggleButton.getAttribute('aria-expanded') === 'true';
+
+                if (!isExpanded) {
+                    // Hide all other car details before showing the new one
+                    hideAllExcept(carInfoId);
+                    carInfo.style.display = 'block';
+                    toggleButton.setAttribute('aria-expanded', 'true');
+                    toggleButton.textContent = 'Hide Details';
+                } else {
+                    // Simply hide the current one if it's already open
+                    carInfo.style.display = 'none';
+                    toggleButton.setAttribute('aria-expanded', 'false');
+                    toggleButton.textContent = 'About Details';
+                }
+            });
+
+            carListings.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    const toggleButton = e.target.closest('.details-toggle');
+                    if (toggleButton) {
+                        e.preventDefault();
+                        toggleButton.click();
+                    }
+                }
+            });
+        };
+
+        // Initialize functionality
+        populateTripDetails();
+        handleNavbarScroll();
+        handleMenuToggle();
+        handleDetailsToggle();
+    });
+</script>
+</body>
+</html>

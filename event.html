@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore luxury cars for special events with Atiuttam Travels.">
+    <title>Special Events | Atiuttam Travels</title>
+     <link rel="icon" type="image/x-icon" href="img\atiubest.png">
+    <!-- Google Fonts Link -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Open+Sans:wght@400;500;600&display=swap">
+    <style>
+        /* Reset default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', 'Helvetica', sans-serif;
+            line-height: 1.7;
+            background-color: #f4f4f4;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background: linear-gradient(90deg, #ffeb3b 0%, #ffc107 50%, #ffca28 100%);
+            padding: 0.625rem 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 0.125rem 0.3125rem rgba(0, 0, 0, 0.1);
+            transition: background 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 0.5rem 1.25rem;
+            background: linear-gradient(90deg, #ffb300 0%, #ffc107 50%, #ffeb3b 100%);
+            box-shadow: 0 0.1875rem 0.5rem rgba(0, 0, 0, 0.15);
+        }
+
+        .navbar .logo h1 {
+            font-family: 'Montserrat', 'Arial', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            text-transform: uppercase;
+            letter-spacing: 0.09375rem;
+        }
+
+        .navbar .logo a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 0.9375rem;
+            align-items: center;
+        }
+
+        .nav-links li a {
+            font-family: 'Open Sans', 'Helvetica', sans-serif;
+            text-decoration: none;
+            color: #1a1a1a;
+            font-weight: 600;
+            font-size: 0.875rem;
+            padding: 0.3125rem 0.625rem;
+            border-radius: 0.3125rem;
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+
+        .nav-links li a:hover,
+        .nav-links li a:focus {
+            color: #fff;
+            background-color: #ff9800;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.625rem;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 1.5625rem;
+            height: 0.1875rem;
+            background-color: #000;
+            margin: 0.3125rem 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            border-radius: 0.0625rem;
+        }
+
+        .menu-toggle.open span:nth-child(1) {
+            transform: rotate(45deg) translate(0.3125rem, 0.3125rem);
+        }
+
+        .menu-toggle.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.open span:nth-child(3) {
+            transform: rotate(-45deg) translate(0.4375rem, -0.4375rem);
+        }
+
+        /* Event Page Styles */
+        .event-page {
+            padding-top: 3.75rem;
+        }
+
+        .special-events {
+            padding: 2rem 0;
+            background: linear-gradient(135deg, #f9f9f9 0%, #f0f0f0 100%);
+            min-height: calc(100vh - 3.75rem);
+            width: 100%;
+        }
+
+        .special-events h1 {
+            font-family: 'Montserrat', 'Arial', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        .special-events h1::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4rem;
+            height: 0.1875rem;
+            background: linear-gradient(to right, #ffc107, #e0a800);
+            border-radius: 0.125rem;
+        }
+
+        .car-listings {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap; /* Allows wrapping to create rows */
+            gap: 1.5rem;
+            padding: 0 1rem;
+            width: 100%;
+            justify-content: center; /* Centers the cards horizontally */
+            overflow-x: hidden; /* Prevents horizontal overflow */
+        }
+
+        .car-card {
+            background: #fff;
+            border-radius: 0.75rem;
+            box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            flex: 0 0 calc(50% - 0.75rem); /* Two cards per row with gap adjustment */
+            max-width: calc(50% - 0.75rem); /* Ensures two cards fit per row */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .car-card:hover,
+        .car-card:focus-within {
+            transform: scale(1.02);
+            box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.15);
+        }
+
+        .car-image img {
+            width: 100%;
+            height: 12rem;
+            object-fit: cover;
+            border-radius: 0.5rem 0.5rem 0 0;
+        }
+
+        .car-details {
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            text-align: center;
+        }
+
+        .car-details h2 {
+            font-family: 'Montserrat', 'Arial', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .contact-btn {
+            background: linear-gradient(135deg, #2196f3, #1976d2);
+            color: #fff;
+            padding: 0.625rem 1.25rem;
+            border: none;
+            border-radius: 0.375rem;
+            text-decoration: none;
+            font-family: 'Montserrat', 'Arial', sans-serif;
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-align: center;
+            transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contact-btn:hover,
+        .contact-btn:focus {
+            background: linear-gradient(135deg, #1976d2, #2196f3);
+            transform: translateY(-0.125rem);
+            box-shadow: 0 0.25rem 0.75rem rgba(33, 150, 243, 0.4);
+            outline: none;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background-color: #000;
+            color: #fff;
+            padding: 3rem 1rem 2rem;
+            font-family: 'Open Sans', 'Helvetica', sans-serif;
+            width: 100%;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1.5rem;
+            max-width: 75rem;
+            margin: 0 auto 2rem;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 13.75rem;
+            text-align: left;
+        }
+
+        .footer-section h4 {
+            font-family: 'Montserrat', 'Arial', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 1.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.0625rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 0.75rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-section ul li a:hover,
+        .footer-section ul li a:focus {
+            color: #ffc107;
+            transform: translateX(0.3125rem);
+        }
+
+        .footer-branding .footer-description {
+            font-size: 0.75rem;
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 1.25rem;
+            max-width: 18.75rem;
+        }
+
+        .footer-contact p {
+            font-size: 0.75rem;
+            color: #ccc;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+        }
+
+        .footer-contact a {
+            color: #ffc107;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-contact a:hover,
+        .footer-contact a:focus {
+            color: #e0a800;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1.25rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 75rem;
+            margin: 0 auto;
+        }
+
+        .footer-text {
+            font-size: 0.625rem;
+            color: #ccc;
+        }
+
+        .footer-text a {
+            color: #ffc107;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-text a:hover,
+        .footer-text a:focus {
+            color: #e0a800;
+        }
+
+        .footer-back-to-top a {
+            color: #ffc107;
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .footer-back-to-top a:hover,
+        .footer-back-to-top a:focus {
+            color: #e0a800;
+            transform: translateY(-0.1875rem);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0.5rem 1rem;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: linear-gradient(90deg, #ffeb3b 0%, #ffc107 50%, #ffca28 100%);
+                padding: 1rem;
+                box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
+                transform: translateY(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .nav-links.active {
+                display: flex;
+                transform: translateY(0);
+            }
+
+            .nav-links li a {
+                font-size: 1rem;
+                padding: 0.5rem;
+                text-align: center;
+            }
+
+            .car-listings {
+                gap: 1rem;
+                padding: 0 0.5rem;
+            }
+
+            .car-card {
+                flex: 0 0 calc(50% - 0.5rem); /* Adjust gap for smaller screens */
+                max-width: calc(50% - 0.5rem);
+            }
+
+            .car-image img {
+                height: 10rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .special-events {
+                padding: 1.5rem 0;
+            }
+
+            .car-card {
+                flex: 0 0 100%; /* One card per row on very small screens */
+                max-width: 100%;
+            }
+
+            .car-image img {
+                height: 8rem;
+            }
+
+            .car-details h2 {
+                font-size: 1rem;
+            }
+
+            .contact-btn {
+                font-size: 0.75rem;
+                padding: 0.375rem 0.75rem;
+            }
+        }
+            /*logo*/
+    
+      .navbar {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #62b0bc;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo img {
+            width: 100px;
+            height: auto;
+            border-radius: 5px;
+        }
+        .logo h1 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #4678b6; /* Light Blue */
+    text-shadow: 
+        0 0 5px #62b0bc, 
+        0 0 10px #5aa6c4, 
+        0 0 15px #4a90a2; /* Blue Spark Effect */
+    animation: sparkEffect 1.5s infinite alternate;
+}
+
+/* Optional: Animated Glowing Effect */
+@keyframes sparkEffect {
+    0% {
+        text-shadow: 
+            0 0 5px #62b0bc, 
+            0 0 10px #5aa6c4, 
+            0 0 15px #4a90a2;
+    }
+    100% {
+        text-shadow: 
+            0 0 10px #7cc6da, 
+            0 0 15px #5aa6c4, 
+            0 0 20px #4a90a2;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" aria-label="Main navigation">
+        <div class="logo">
+             <img id="companyLogo" src="img/atiubest.png" alt="ATIUTTAM TRAVELS Logo">
+            <h1><a href="index.html#home" aria-label="Atiuttam Travels Home">ATIUTTAM TRAVELS</a></h1>
+           
+        </div>
+        <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul class="nav-links" role="navigation">
+            <li><a href="index.html#home">Home</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#services">Services</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="event-page">
+        <section class="special-events" aria-labelledby="special-events-heading">
+            <h1 id="special-events-heading">Cars for Special Events</h1>
+            <div class="car-listings" role="list">
+               <!-- Car 1 -->
+<article class="car-card" role="listitem">
+    <div class="car-image">
+        <img src="img/etii.png" alt="Rolls-Royce Phantom luxury car" loading="lazy">
+    </div>
+    <div class="car-details">
+        <h2>Etios</h2>
+        <a href="https://wa.me/+917014434465?text=I'm%20interested%20in%20booking%20the%20Etios%20for%20a%20special%20event" target="_blank" rel="noopener noreferrer" class="contact-btn">Contact Now</a>
+    </div>
+</article>
+
+<!-- Car 2 -->
+<article class="car-card" role="listitem">
+    <div class="car-image">
+        <img src="img/dzire.jpg" alt="Bentley Continental luxury car" loading="lazy">
+    </div>
+    <div class="car-details">
+        <h2>Dzire VXI</h2>
+        <a href="https://wa.me/+917014434465?text=I'm%20interested%20in%20booking%20the%20Dzire%20VXI%20for%20a%20special%20event" target="_blank" rel="noopener noreferrer" class="contact-btn">Contact Now</a>
+    </div>
+</article>
+
+<!-- Car 3 -->
+<article class="car-card" role="listitem">
+    <div class="car-image">
+        <img src="img/kiaa.png" alt="Mercedes S-Class luxury car" loading="lazy">
+    </div>
+    <div class="car-details">
+        <h2>Kia Carens</h2>
+        <a href="https://wa.me/+917014434465?text=I'm%20interested%20in%20booking%20the%20Kia%20Carens%20for%20a%20special%20event" target="_blank" rel="noopener noreferrer" class="contact-btn">Contact Now</a>
+    </div>
+</article>
+
+<!-- Car 4 -->
+<article class="car-card" role="listitem">
+    <div class="car-image">
+        <img src="img/rum.png" alt="BMW 7 Series luxury car" loading="lazy">
+    </div>
+    <div class="car-details">
+        <h2>Toyta Rumion</h2>
+        <a href="https://wa.me/+917014434465?text=I'm%20interested%20in%20booking%20the%20Toyta%20Rumion%20for%20a%20special%20event" target="_blank" rel="noopener noreferrer" class="contact-btn">Contact Now</a>
+    </div>
+</article>
+
+<!-- Car 5 -->
+<article class="car-card" role="listitem">
+    <div class="car-image">
+        <img src="img/uinn.png" alt="Audi A8 luxury car" loading="lazy">
+    </div>
+    <div class="car-details">
+        <h2>Innova Crysta</h2>
+        <a href="https://wa.me/+917014434465?text=I'm%20interested%20in%20booking%20the%20Innova%20Crysta%20for%20a%20special%20event" target="_blank" rel="noopener noreferrer" class="contact-btn">Contact Now</a>
+    </div>
+</article>
+
+<!-- Car 6 -->
+<article class="car-card" role="listitem">
+    <div class="car-image">
+        <img src="img/for1.png" alt="Porsche Panamera sporty car" loading="lazy">
+    </div>
+    <div class="car-details">
+        <h2>Fortuner</h2>
+        <a href="https://wa.me/+917014434465?text=I'm%20interested%20in%20booking%20the%20Fortuner%20for%20a%20special%20event" target="_blank" rel="noopener noreferrer" class="contact-btn">Contact Now</a>
+    </div>
+</article>
+
+<!-- Car 7 -->
+<article class="car-card" role="listitem">
+    <div class="car-image">
+        <img src="img/ERT.png" alt="Tesla Model S electric car" loading="lazy">
+    </div>
+    <div class="car-details">
+        <h2>Maruti Ertiga</h2>
+        <a href="https://wa.me/+917014434465?text=I'm%20interested%20in%20booking%20the%20Maruti%20Ertiga%20for%20a%20special%20event" target="_blank" rel="noopener noreferrer" class="contact-btn">Contact Now</a>
+    </div>
+</article>
+
+<!-- Car 8 -->
+<article class="car-card" role="listitem">
+    <div class="car-image">
+        <img src="img/furb.png" alt="Jaguar XJ luxury car" loading="lazy">
+    </div>
+    <div class="car-details">
+        <h2>Force Urbania</h2>
+        <a href="https://wa.me/+917014434465?text=I'm%20interested%20in%20booking%20the%20Force%20Urbania%20for%20a%20special%20event" target="_blank" rel="noopener noreferrer" class="contact-btn">Contact Now</a>
+    </div>
+</article>
+
+<!-- Car 9 -->
+<article class="car-card" role="listitem">
+    <div class="car-image">
+        <img src="img/ftr.png" alt="Lexus LS luxury car" loading="lazy">
+    </div>
+    <div class="car-details">
+        <h2>Force Traveller</h2>
+        <a href="https://wa.me/+917014434465?text=I'm%20interested%20in%20booking%20the%20Force%20Traveller%20for%20a%20special%20event" target="_blank" rel="noopener noreferrer" class="contact-btn">Contact Now</a>
+    </div>
+</article>
+
+<!-- Car 10 -->
+<article class="car-card" role="listitem">
+    <div class="car-image">
+        <img src="img/bus.png" alt="Maserati Quattroporte luxury car" loading="lazy">
+    </div>
+    <div class="car-details">
+        <h2>Bus</h2>
+        <a href="https://wa.me/+917014434465?text=I'm%20interested%20in%20booking%20the%20Bus%20for%20a%20special%20event" target="_blank" rel="noopener noreferrer" class="contact-btn">Contact Now</a>
+    </div>
+</article>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" aria-label="Footer">
+        <div class="footer-content">
+            <div class="footer-section footer-branding">
+                <h4>Atiuttam Travels</h4>
+                <p class="footer-description">Embark on Unforgettable Journeys Across India with Atiuttam Travels.</p>
+                <div class="footer-contact">
+                    <p><span class="footer-icon" aria-hidden="true">📧</span><a href="mailto:hari@atiuttamtravels.com" aria-label="Email hari at atiuttamtravels.com">hari@atiuttamtravels.com</a></p>
+                    <p><span class="footer-icon" aria-hidden="true">📧</span><a href="mailto:atiuttamtravels@gmail.com" aria-label="Email atiuttamtravels at gmail.com">atiuttamtravels@gmail.com</a></p>
+                    <p><span class="footer-icon" aria-hidden="true">📞</span><a href="tel:+917014434465" aria-label="Call +91 70144 34465">+91 70144 34465</a></p>
+                </div>
+            </div>
+            <div class="footer-section footer-links">
+                <h4>Pages</h4>
+                <ul role="navigation" aria-label="Main navigation links">
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#services">Services</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section footer-social">
+                <h4>Follow Us</h4>
+                <ul role="navigation" aria-label="Social media links">
+                    <li><a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Facebook"><span class="footer-icon" aria-hidden="true">📘</span>Facebook</a></li>
+                    <li><a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Twitter"><span class="footer-icon" aria-hidden="true">🐦</span>Twitter</a></li>
+                    <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram"><span class="footer-icon" aria-hidden="true">📸</span>Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="footer-text">© 2025 Atiuttam Travels | All Rights Reserved | <a href="#privacy" aria-label="Privacy Policy">Privacy Policy</a> | <a href="#terms" aria-label="Terms and Conditions">Terms & Conditions</a></p>
+            <p class="footer-back-to-top"><a href="#top" class="back-to-top" aria-label="Back to top">Back to Top <span class="footer-icon" aria-hidden="true">⬆️</span></a></p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Handle navbar scroll effect
+            const navbar = document.querySelector('.navbar');
+            const observer = new IntersectionObserver(
+                ([entry]) => {
+                    navbar.classList.toggle('scrolled', !entry.isIntersecting);
+                },
+                { rootMargin: '-50px 0px 0px 0px' }
+            );
+            observer.observe(document.querySelector('main'));
+
+            // Mobile menu toggle
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            menuToggle.addEventListener('click', () => {
+                const isOpen = navLinks.classList.toggle('active');
+                menuToggle.classList.toggle('open');
+                menuToggle.setAttribute('aria-expanded', isOpen);
+            });
+        });
+    </script>
+</body>
+</html>
