@@ -118,47 +118,26 @@
                
             </a>
         </div>
-       <form class="rental-form ai-style-change-2" id="rental-form">
-            <div class="form-group ai-style-change-3">
-              <label for="pickup-location">Pickup Location</label>
-              <input
-                type="text"
-                id="pickup-location"
-                name="pickup-location"
-                placeholder="Enter Pickup Location"
-                required=""
-                autocomplete="off"
-                class="ai-style-change-14"
-              />
-              <ul class="autocomplete-list" id="pickup-suggestions" style="display: none;"></ul>
+       <div class="form-container">
+        <form id="rental-form">
+            <div class="form-group">
+                <label for="pickup-location">Pickup Location</label>
+                <input type="text" id="pickup-location" placeholder="Enter Pickup Location" required>
+                <i class="fas fa-map-marker-alt"></i>
             </div>
-            <div class="form-group ai-style-change-4">
-              <label for="drop-location">Drop Location</label>
-              <input
-                type="text"
-                id="drop-location"
-                name="drop-location"
-                placeholder="Enter Drop Location"
-                required=""
-                autocomplete="off"
-                class="ai-style-change-15"
-              />
-              <ul class="autocomplete-list" id="drop-suggestions" style="display: none;"></ul>
+            <div class="form-group">
+                <label for="drop-location">Drop Location</label>
+                <input type="text" id="drop-location" placeholder="Enter Drop Location" required>
+                <i class="fas fa-map-marker-alt"></i>
             </div>
-            <div class="form-group datetime-wrapper ai-style-change-5">
-              <label for="pickup-time">Pickup Date & Time</label>
-              <input
-                type="datetime-local"
-                id="pickup-time"
-                name="pickup-time"
-                required=""
-                class="ai-style-change-1"
-              />
+            <div class="form-group">
+                <label for="pickup-datetime">Pickup Date & Time</label>
+                <input type="datetime-local" id="pickup-datetime" required>
+                <i class="fas fa-calendar-alt"></i>
             </div>
-            <button type="submit" class="search-btn" width="5">
-              Search Now
-            </button>
-          </form>
+            <button type="submit">Search Now</button>
+        </form>
+    </div>
         <a href="#services" class="explore-btn">Explore Our Fleet</a>
     </section>
     
