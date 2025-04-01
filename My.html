@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1 style="background-color: red;">Hello World!</h1>
+<p>This is a paragraph.</p>
+<div class="form-container">
+    <form id="rental-form">
+        <div class="form-group">
+            <label for="pickup-location">Pickup Location</label>
+            <input type="text" id="pickup-location" placeholder="Enter Pickup Location" required>
+            <i class="fas fa-map-marker-alt"></i>
+            <ul id="pickup-suggestions" class="suggestions"></ul>
+        </div>
+        <div class="form-group">
+            <label for="drop-location">Drop Location</label>
+            <input type="text" id="drop-location" placeholder="Enter Drop Location" required>
+            <i class="fas fa-map-marker-alt"></i>
+            <ul id="drop-suggestions" class="suggestions"></ul>
+        </div>
+        <div class="form-group">
+            <label for="pickup-time">Pickup Date & Time</label>
+            <input type="datetime-local" id="pickup-time" required>
+            <i class="fas fa-calendar-alt"></i>
+            <div class="error" id="datetime-error">Please select a date and time in the future.</div>
+        </div>
+        <button type="submit">Search Now</button>
+    </form>
+</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<style>
+    .form-container {
+        position: relative;
+        background: rgba(0, 0, 0, 0.85);
+        padding: 25px;
+        border-radius: 15px;
+        width: 100%;
+        max-width: 400px;
+        box-shadow: 0 0 30px rgba(0, 221, 235, 0.3);
+        overflow: hidden;
+        margin: 20px auto;
+        backdrop-filter: blur(5px);
+    }
+    .form-container::before {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: linear-gradient(45deg, #00ddeb, #ff007a, #00ddeb, #ff007a);
+        z-index: -1;
+        filter: blur(8px);
+        opacity: 0.7;
+        animation: sparkle 4s linear infinite;
+    }
+    @keyframes sparkle {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+    #rental-form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .form-group {
+        margin-bottom: 15px;
+        position: relative;
+        width: 100%;
+    }
+    label {
+        display: block;
+        font-size: 13px;
+        color: #ffffff;
+        margin-bottom: 6px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 500;
+    }
+    input {
+        width: 100%;
+        padding: 10px 35px 10px 12px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 6px;
+        font-size: 14px;
+        color: #ffffff;
+        box-sizing: border-box;
+        transition: all 0.3s ease;
+    }
+    input:focus {
+        outline: none;
+        border-color: #00ddeb;
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 0 8px rgba(0, 221, 235, 0.5);
+    }
+    .form-group i {
+        position: absolute;
+        right: 12px;
+        top: 38px;
+        color: #00ddeb;
+        font-size: 14px;
+        transition: color 0.3s ease;
+    }
+    input:focus + i {
+        color: #ff007a;
+    }
+    button {
+        width: 100%;
+        padding: 10px;
+        background: linear-gradient(45deg, #00ddeb, #ff007a);
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 221, 235, 0.5);
+    }
+    button:active {
+        transform: translateY(0);
+        box-shadow: none;
+    }
+    .error {
+        color: #ff007a;
+        font-size: 11px;
+        margin-top: 4px;
+        display: none;
+    }
+    /* Updated styling for autocomplete suggestions with solid background */
+    .suggestions {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        background: #2c2c2c; /* Solid dark gray background */
+        border: 1px solid #555; /* Darker border to match the solid background */
+        border-radius: 6px;
+        max-height: 150px;
+        overflow-y: auto;
+        position: absolute;
+        width: 100%;
+        z-index: 10;
+        display: none;
+    }
+    .suggestions li {
+        padding: 8px 12px;
+        color: #00ddeb; /* Cyan text for city names */
+        cursor: pointer;
+        transition: background 0.3s ease, color 0.3s ease;
+    }
+    .suggestions li:hover {
+        background: rgba(0, 221, 235, 0.3);
+        color: #ff007a; /* Pink text on hover */
+    }
+    
+</style>
+<script>
+    const cities = [
+        "Abu Road", "Agra", "kuchaman city", "", "Ahmedabad", "Aizawl", "Ajmer", "Aligarh", "Allahabad", "Alwar", "Ambala", 
+        "Amritsar", "Asansol", "Aurangabad", "Ayodhya", "Bagru", "Bali", "Bangalore", "Banswara", 
+        "Bareilly", "Baran", "Bari", "Barmer", "Baswa", "Bassi", "Bayana", "Beawar", "Begun", 
+        "Belgaum", "Bhadra", "Bhadesar", "Bharatpur", "Bhavnagar", "Bhilwara", "Bhinder", "Bhiwandi", 
+        "Bhopal", "Bhubaneswar", "Bikaner", "Bilaspur", "Bokaro Steel City", "Bulandshahr", "Chandigarh", 
+        "Chennai", "Chhabra", "Chittorgarh", "Chomu", "Churu", "Coimbatore", "Cuttack", "Dausa", 
+        "Davanagere", "Dehradun", "Deogarh", "Delhi", "Dhanbad", "Dharampur", "Dholpur", "Didwana", 
+        "Dungarpur", "Durg", "Durgapur", "Etawah", "Faizabad", "Falna", "Faridabad", "Fatehpur Shekhawati", 
+        "Firozabad", "Green Heaven Resort", "Gangapur City", "Gangtok", "Gaya", "Ghaziabad", "Gorakhpur", "Gulbarga", "Guntur", 
+        "Guwahati", "Gwalior", "Haldia", "Hanumangarh", "Haridwar", "Hindaun", "Hisar", "Hubli", 
+        "Hyderabad", "Imphal", "Indore", "Itanagar", "Jabalpur", "Jaipur", "Jaisalmer", "Jalandhar", 
+        "Jalgaon", "Jamnagar", "Jamshedpur", "Jaunpur", "Jhansi", "Jhalawar", "Jhunjhunu", "Jodhpur", 
+        "Kolkata", "Kanpur", "Kapasan", "Karauli", "Karnal", "Kekri", "Kharagpur", "Khetri", "Kishangarh", 
+        "Kochi", "Kohima", "Kolhapur", "Korba", "Kota", "Kurnool", "Latur", "Laxmangarh", "Loni", 
+        "Losal", "Lucknow", "Ludhiana", "Madurai", "Makrana", "Malda", "Malpura", "Mandawa", "Mangalore", 
+        "Mathura", "Mavli", "Meerut", "Merta City", "Mirzapur", "Moradabad", "Mumbai", "Muzaffarnagar", 
+        "Mysore", "Nanded", "Nagaur", "Nagpur", "Nasirabad", "Nashik", "Nathdwara", "Nawa", "Nellore", 
+        "Noida", "Nokha", "Pali", "Panipat", "Patiala", "Patna", "Phagi", "Phalodi", "Pilani", 
+        "Pindwara", "Pipar City", "Port Blair", "Pratapgarh", "Puducherry", "Pune", "Pushkar", "Raebareli", 
+        "Raigarh", "Raipur", "Rajkot", "Rajsamand", "Ramganj Mandi", "Rampur", "Ranchi", "Ratangarh", 
+        "Rawatbhata", "Rohtak", "Saharanpur", "Salem", "Salumber", "Sanchore", "Satna", "Sawai Madhopur", 
+        "Shahjahanpur", "Shahpura", "Shiliguri", "Shillong", "Shimla", "Sikar", "Siliguri", "Sirsa", 
+        "Sirohi", "Sitapur", "Sonipat", "Sri Ganganagar", "Srinagar", "Sujangarh", "Talwara", "Taranagar", 
+        "Thane", "Thiruvananthapuram", "Tiruchirappalli", "Tirupati", "Tiruppur", "Todaraisingh", "Tonk", 
+        "Tonk Khurd", "Udaipur", "Ujjain", "Vadodara", "Varanasi", "Vijayawada", "Visakhapatnam", "Warangal"
+    ];
+
+    // Function to setup autocomplete
+    function setupAutocomplete(inputId, suggestionListId) {
+        const input = document.getElementById(inputId);
+        const suggestionList = document.getElementById(suggestionListId);
+
+        input.addEventListener('input', function() {
+            const value = this.value.toLowerCase().trim();
+            suggestionList.innerHTML = '';
+            suggestionList.style.display = 'none';
+
+            if (value.length === 0) return;
+
+            const matches = cities.filter(city => city.toLowerCase().startsWith(value));
+
+            if (matches.length > 0) {
+                matches.forEach(city => {
+                    const li = document.createElement('li');
+                    li.textContent = city;
+                    li.addEventListener('click', () => {
+                        input.value = city;
+                        suggestionList.style.display = 'none';
+                    });
+                    suggestionList.appendChild(li);
+                });
+                suggestionList.style.display = 'block';
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!input.contains(e.target) && !suggestionList.contains(e.target)) {
+                suggestionList.style.display = 'none';
+            }
+        });
+    }
+
+    // Function to set the minimum pickup time to the current date and time
+    function setMinPickupTime() {
+        const pickupTimeInput = document.getElementById('pickup-time');
+        const now = new Date();
+        
+        // Format: YYYY-MM-DDTHH:MM (for datetime-local input)
+        const formattedNow = now.toISOString().slice(0, 16);
+        
+        pickupTimeInput.min = formattedNow;
+    }
+
+    // Initialize autocomplete and handle form submission
+    document.addEventListener('DOMContentLoaded', () => {
+        setupAutocomplete('pickup-location', 'pickup-suggestions');
+        setupAutocomplete('drop-location', 'drop-suggestions');
+
+        setMinPickupTime(); // Set minimum pickup time when the page loads
+
+        document.getElementById('rental-form').addEventListener('submit', (e) => {
+            e.preventDefault(); // Prevent default form submission
+
+            const pickup = document.getElementById('pickup-location').value.trim();
+            const drop = document.getElementById('drop-location').value.trim();
+            const pickupTime = document.getElementById('pickup-time').value.trim();
+            const pickupDateTime = new Date(pickupTime);
+            const now = new Date();
+
+            // Check if the entered city exists in the predefined list
+            if (!cities.includes(pickup) || !cities.includes(drop)) {
+                alert('Please select a valid pickup and drop location.');
+                return;
+            }
+
+            // Check if pickup and drop locations are the same
+            if (pickup.toLowerCase() === drop.toLowerCase()) {
+                alert('Pickup and drop locations cannot be the same.');
+                return;
+            }
+
+            if (!pickupTime) {
+                alert('Please enter a pickup time.');
+                return;
+            }
+
+            // Restriction: Pickup time must not be in the past
+            if (pickupDateTime < now) {
+                alert('This Pickup time is cannot be applicable. Please choose a future time.');
+                return;
+            }
+
+            // Store values in sessionStorage
+            sessionStorage.setItem("pickup-location", pickup);
+            sessionStorage.setItem("drop-location", drop);
+            sessionStorage.setItem("pickup-time", pickupTime);
+
+            // Redirect to book.html
+            window.location.href = `book.html`;
+        });
+    });
+</script>
+
+</body>
+</html>
