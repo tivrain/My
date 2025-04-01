@@ -1,17 +1,5 @@
 /* Reset default styles for consistency */
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+html, body, div, span, iframe, h1, h2, h3, h4, p, a, img, ul, li, form, label, footer, nav, section, audio {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -46,12 +34,6 @@ body {
     background: linear-gradient(90deg, #ffb300 0%, #ffca28 50%, #ffeb3b 100%);
 }
 
-.navbar.scrolled {
-    padding: 8px 20px;
-    background: linear-gradient(90deg, #ffb300 0%, #ffc107 50%, #ffeb3b 100%);
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
-}
-
 
 
 /* Navigation Links */
@@ -76,13 +58,6 @@ body {
 .nav-links li a:hover {
     color: #fff;
     background-color: #ff9800; /* Orange for other links on hover */
-}
-
-.nav-links li a.active {
-    background-color: #ff9800;
-    color: #fff;
-    font-weight: 600;
-    border-radius: 5px;
 }
 
 /* Event Button Specific Styles */
@@ -137,10 +112,6 @@ body {
     height: 100%;
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.3) 100%);
     z-index: 1;
-}
-
-.navbar.scrolled + .hero {
-    padding-top: 3.125rem;
 }
 
 .hero h1 {
@@ -794,11 +765,6 @@ body {
     transform: scale(1.2);
 }
 
-.carousel-dot.active {
-    background: #ffc107;
-    transform: scale(1.3);
-}
-
 /* Responsive Design */
 @media (min-width: 481px) and (max-width: 768px) {
     .pick-rental {
@@ -1048,11 +1014,6 @@ body {
     line-height: 1.4;
 }
 
-.contact-form .error-message.active {
-    display: block;
-    opacity: 1;
-}
-
 .submit-btn {
     background: linear-gradient(90deg, #ffc107 0%, #e0a800 100%);
     color: #1a1a1a;
@@ -1097,11 +1058,6 @@ body {
     width: 300px;
     height: 300px;
     transition: width 0.3s ease, height 0.3s ease;
-}
-
-.submit-btn span {
-    position: relative;
-    z-index: 1;
 }
 
 .contact-info {
@@ -1660,18 +1616,6 @@ body {
     border-radius: 0.0625rem;
 }
 
-.menu-toggle.open span:nth-child(1) {
-    transform: rotate(45deg) translate(0.3125rem, 0.3125rem);
-}
-
-.menu-toggle.open span:nth-child(2) {
-    opacity: 0;
-}
-
-.menu-toggle.open span:nth-child(3) {
-    transform: rotate(-45deg) translate(0.4375rem, -0.4375rem);
-}
-
 /* Mobile Navigation */
 @media (max-width: 768px) {
     .menu-toggle {
@@ -1693,12 +1637,6 @@ body {
         transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
-    .nav-links.active {
-        display: flex;
-        opacity: 1;
-        transform: translateY(0);
-    }
-
     .nav-links li {
         margin: 0.625rem 0;
         width: 100%;
@@ -1714,13 +1652,6 @@ body {
 
     .nav-links li a:hover {
         transform: scale(1.05);
-    }
-
-    .nav-links li a.active {
-        background-color: #ff9800;
-        color: #fff;
-        font-weight: 700;
-        border-radius: 1.25rem;
     }
 
     .nav-links li a:focus {
