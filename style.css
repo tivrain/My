@@ -165,38 +165,6 @@ body {
     100% { opacity: 1; transform: translateY(0); }
 }
 
-/* Improved Rental Form Styles */
-
-
-/* Datetime wrapper for calendar icon */
-.form-group.datetime-wrapper {
-    position: relative;
-}
-
-.form-group.datetime-wrapper::after {
-    content: '\1F4C5';
-    position: absolute;
-    right: 0.75rem;
-    top: 65%;
-    transform: translateY(-50%);
-    font-size: 1rem;
-    color: #888;
-    pointer-events: none;
-    transition: color 0.3s ease;
-}
-
-.form-group.datetime-wrapper:hover::after {
-    color: #ffca28;
-}
-
-.form-group input[type="datetime-local"] {
-    padding-right: 2.5rem;
-}
-
-.form-group input[type="datetime-local"]::-webkit-calendar-picker-indicator {
-    opacity: 0;
-}
-
 /* Explore Button Styles */
 .explore-btn {
     margin-top: 0.9375rem;
