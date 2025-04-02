@@ -56,30 +56,23 @@
                 navigator.geolocation.getCurrentPosition(position => {
                     let lat = position.coords.latitude;
                     let lon = position.coords.longitude;
-                    currentLocation = `Latitude: ${lat}, Longitude: ${lon}`;
-                    document.getElementById('status').innerText = `Location Detected: ${currentLocation}`;
+                    fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.address && data.address.city) {
+                                currentLocation = data.address.city;
+                                document.getElementById('status').innerText = `Location Detected: ${currentLocation}`;
+                            } else {
+                                document.getElementById('status').innerText = "Error: Unable to retrieve city name.";
+                            }
+                        })
+                        .catch(error => {
+                            document.getElementById('status').innerText = "Error: Unable to retrieve location details.";
+                            console.error("Geolocation API error:", error);
+                        });
                 }, error => {
-                    let errorMsg = "Error: Unable to retrieve location. Please enable GPS.";
-                    switch (error.code) {
-                        case error.PERMISSION_DENIED:
-                            errorMsg = "Permission denied. Please allow location access.";
-                            break;
-                        case error.POSITION_UNAVAILABLE:
-                            errorMsg = "Location information is unavailable.";
-                            break;
-                        case error.TIMEOUT:
-                            errorMsg = "Request timed out. Try again.";
-                            break;
-                        case error.UNKNOWN_ERROR:
-                            errorMsg = "An unknown error occurred.";
-                            break;
-                    }
-                    document.getElementById('status').innerText = errorMsg;
+                    document.getElementById('status').innerText = "Error: Unable to retrieve location. Please enable GPS.";
                     console.error("Geolocation error:", error);
-                }, {
-                    enableHighAccuracy: true,
-                    timeout: 10000,
-                    maximumAge: 0
                 });
             } else {
                 document.getElementById('status').innerText = "Error: Geolocation is not supported by this browser.";
