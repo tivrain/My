@@ -49,26 +49,28 @@
     </div>
     <script>
         let currentLocation = "";
-        const cities = ["Jaipur", "Los Angeles", "Chicago", "Houston", "Miami", "San Francisco", "Las Vegas", "Dallas"];
+        const cities = ["New York", "Los Angeles", "Chicago", "Houston", "Miami", "San Francisco", "Las Vegas", "Dallas"];
 
         function getCurrentLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(position => {
                     let lat = position.coords.latitude;
                     let lon = position.coords.longitude;
+                    
+                    // Use OpenStreetMap API to get the exact address
                     fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
                         .then(response => response.json())
                         .then(data => {
-                            if (data.address && data.address.city) {
-                                currentLocation = data.address.city;
-                                document.getElementById('status').innerText = `Location Detected: ${currentLocation}`;
+                            if (data.display_name) {
+                                currentLocation = data.display_name;
+                                document.getElementById('status').innerText = `Current Location: ${currentLocation}`;
                             } else {
-                                document.getElementById('status').innerText = "Error: Unable to retrieve city name.";
+                                document.getElementById('status').innerText = "Error: Unable to retrieve address.";
                             }
                         })
                         .catch(error => {
                             document.getElementById('status').innerText = "Error: Unable to retrieve location details.";
-                            console.error("Geolocation API error:", error);
+                            console.error("Location API Error:", error);
                         });
                 }, error => {
                     document.getElementById('status').innerText = "Error: Unable to retrieve location. Please enable GPS.";
