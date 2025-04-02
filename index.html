@@ -78,7 +78,7 @@
                     let lat = position.coords.latitude;
                     let lon = position.coords.longitude;
                     
-                    fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
+                    fetch(`https://nominatim.org/reverse?format=json&lat=${lat}&lon=${lon}`)
                         .then(response => response.json())
                         .then(data => {
                             if (data.address) {
