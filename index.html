@@ -57,8 +57,7 @@
     </div>
     <script>
         let currentLocation = "";
-        const cities = ["Ajmer", "Los Angeles", "Chicago", "Houston", "Miami", "San Francisco", "Las Vegas", "Dallas"];
-        const MAPMYINDIA_API_KEY = "YOUR_API_KEY_HERE"; // Replace with your MapmyIndia API Key
+        const cities = ["Delhi", "Mumbai", "Bangalore", "Chennai", "Kolkata", "Hyderabad", "Pune", "Jaipur"];
 
         function requestLocationAccess() {
             const date = document.getElementById('date').value;
@@ -79,11 +78,11 @@
                     let lat = position.coords.latitude;
                     let lon = position.coords.longitude;
                     
-                    fetch(`https://apis.mapmyindia.com/advancedmaps/v1/${MAPMYINDIA_API_KEY}/rev_geocode?lat=${lat}&lng=${lon}`)
+                    fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
                         .then(response => response.json())
                         .then(data => {
-                            if (data.results && data.results[0]) {
-                                currentLocation = `${data.results[0].street}, ${data.results[0].city}`;
+                            if (data.address) {
+                                currentLocation = `${data.address.road || 'Unknown Road'}, ${data.address.city || data.address.town || 'Unknown City'}`;
                                 document.getElementById('status').innerText = `Current Location: ${currentLocation}`;
                                 startVoiceRecognition();
                             } else {
@@ -110,7 +109,7 @@
             }
             
             const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-            recognition.lang = 'en-US';
+            recognition.lang = 'en-IN';
             recognition.start();
             
             recognition.onresult = function(event) {
