@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Voice-Based Car Booking</title>
+    <title>Car Booking</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,65 +19,46 @@
             max-width: 400px;
             margin: auto;
         }
-        button {
-            padding: 12px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            margin: 10px;
-            border: none;
-            border-radius: 5px;
-            background: #007bff;
-            color: white;
-            transition: 0.3s;
-        }
-        button:hover {
-            background: #0056b3;
-        }
-        #status {
-            margin-top: 15px;
-            font-weight: bold;
-            color: #333;
-        }
-        input {
+        button, input {
             padding: 10px;
             margin: 10px;
             width: 90%;
             border: 1px solid #ccc;
             border-radius: 5px;
         }
+        .suggestions {
+            background: #fff;
+            border: 1px solid #ccc;
+            max-height: 150px;
+            overflow-y: auto;
+            position: absolute;
+            width: calc(90% - 22px);
+            display: none;
+            text-align: left;
+        }
+        .suggestions div {
+            padding: 8px;
+            cursor: pointer;
+        }
+        .suggestions div:hover {
+            background: #f0f0f0;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Voice-Based Car Booking</h2>
-        <input type="date" id="date" min="" placeholder="Select Date">
+        <h2>Car Booking</h2>
+        <input type="date" id="date" placeholder="Select Date">
         <input type="time" id="time" placeholder="Select Time">
-        <button onclick="requestLocationAccess()">Start Booking</button>
-        <p id="status">Waiting for input...</p>
+        <input type="text" id="pickup" placeholder="Pickup Location" onclick="getCurrentCity()">
+        <input type="text" id="drop" placeholder="Drop Location" oninput="fetchCitySuggestions(this.value)">
+        <div id="suggestions" class="suggestions"></div>
     </div>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            let today = new Date().toISOString().split("T")[0];
-            document.getElementById("date").setAttribute("min", today);
-        });
-
-        let currentCity = "";
-        const cities = ["Delhi", "Mumbai", "Bangalore", "Chennai", "Kolkata", "Hyderabad", "Pune", "Jaipur"];
-
-        function requestLocationAccess() {
-            const date = document.getElementById('date').value;
-            const time = document.getElementById('time').value;
-            
-            if (!date || !time) {
-                alert("Please select date and time before proceeding.");
-                return;
-            }
-            
-            alert("Please turn on your location");
-            getCurrentCity();
-        }
-
+        document.getElementById('date').min = new Date().toISOString().split('T')[0];
+        
         function getCurrentCity() {
+            alert("Please turn on your location");
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(position => {
                     let lat = position.coords.latitude;
@@ -87,55 +68,37 @@
                         .then(response => response.json())
                         .then(data => {
                             if (data.address) {
-                                currentCity = data.address.city || data.address.town || data.address.state || "Unknown City";
-                                document.getElementById('status').innerText = `Current City: ${currentCity}`;
-                                startVoiceRecognition();
-                            } else {
-                                document.getElementById('status').innerText = "Error: Unable to retrieve city name.";
+                                document.getElementById('pickup').value = data.address.city || data.address.town || "Unknown City";
                             }
                         })
-                        .catch(error => {
-                            document.getElementById('status').innerText = "Error: Unable to retrieve location details.";
-                            console.error("Location API Error:", error);
-                        });
-                }, error => {
-                    document.getElementById('status').innerText = "Error: Unable to retrieve location. Please enable GPS.";
-                    console.error("Geolocation error:", error);
-                });
-            } else {
-                document.getElementById('status').innerText = "Error: Geolocation is not supported by this browser.";
+                        .catch(error => console.error("Location API Error:", error));
+                }, error => console.error("Geolocation error:", error));
             }
         }
-
-        function startVoiceRecognition() {
-            if (!currentCity) {
-                alert("Please allow location access first.");
+        
+        function fetchCitySuggestions(query) {
+            if (query.length < 2) {
+                document.getElementById('suggestions').style.display = 'none';
                 return;
             }
             
-            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-            recognition.lang = 'en-IN';
-            recognition.start();
-            
-            recognition.onresult = function(event) {
-                const destination = event.results[0][0].transcript.trim();
-                document.getElementById('status').innerText = `Destination: ${destination}`;
-                
-                if (cities.some(city => city.toLowerCase() === destination.toLowerCase())) {
-                    sessionStorage.setItem("pickup-location", currentCity);
-                    sessionStorage.setItem("drop-location", destination);
-                    sessionStorage.setItem("pickup-date", document.getElementById('date').value);
-                    sessionStorage.setItem("pickup-time", document.getElementById('time').value);
-                    window.location.href = "book.html";
-                } else {
-                    alert("Destination not recognized. Please say a valid city name from the list.");
-                }
-            };
-            
-            recognition.onerror = function(event) {
-                document.getElementById('status').innerText = "Error: Voice recognition failed. Try again.";
-                console.error("Speech Recognition Error:", event.error);
-            };
+            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}&featureClass=P&maxRows=5`)
+                .then(response => response.json())
+                .then(data => {
+                    let suggestions = document.getElementById('suggestions');
+                    suggestions.innerHTML = '';
+                    data.forEach(city => {
+                        let div = document.createElement('div');
+                        div.innerText = city.display_name;
+                        div.onclick = function() {
+                            document.getElementById('drop').value = city.display_name;
+                            suggestions.style.display = 'none';
+                        };
+                        suggestions.appendChild(div);
+                    });
+                    suggestions.style.display = 'block';
+                })
+                .catch(error => console.error("City API Error:", error));
         }
     </script>
 </body>
