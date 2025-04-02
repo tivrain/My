@@ -50,13 +50,18 @@
 <body>
     <div class="container">
         <h2>Voice-Based Car Booking</h2>
-        <input type="date" id="date" placeholder="Select Date">
+        <input type="date" id="date" min="" placeholder="Select Date">
         <input type="time" id="time" placeholder="Select Time">
         <button onclick="requestLocationAccess()">Start Booking</button>
         <p id="status">Waiting for input...</p>
     </div>
     <script>
-        let currentLocation = "";
+        document.addEventListener("DOMContentLoaded", function() {
+            let today = new Date().toISOString().split("T")[0];
+            document.getElementById("date").setAttribute("min", today);
+        });
+
+        let currentCity = "";
         const cities = ["Delhi", "Mumbai", "Bangalore", "Chennai", "Kolkata", "Hyderabad", "Pune", "Jaipur"];
 
         function requestLocationAccess() {
@@ -69,24 +74,24 @@
             }
             
             alert("Please turn on your location");
-            getCurrentLocation();
+            getCurrentCity();
         }
 
-        function getCurrentLocation() {
+        function getCurrentCity() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(position => {
                     let lat = position.coords.latitude;
                     let lon = position.coords.longitude;
                     
-                    fetch(`https://nominatim.org/reverse?format=json&lat=${lat}&lon=${lon}`)
+                    fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
                         .then(response => response.json())
                         .then(data => {
                             if (data.address) {
-                                currentLocation = `${data.address.road || 'Unknown Road'}, ${data.address.city || data.address.town || 'Unknown City'}`;
-                                document.getElementById('status').innerText = `Current Location: ${currentLocation}`;
+                                currentCity = data.address.city || data.address.town || data.address.state || "Unknown City";
+                                document.getElementById('status').innerText = `Current City: ${currentCity}`;
                                 startVoiceRecognition();
                             } else {
-                                document.getElementById('status').innerText = "Error: Unable to retrieve address.";
+                                document.getElementById('status').innerText = "Error: Unable to retrieve city name.";
                             }
                         })
                         .catch(error => {
@@ -103,7 +108,7 @@
         }
 
         function startVoiceRecognition() {
-            if (!currentLocation) {
+            if (!currentCity) {
                 alert("Please allow location access first.");
                 return;
             }
@@ -117,7 +122,7 @@
                 document.getElementById('status').innerText = `Destination: ${destination}`;
                 
                 if (cities.some(city => city.toLowerCase() === destination.toLowerCase())) {
-                    sessionStorage.setItem("pickup-location", currentLocation);
+                    sessionStorage.setItem("pickup-location", currentCity);
                     sessionStorage.setItem("drop-location", destination);
                     sessionStorage.setItem("pickup-date", document.getElementById('date').value);
                     sessionStorage.setItem("pickup-time", document.getElementById('time').value);
