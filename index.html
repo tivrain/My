@@ -4,73 +4,169 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Car Rental Booking</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
-            background-color: #f4f4f4;
+            font-family: 'Poppins', sans-serif;
+            background: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 30px;
+            border-radius: 15px;
+            width: 100%;
             max-width: 400px;
-            margin: auto;
+            box-shadow: 0 0 30px rgba(0, 221, 235, 0.3);
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #00ddeb, #ff007a, #00ddeb, #ff007a);
+            z-index: -1;
+            filter: blur(8px);
+            opacity: 0.7;
+            animation: sparkle 4s linear infinite;
+        }
+        @keyframes sparkle {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        h2 {
+            color: #ffffff;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .form-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        input {
+            width: 100%;
+            padding: 10px 35px 10px 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            font-size: 14px;
+            color: #ffffff;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+        input:focus {
+            outline: none;
+            border-color: #00ddeb;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 8px rgba(0, 221, 235, 0.5);
+        }
+        input[readonly] {
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .form-group i {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #00ddeb;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        input:focus + i {
+            color: #ff007a;
         }
         button {
-            padding: 12px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            margin: 10px;
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(45deg, #00ddeb, #ff007a);
+            color: #fff;
             border: none;
-            border-radius: 5px;
-            background: #007bff;
-            color: white;
-            transition: 0.3s;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
         button:hover {
-            background: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 221, 235, 0.5);
+        }
+        button:active {
+            transform: translateY(0);
+            box-shadow: none;
         }
         #status {
             margin-top: 15px;
-            font-weight: bold;
-            color: #333;
-        }
-        input {
-            padding: 10px;
-            margin: 10px;
-            width: 90%;
-            border: 1px solid #ccc;
+            font-size: 13px;
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px;
             border-radius: 5px;
         }
         .suggestions {
-            background: white;
-            border: 1px solid #ccc;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            background: #2c2c2c;
+            border: 1px solid #555;
+            border-radius: 6px;
             max-height: 150px;
             overflow-y: auto;
             position: absolute;
-            width: 85%;
+            width: 100%;
+            z-index: 10;
             display: none;
         }
-        .suggestions div {
-            padding: 10px;
+        .suggestions li {
+            padding: 8px 12px;
+            color: #00ddeb;
             cursor: pointer;
+            transition: background 0.3s ease, color 0.3s ease;
         }
-        .suggestions div:hover {
-            background: #f0f0f0;
+        .suggestions li:hover {
+            background: rgba(0, 221, 235, 0.3);
+            color: #ff007a;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h2>Car Rental Booking</h2>
-        <input type="date" id="date" min="" placeholder="Select Date">
-        <input type="time" id="time" placeholder="Select Time">
-        <input type="text" id="pickup-location" placeholder="Fetching current city..." readonly>
-        <input type="text" id="drop-location" placeholder="Enter Drop Location">
-        <div id="drop-suggestions" class="suggestions"></div>
+        <div class="form-group">
+            <input type="date" id="date" min="">
+            <i class="fas fa-calendar-alt"></i>
+        </div>
+        <div class="form-group">
+            <input type="time" id="time">
+            <i class="fas fa-clock"></i>
+        </div>
+        <div class="form-group">
+            <input type="text" id="pickup-location" placeholder="Fetching current city..." readonly>
+            <i class="fas fa-map-marker-alt"></i>
+        </div>
+        <div class="form-group">
+            <input type="text" id="drop-location" placeholder="Enter Drop Location">
+            <i class="fas fa-map-marker-alt"></i>
+            <ul id="drop-suggestions" class="suggestions"></ul>
+        </div>
         <button onclick="startBooking()">Search</button>
         <p id="status">Waiting for input...</p>
     </div>
@@ -141,13 +237,13 @@
                     suggestions.innerHTML = "";
                     data.forEach(place => {
                         let city = place.display_name.split(",")[0];
-                        let div = document.createElement("div");
-                        div.textContent = city;
-                        div.onclick = () => {
+                        let li = document.createElement("li");
+                        li.textContent = city;
+                        li.onclick = () => {
                             document.getElementById("drop-location").value = city;
                             suggestions.style.display = "none";
                         };
-                        suggestions.appendChild(div);
+                        suggestions.appendChild(li);
                     });
                     suggestions.style.display = "block";
                 });
