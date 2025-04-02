@@ -38,18 +38,40 @@
             font-weight: bold;
             color: #333;
         }
+        input {
+            padding: 10px;
+            margin: 10px;
+            width: 90%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h2>Voice-Based Car Booking</h2>
-        <button onclick="getCurrentLocation()">Get Current Location</button>
-        <button onclick="startVoiceRecognition()">Speak Destination City</button>
+        <input type="date" id="date" placeholder="Select Date">
+        <input type="time" id="time" placeholder="Select Time">
+        <button onclick="requestLocationAccess()">Start Booking</button>
         <p id="status">Waiting for input...</p>
     </div>
     <script>
         let currentLocation = "";
-        const cities = ["ajmer", "Los Angeles", "Chicago", "Houston", "Miami", "San Francisco", "Las Vegas", "Dallas"];
+        const cities = ["Ajmer", "Los Angeles", "Chicago", "Houston", "Miami", "San Francisco", "Las Vegas", "Dallas"];
+        const MAPMYINDIA_API_KEY = "YOUR_API_KEY_HERE"; // Replace with your MapmyIndia API Key
+
+        function requestLocationAccess() {
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            
+            if (!date || !time) {
+                alert("Please select date and time before proceeding.");
+                return;
+            }
+            
+            alert("Please turn on your location");
+            getCurrentLocation();
+        }
 
         function getCurrentLocation() {
             if (navigator.geolocation) {
@@ -57,15 +79,13 @@
                     let lat = position.coords.latitude;
                     let lon = position.coords.longitude;
                     
-                    // Use OpenStreetMap API to get only street and city name
-                    fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
+                    fetch(`https://apis.mapmyindia.com/advancedmaps/v1/${MAPMYINDIA_API_KEY}/rev_geocode?lat=${lat}&lng=${lon}`)
                         .then(response => response.json())
                         .then(data => {
-                            if (data.address) {
-                                let street = data.address.road || "Unknown Street";
-                                let city = data.address.city || data.address.town || data.address.village || "Unknown City";
-                                currentLocation = `${street}, ${city}`;
+                            if (data.results && data.results[0]) {
+                                currentLocation = `${data.results[0].street}, ${data.results[0].city}`;
                                 document.getElementById('status').innerText = `Current Location: ${currentLocation}`;
+                                startVoiceRecognition();
                             } else {
                                 document.getElementById('status').innerText = "Error: Unable to retrieve address.";
                             }
@@ -100,6 +120,8 @@
                 if (cities.some(city => city.toLowerCase() === destination.toLowerCase())) {
                     sessionStorage.setItem("pickup-location", currentLocation);
                     sessionStorage.setItem("drop-location", destination);
+                    sessionStorage.setItem("pickup-date", document.getElementById('date').value);
+                    sessionStorage.setItem("pickup-time", document.getElementById('time').value);
                     window.location.href = "book.html";
                 } else {
                     alert("Destination not recognized. Please say a valid city name from the list.");
