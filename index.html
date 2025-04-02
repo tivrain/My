@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Car Booking</title>
+    <title>Car Rental Booking</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,7 +19,26 @@
             max-width: 400px;
             margin: auto;
         }
-        button, input {
+        button {
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #007bff;
+            color: white;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        #status {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #333;
+        }
+        input {
             padding: 10px;
             margin: 10px;
             width: 90%;
@@ -27,17 +46,16 @@
             border-radius: 5px;
         }
         .suggestions {
-            background: #fff;
+            background: white;
             border: 1px solid #ccc;
             max-height: 150px;
             overflow-y: auto;
             position: absolute;
-            width: calc(90% - 22px);
+            width: 85%;
             display: none;
-            text-align: left;
         }
         .suggestions div {
-            padding: 8px;
+            padding: 10px;
             cursor: pointer;
         }
         .suggestions div:hover {
@@ -47,59 +65,93 @@
 </head>
 <body>
     <div class="container">
-        <h2>Car Booking</h2>
-        <input type="date" id="date" placeholder="Select Date">
+        <h2>Car Rental Booking</h2>
+        <input type="date" id="date" min="" placeholder="Select Date">
         <input type="time" id="time" placeholder="Select Time">
-        <input type="text" id="pickup" placeholder="Pickup Location" onclick="getCurrentCity()">
-        <input type="text" id="drop" placeholder="Drop Location" oninput="fetchCitySuggestions(this.value)">
-        <div id="suggestions" class="suggestions"></div>
+        <input type="text" id="pickup-location" placeholder="Fetching current city..." readonly>
+        <input type="text" id="drop-location" placeholder="Enter Drop Location">
+        <div id="drop-suggestions" class="suggestions"></div>
+        <button onclick="startBooking()">Search</button>
+        <p id="status">Waiting for input...</p>
     </div>
     <script>
-        document.getElementById('date').min = new Date().toISOString().split('T')[0];
+        document.getElementById("date").min = new Date().toISOString().split("T")[0];
+        
+        function startBooking() {
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            const pickup = document.getElementById('pickup-location').value;
+            const drop = document.getElementById('drop-location').value;
+            
+            if (!date || !time || !pickup || !drop) {
+                alert("Please fill all fields before proceeding.");
+                return;
+            }
+            
+            sessionStorage.setItem("pickup-location", pickup);
+            sessionStorage.setItem("drop-location", drop);
+            sessionStorage.setItem("pickup-date", date);
+            sessionStorage.setItem("pickup-time", time);
+            window.location.href = "book.html";
+        }
         
         function getCurrentCity() {
-            alert("Please turn on your location");
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(position => {
                     let lat = position.coords.latitude;
                     let lon = position.coords.longitude;
                     
-                    fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
+                    fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&accept-language=en`)
                         .then(response => response.json())
                         .then(data => {
                             if (data.address) {
-                                document.getElementById('pickup').value = data.address.city || data.address.town || "Unknown City";
+                                let city = data.address.city || data.address.town || "Unknown City";
+                                document.getElementById('pickup-location').value = city;
+                            } else {
+                                document.getElementById('status').innerText = "Error: Unable to retrieve city name.";
                             }
                         })
-                        .catch(error => console.error("Location API Error:", error));
-                }, error => console.error("Geolocation error:", error));
+                        .catch(error => {
+                            document.getElementById('status').innerText = "Error: Unable to retrieve location details.";
+                        });
+                }, () => {
+                    document.getElementById('status').innerText = "Error: Please enable GPS.";
+                });
+            } else {
+                document.getElementById('status').innerText = "Error: Geolocation not supported.";
             }
         }
         
-        function fetchCitySuggestions(query) {
+        document.getElementById("pickup-location").addEventListener("click", () => {
+            alert("Please turn on your location");
+            getCurrentCity();
+        });
+        
+        document.getElementById("drop-location").addEventListener("input", function() {
+            let query = this.value;
             if (query.length < 2) {
-                document.getElementById('suggestions').style.display = 'none';
+                document.getElementById("drop-suggestions").style.display = "none";
                 return;
             }
             
-            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}&featureClass=P&maxRows=5`)
+            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}, India&accept-language=en`)
                 .then(response => response.json())
                 .then(data => {
-                    let suggestions = document.getElementById('suggestions');
-                    suggestions.innerHTML = '';
-                    data.forEach(city => {
-                        let div = document.createElement('div');
-                        div.innerText = city.display_name;
-                        div.onclick = function() {
-                            document.getElementById('drop').value = city.display_name;
-                            suggestions.style.display = 'none';
+                    let suggestions = document.getElementById("drop-suggestions");
+                    suggestions.innerHTML = "";
+                    data.forEach(place => {
+                        let city = place.display_name.split(",")[0];
+                        let div = document.createElement("div");
+                        div.textContent = city;
+                        div.onclick = () => {
+                            document.getElementById("drop-location").value = city;
+                            suggestions.style.display = "none";
                         };
                         suggestions.appendChild(div);
                     });
-                    suggestions.style.display = 'block';
-                })
-                .catch(error => console.error("City API Error:", error));
-        }
+                    suggestions.style.display = "block";
+                });
+        });
     </script>
 </body>
 </html>
