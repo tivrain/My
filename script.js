@@ -131,8 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleAnimation('paused');
     }
 });
-// Set initial active link on page load
-window.addEventListener('load', updateActiveLink);
+
 
         // Function to initialize autocomplete for an input field
         function addStarEffect() {
