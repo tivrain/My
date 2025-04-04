@@ -1,61 +1,150 @@
-/* Navbar Styles (Unique gradient background and hover effect) */
+/* Navbar Styles */
 .navbar {
     background: linear-gradient(90deg, #ffeb3b 0%, #ffc107 50%, #ffca28 100%);
+    padding: 15px 30px; /* Increased padding for a more spacious feel */
+    display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    align-items: center;
     position: fixed;
     width: 100%;
-    transition: all 0.3s ease;
-    background-size: 100% 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); /* Enhanced shadow for depth */
+    transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .navbar:hover {
     background: linear-gradient(90deg, #ffb300 0%, #ffca28 50%, #ffeb3b 100%);
+    transform: translateY(-2px); /* Slight lift on hover */
 }
 
-/* Navigation Links (Unique properties only) */
+/* Navigation Links - Horizontal Design */
 .nav-links {
-    flex-wrap: wrap;
+    list-style: none;
+    display: flex; /* Ensures horizontal layout */
+    flex-wrap: nowrap; /* Prevents wrapping to keep it horizontal */
+    gap: 25px; /* Increased gap for better spacing */
     margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.nav-links li {
+    position: relative; /* For hover effects */
 }
 
 .nav-links li a {
-    font-family: 'Open Sans', 'Helvetica', sans-serif;
+    font-family: 'Montserrat', 'Helvetica', sans-serif; /* Modern font */
+    text-decoration: none;
     color: #1a1a1a;
-    font-size: 14px;
-    border-radius: 5px;
+    font-weight: 700; /* Bolder text */
+    font-size: 16px; /* Slightly larger for readability */
+    padding: 10px 20px; /* More padding for clickable area */
+    border-radius: 25px; /* Rounded edges */
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.1); /* Subtle background */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow */
+    position: relative;
+    overflow: hidden; /* For ripple effect */
 }
 
 .nav-links li a:hover {
     color: #fff;
-    background-color: #ff9800;
+    background: linear-gradient(135deg, #ff9800, #ff5722); /* Vibrant gradient */
+    box-shadow: 0 5px 15px rgba(255, 152, 0, 0.4); /* Stronger shadow */
+    transform: translateY(-2px); /* Lift effect */
 }
 
-/* Hamburger Menu (Unique properties only) */
+/* Ripple Effect on Hover */
+.nav-links li a::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.5s ease, height 0.5s ease;
+    z-index: 0;
+}
+
+.nav-links li a:hover::after {
+    width: 200px;
+    height: 200px;
+}
+
+/* Hamburger Menu (Hidden by default for horizontal design) */
 .menu-toggle {
     font-size: 24px;
     color: #1a1a1a;
     padding: 5px;
+    display: none; /* Hidden unless needed for mobile */
+}
+
+/* Event Button Specific Styles */
+.nav-links li a.event-link {
+    background: linear-gradient(135deg, #8e44ad, #9b59b6); /* Unique gradient */
+    color: #fff;
+    animation: popOut 1.2s infinite ease-in-out;
+    box-shadow: 0 3px 10px rgba(142, 68, 173, 0.5);
+}
+
+.nav-links li a.event-link:hover {
+    background: linear-gradient(135deg, #732d91, #8e44ad);
+    color: #fff;
+    box-shadow: 0 6px 20px rgba(142, 68, 173, 0.7);
+}
+
+@keyframes popOut {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+        transform: scale(1.1) translateY(-3px); /* Smaller scale for elegance */
+        box-shadow: 0 8px 16px rgba(142, 68, 173, 0.5);
+    }
 }
 
 /* Responsive Design for Navbar */
 @media (max-width: 768px) {
+    .navbar {
+        padding: 10px 15px;
+    }
+
+    .menu-toggle {
+        display: block; /* Show hamburger on smaller screens */
+    }
+
     .nav-links {
+        display: none; /* Hide by default */
+        flex-direction: column; /* Stack vertically when active */
         width: 100%;
         background: linear-gradient(90deg, #ffeb3b 0%, #ffc107 50%, #ffca28 100%);
-        padding: 10px 0;
+        padding: 20px 0;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        position: absolute;
+        top: 100%;
+        left: 0;
+    }
+
+    .nav-links.active {
+        display: flex; /* Show when toggled */
     }
 
     .nav-links li {
         width: 100%;
         text-align: center;
-        margin: 5px 0;
+        margin: 10px 0;
     }
 
     .nav-links li a {
-        display: block;
-        padding: 10px;
+        font-size: 18px; /* Larger for mobile */
+        padding: 15px;
+        border-radius: 10px; /* Less rounded for mobile */
     }
 }
 
@@ -67,34 +156,14 @@
     .menu-toggle {
         font-size: 20px;
     }
-}
 
-/* Event Button Specific Styles */
-.nav-links li a.event-link {
-    background-color: #8e44ad;
-    color: #fff;
-    position: relative;
-    z-index: 1;
-    animation: popOut 1.2s infinite ease-in-out;
-}
-
-.nav-links li a.event-link:hover {
-    background-color: #732d91;
-    color: #fff;
-}
-
-@keyframes popOut {
-    0%, 100% {
-        transform: scale(1);
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    }
-    50% {
-        transform: scale(1.2) translateY(-3px);
-        box-shadow: 0 8px 16px rgba(142, 68, 173, 0.5);
+    .nav-links li a {
+        font-size: 16px;
+        padding: 12px;
     }
 }
 
-/* Hero Section Styles */
+/* Rest of your original styles remain unchanged below */
 .hero-overlay {
     position: absolute;
     top: 0;
@@ -161,7 +230,6 @@
     100% { opacity: 1; transform: translateY(0); }
 }
 
-/* Explore Button (Unique properties only) */
 .explore-btn {
     font-family: 'Montserrat', 'Arial', sans-serif;
     font-size: 0.875rem;
@@ -177,7 +245,6 @@
     box-shadow: 0 0.125rem 0.5rem rgba(255, 202, 40, 0.3);
 }
 
-/* Media Queries for Hero */
 @media (max-width: 768px) {
     .hero h1 {
         font-size: 3rem;
