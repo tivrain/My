@@ -12,66 +12,7 @@
 </head>
 <body>
     
-                console.log("Autoplay blocked, waiting for user interaction...");
-
-                // Play on first user click
-                document.addEventListener("click", function playMusic() {
-                    audio.play();
-                    setTimeout(() => {
-                        audio.pause();
-                    }, 20000); // Stop music after 20 seconds
-
-                    // Remove event listener after first play
-                    document.removeEventListener("click", playMusic);
-                });
-            });
-
-            // Stop music after 20 seconds if autoplay works
-            setTimeout(() => {
-                audio.pause();
-            }, 20000);
-        });
-
-        /*atiuttam.com ad*/
-        // Sliding Ad Text
-       const adMessages = [
-            "✈️ Book Flights & Holidays at the Best Price! 🌍",
-            "🚆 Fast & Easy Train Ticket Booking! 🎟️",
-            "🚗 Luxury Car Rentals Available Now! 🏎️",
-            "🏝️ Exclusive Holiday Packages Just for You! 🏖️"
-        ];
-
-        let adIndex = 0;
-        function updateAdText() {
-            const adText = document.getElementById("adText");
-            adText.style.animation = "none"; // Reset animation
-            setTimeout(() => {
-                adText.innerHTML = adMessages[adIndex];
-                adText.style.animation = "fade 1s ease-in-out";
-                adIndex = (adIndex + 1) % adMessages.length;
-            }, 100); // Small delay for smooth transition
-        }
-
-        // Change text every 4 seconds
-        setInterval(updateAdText, 4000);
-
-        // Create Spark Effect
-        function createSpark() {
-            const spark = document.createElement("div");
-            spark.classList.add("spark");
-            
-            const banner = document.getElementById("adBanner");
-            banner.appendChild(spark);
-            
-            spark.style.left = Math.random() * banner.clientWidth + "px";
-            spark.style.top = Math.random() * banner.clientHeight + "px";
-
-            setTimeout(() => {
-                spark.remove();
-            }, 1000);
-        }
-
-        setInterval(createSpark, 200);
+                
     
     
     <nav class="navbar">
