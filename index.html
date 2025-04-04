@@ -4,54 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Atiuttam Travels | Premium Car Rental</title>
-    <link rel="icon" type="image/x-icon" href="img/atiubest.png">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Open+Sans:wght@400;500;600&display=swap">
+    <link rel="icon" type="image/x-icon" href="img\atiubest.png">
+    <!-- Google Fonts Link (Note: You had it commented out, but I left it as is) -->
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@600&family=Open+Sans:wght@400&display=swap"> -->
+    <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <script>
         /*bg music*/
         document.addEventListener("DOMContentLoaded", function () {
             const audio = document.getElementById("intro-music");
-            audio.volume = 0.5;
+            audio.volume = 0.5; // Adjust volume (0.0 to 1.0)
+
+            // Try autoplay
             audio.play().catch(error => {
                 console.log("Autoplay blocked, waiting for user interaction...");
+
+                // Play on first user click
                 document.addEventListener("click", function playMusic() {
                     audio.play();
-                    setTimeout(() => audio.pause(), 20000);
+                    setTimeout(() => {
+                        audio.pause();
+                    }, 20000); // Stop music after 20 seconds
+
+                    // Remove event listener after first play
                     document.removeEventListener("click", playMusic);
                 });
             });
-            setTimeout(() => audio.pause(), 20000);
+
+            // Stop music after 20 seconds if autoplay works
+            setTimeout(() => {
+                audio.pause();
+            }, 20000);
         });
 
         /*atiuttam.com ad*/
+        // Sliding Ad Text
         const adMessages = [
             "✈️ Book Flights & Holidays at the Best Price! 🌍",
             "🚆 Fast & Easy Train Ticket Booking! 🎟️",
             "🚗 Luxury Car Rentals Available Now! 🏎️",
             "🏝️ Exclusive Holiday Packages Just for You! 🏖️"
         ];
+
         let adIndex = 0;
         function updateAdText() {
             const adText = document.getElementById("adText");
-            adText.style.animation = "none";
+            adText.style.animation = "none"; // Reset animation
             setTimeout(() => {
                 adText.innerHTML = adMessages[adIndex];
                 adText.style.animation = "fade 1s ease-in-out";
                 adIndex = (adIndex + 1) % adMessages.length;
-            }, 100);
+            }, 100); // Small delay for smooth transition
         }
+
+        // Change text every 4 seconds
         setInterval(updateAdText, 4000);
 
+        // Create Spark Effect
         function createSpark() {
             const spark = document.createElement("div");
             spark.classList.add("spark");
+            
             const banner = document.getElementById("adBanner");
             banner.appendChild(spark);
+            
             spark.style.left = Math.random() * banner.clientWidth + "px";
             spark.style.top = Math.random() * banner.clientHeight + "px";
-            setTimeout(() => spark.remove(), 1000);
+
+            setTimeout(() => {
+                spark.remove();
+            }, 1000);
         }
+
         setInterval(createSpark, 200);
     </script>
     
@@ -74,6 +100,7 @@
         </ul>
     </nav>
 
+    <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-overlay"></div>
         <h1>PREMIUM CAR RENTAL</h1>
@@ -88,21 +115,44 @@
         <form class="rental-form ai-style-change-2" id="rental-form">
             <div class="form-group ai-style-change-3">
                 <label for="pickup-location">Pickup Location</label>
-                <input type="text" id="pickup-location" name="pickup-location" placeholder="Enter Pickup Location" required autocomplete="off" class="ai-style-change-14" />
+                <input
+                    type="text"
+                    id="pickup-location"
+                    name="pickup-location"
+                    placeholder="Enter Pickup Location"
+                    required=""
+                    autocomplete="off"
+                    class="ai-style-change-14"
+                />
                 <ul class="autocomplete-list" id="pickup-suggestions" style="display: none;"></ul>
             </div>
             <div class="form-group ai-style-change-4">
                 <label for="drop-location">Drop Location</label>
-                <input type="text" id="drop-location" name="drop-location" placeholder="Enter Drop Location" required autocomplete="off" class="ai-style-change-15" />
+                <input
+                    type="text"
+                    id="drop-location"
+                    name="drop-location"
+                    placeholder="Enter Drop Location"
+                    required=""
+                    autocomplete="off"
+                    class="ai-style-change-15"
+                />
                 <ul class="autocomplete-list" id="drop-suggestions" style="display: none;"></ul>
             </div>
             <div class="form-group datetime-wrapper ai-style-change-5">
                 <label for="pickup-time">Pickup Date & Time</label>
-                <input type="datetime-local" id="pickup-time" name="pickup-time" required class="ai-style-change-1" />
+                <input
+                    type="datetime-local"
+                    id="pickup-time"
+                    name="pickup-time"
+                    required=""
+                    class="ai-style-change-1"
+                />
             </div>
-            <button type="submit" class="search-btn">Search Now</button>
+            <button type="submit" class="search-btn">Search Now</button> <!-- Removed width="5" -->
         </form>
         <a href="#services" class="explore-btn">Explore Our Fleet</a>
+        <!-- Auto-Sliding Ad Banner with Sparks -->
         <div class="ad-banner" id="adBanner">
             <a href="https://atiuttam.com" target="_blank" class="ad-content" id="adText">
                 !CILCK HERE TO TRAVEL THE WORLD!
@@ -111,28 +161,141 @@
     </section>
 
     <style>
-        * {
-            box-sizing: border-box;
+        /* Hero Section atiuttam ad */
+        .hero {
+            position: center;
+            text-align: center;
+            color: white;
+            background: url('img/for1.png') center/cover no-repeat;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Dark Overlay to Improve Text Visibility */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            font-size: 42px;
             margin: 0;
-            padding: 0;
+            position: relative;
+            z-index: 1;
         }
-        body {
-            font-family: 'Open Sans', 'Helvetica', sans-serif;
-            line-height: 1.7;
-            background-color: #f4f4f4;
-            color: #333;
-            overflow-x: hidden;
+
+        .slogan {
+            font-size: 18px;
+            position: relative;
+            z-index: 1;
         }
+
+        .tagline {
+            margin-top: -20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Floating Advertisement */
+        .ad-banner {
+            position: absolute;
+            bottom: -10px;
+            right: 5px;
+            background: rgba(173, 216, 230, 0.95); /* Light Blue */
+            padding: 15px 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(173, 216, 230, 0.9);
+            animation: floatAd 5s infinite alternate ease-in-out;
+            transition: transform 0.3s, box-shadow 0.3s;
+            z-index: 2;
+            font-weight: bold;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Clickable Ad Content */
+        .ad-content {
+            font-size: 16px;
+            font-weight: bold;
+            color: black;
+            text-decoration: none;
+        }
+
+        /* Hover Effect */
+        .ad-banner:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px rgba(173, 216, 230, 1);
+        }
+
+        /* Floating Animation */
+        @keyframes floatAd {
+            0% { transform: translateY(-5px); }
+            100% { transform: translateY(5px); }
+        }
+
+        /* Sliding Text Animation */
+        @keyframes fade {
+            0% { opacity: 0; transform: translateY(10px); }
+            50% { opacity: 1; transform: translateY(0px); }
+            100% { opacity: 0; transform: translateY(-10px); }
+        }
+
+        /* Spark Animation */
+        .spark {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            animation: sparkMove 1s linear infinite;
+        }
+
+        @keyframes sparkMove {
+            0% { transform: translate(0, 0); opacity: 1; }
+            100% { transform: translate(calc(40px - 80px * random()), calc(40px - 80px * random())); opacity: 0; }
+        }
+
+        @media (max-width: 768px) {
+            /* Center the ad banner */
+            .ad-banner {
+                width: 90%;
+                max-width: 350px;
+                left: 50%;
+                bottom: -10px;
+                transform: translateX(-50%);
+                text-align: center;
+                font-size: 14px;
+                padding: 15px 20px;
+            }
+
+            /* Adjust form input fields */
+            .hero form {
+                width: 90%;
+                max-width: 400px;
+            }
+
+            .hero input,
+            .hero button {
+                width: 100%;
+                font-size: 16px;
+            }
+        } 
+
+        /* Logo */
         .navbar {
-            background-color: #004466;
-            padding: 15px 20px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 0.125rem 0.3125rem rgba(0, 0, 0, 0.1);
+            padding: 10px 20px;
+            background-color: #62b0bc;
         }
         .logo {
             display: flex;
@@ -144,95 +307,79 @@
             height: auto;
             border-radius: 5px;
         }
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+
         .logo h1 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 24px;
-            color: white;
-            margin: 0;
-            text-transform: uppercase;
-        }
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 15px;
-        }
-        .nav-links li a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 5px 10px;
-            transition: color 0.3s ease;
-        }
-        .nav-links li a:hover {
-            color: #ffc107;
-        }
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-        .menu-toggle span {
-            display: block;
-            width: 25px;
-            height: 3px;
-            background-color: #fff;
-            margin: 5px 0;
-            transition: transform 0.3s ease;
-        }
-        .hero {
-            position: relative;
-            text-align: center;
-            color: white;
-            background: url('img/for1.png') center/cover no-repeat;
-            height: 90vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-        }
-        h1 {
-            font-size: 42px;
-            margin: 0;
-            position: relative;
-            z-index: 1;
-        }
-        .slogan {
             font-size: 18px;
-            position: relative;
-            z-index: 1;
+            font-weight: 700;
+            font-family: 'Helvetica'; /* Elegant font */
+            color: #4678b6; /* Light Blue */
+            text-shadow: 
+                0 0 5px #62b0bc, 
+                0 0 10px #5aa6c4, 
+                0 0 20px #4a90a2; /* Enhanced Glow Effect */
+            animation: glowEffect 1.5s infinite alternate ease-in-out;
         }
+
+        /* Animation for a smooth glowing effect */
+        @keyframes glowEffect {
+            0% {
+                text-shadow: 
+                    0 0 5px #62b0bc, 
+                    0 0 10px #5aa6c4, 
+                    0 0 15px #4a90a2;
+            }
+            100% {
+                text-shadow: 
+                    0 0 10px #62b0bc, 
+                    0 0 20px #5aa6c4, 
+                    0 0 30px #4a90a2;
+            }
+        }
+
+        /* Optional: Animated Glowing Effect */
+        @keyframes sparkEffect {
+            0% {
+                text-shadow: 
+                    0 0 5px #62b0bc, 
+                    0 0 10px #5aa6c4, 
+                    0 0 15px #4a90a2;
+            }
+            100% {
+                text-shadow: 
+                    0 0 10px #7cc6da, 
+                    0 0 15px #5aa6c4, 
+                    0 0 20px #4a90a2;
+            }
+        }
+
+        /* Rental Form Container */
         .rental-form {
             width: 100%;
             max-width: 800px;
             margin: 20px auto;
             padding: 20px;
-            background-color: #222 !important;
+            background-color: #222;
             border: 1px solid #444;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-            display: flex !important;
+            display: flex;
             flex-wrap: wrap;
             gap: 15px;
-            align-items: flex-end !important;
-            justify-content: space-between !important;
+            align-items: flex-end; /* Align items at the bottom */
         }
+
+        /* Form Group */
         .form-group {
             flex: 1;
             min-width: 150px;
             position: relative;
         }
+
+        /* Input Styling */
         .form-group input {
             width: 100%;
-            height: 40px !important;
+            height: 40px; /* Consistent height */
             padding: 0.75rem 1rem;
             border: 1px solid #555;
             border-radius: 0.375rem;
@@ -241,12 +388,14 @@
             font-size: 0.875rem;
             box-sizing: border-box;
         }
+
+        /* Search Button */
         .search-btn {
-            height: 40px !important;
+            height: 40px; /* Match input height */
             padding: 0 1.75rem;
-            background: linear-gradient(135deg, #ffca28, #e0b000) !important;
-            color: #fff !important;
-            border: none !important;
+            background: linear-gradient(135deg, #ffca28, #e0b000);
+            color: #fff;
+            border: none;
             border-radius: 0.375rem;
             font-size: 1rem;
             font-weight: 500;
@@ -254,14 +403,16 @@
             transition: all 0.3s ease;
             box-shadow: 0 0.25rem 1.75rem rgba(255, 202, 40, 0.3);
             white-space: nowrap;
-            flex: 0 0 auto !important;
-            align-self: flex-end !important;
+            flex: 0 0 auto; /* Prevent button from stretching */
         }
+
         .search-btn:hover {
-            background: linear-gradient(135deg, #e0b000, #ffca28) !important;
+            background: linear-gradient(135deg, #e0b000, #ffca28);
             box-shadow: 0 0.375rem 1rem rgba(255, 202, 40, 0.5);
             transform: translateY(-0.125rem);
         }
+
+        /* Dark Theme Enhancements */
         .form-group label {
             color: #ddd;
             font-size: 0.75rem;
@@ -269,84 +420,201 @@
             text-transform: uppercase;
             margin-bottom: 0.375rem;
         }
+
+        .form-group input:focus {
+            border-color: #FFCA28;
+            box-shadow: 0 0 5px #FFCA28;
+            background-color: #444;
+            color: #fff;
+        }
+
+        .form-group input:hover {
+            background-color: #444;
+            border-color: #FFCA28;
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .navbar {
-                padding: 10px 15px;
-            }
-            .menu-toggle {
-                display: block;
-            }
-            .nav-links {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: #004466;
-                padding: 10px;
-            }
-            .nav-links.active {
-                display: flex;
-            }
             .rental-form {
-                flex-direction: column !important;
-                width: 90% !important;
-                max-width: 400px !important;
-                gap: 20px !important;
+                flex-direction: column;
+                width: 90%;
+                max-width: 400px;
+                margin: 20px auto;
+                gap: 20px;
             }
+
             .form-group {
-                width: 100% !important;
+                width: 100%;
             }
+
             .form-group input {
-                height: 50px !important;
+                height: 50px; /* Slightly larger for mobile */
+                font-size: 16px;
             }
+
             .search-btn {
-                width: 100% !important;
-                height: 50px !important;
+                width: 100%; /* Full width on mobile */
+                height: 50px; /* Match input height */
+                font-size: 16px;
             }
         }
-        .ad-banner {
+
+        @media (min-width: 769px) {
+            .rental-form {
+                flex-direction: row;
+                width: 584.393px; /* Maintain your preferred width */
+                margin: 20px auto;
+            }
+
+            .form-group {
+                flex: 1; /* Equal growth for inputs */
+            }
+
+            .search-btn {
+                width: auto; /* Fixed width on desktop */
+                padding: 0 1.75rem; /* Consistent padding */
+            }
+        }
+
+        /* Autocomplete List */
+        .autocomplete-list {
             position: absolute;
-            bottom: -10px;
-            right: 5px;
-            background: rgba(173, 216, 230, 0.95);
-            padding: 15px 30px;
-            border-radius: 12px;
-            box-shadow: 0 0 20px rgba(173, 216, 230, 0.9);
-            animation: floatAd 5s infinite alternate ease-in-out;
-            z-index: 2;
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 0.375rem;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-height: 200px;
+            overflow-y: auto;
+            width: calc(100% - 2rem); /* Match input width */
+            z-index: 10;
+            box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
         }
-        .ad-content {
-            font-size: 16px;
-            font-weight: bold;
-            color: black;
-            text-decoration: none;
+        .autocomplete-list li {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.875rem;
+            color: #333;
         }
-        @keyframes floatAd {
-            0% { transform: translateY(-5px); }
-            100% { transform: translateY(5px); }
+        .autocomplete-list li:hover {
+            background-color: #ffca28;
+            color: #fff;
         }
-        @keyframes fade {
-            0% { opacity: 0; transform: translateY(10px); }
-            50% { opacity: 1; transform: translateY(0px); }
-            100% { opacity: 0; transform: translateY(-10px); }
+
+        /* Event Page Styles */
+        a.event-link {
+            display: inline;
+            position: relative;
+            overflow: visible;
+            padding: 5px 10px;
+            border: 0px none rgb(255, 255, 255);
+            border-radius: 5px;
+            background-color: rgb(142, 68, 173);
+            color: rgb(255, 255, 255);
+            box-shadow: rgba(49, 24, 60, 0.25) 0px 3.04323px 6.08646px 0px;
+            --borderRadius: 5px;
+            font-size: 1em;
+            animation: pulse 2s linear infinite;
         }
-        .spark {
+
+        @keyframes sparkle {
+            0% { transform: rotate(0deg); opacity: 0.5;}
+            50% { opacity: 1; }
+            100% { transform: rotate(360deg); opacity: 0.5;}
+        }
+
+        a.event-link::before {
+            content: "";
             position: absolute;
-            width: 5px;
-            height: 5px;
-            background: white;
+            top: -1em;
+            left: -1em;
+            width: calc(100% + 2em);
+            height: calc(100% + 2em);
+            border-radius: calc(var(--borderRadius, 5px) + 1em);
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 60%);
+            pointer-events: none;
+            animation: sparkle 2s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes flame {
+            0% { box-shadow: 0 0 10px 5px rgba(255, 100, 0, 0.8), 0 0 20px 10px rgba(255, 150, 0, 0.6), 0 0 30px 15px rgba(255, 200, 0, 0.4); }
+            25% { box-shadow: 0 -2px 10px 5px rgba(255, 100, 0, 0.8), 0 -2px 20px 10px rgba(255, 150, 0, 0.6), 0 -2px 30px 15px rgba(255, 200, 0, 0.4); }
+            50% { box-shadow: 0 2px 10px 5px rgba(255, 100, 0, 0.8), 0 2px 20px 10px rgba(255, 150, 0, 0.6), 0 2px 30px 15px rgba(255, 200, 0, 0.4); }
+            75% { box-shadow: 0 -1px 10px 5px rgba(255, 100, 0, 0.8), 0 -1px 20px 10px rgba(255, 150, 0, 0.6), 0 -1px 30px 15px rgba(255, 200, 0, 0.4); }
+            100% { box-shadow: 0 0 10px 5px rgba(255, 100, 0, 0.8), 0 0 20px 10px rgba(255, 150, 0, 0.6), 0 0 30px 15px rgba(255, 200, 0, 0.4); }
+        }
+        
+        a.event-link::after {
+            content: '';
+            position: absolute;
+            top: calc(100% + 0.2em);
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0.8em;
+            height: 0.8em;
             border-radius: 50%;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-            animation: sparkMove 1s linear infinite;
+            animation: flame 1s linear infinite;
+            z-index: -1;
         }
-        @keyframes sparkMove {
-            0% { transform: translate(0, 0); opacity: 1; }
-            100% { transform: translate(calc(40px - 80px * random()), calc(40px - 80px * random())); opacity: 0; }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .star-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            overflow: visible;
+        }
+
+        .star-particle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0.5em;
+            height: 0.5em;
+            opacity: 1;
+            animation: star-twinkle 1000ms linear forwards;
+        }
+        .star-particle::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        }
+        @keyframes star-twinkle {
+            0% {
+                opacity: 0;
+                transform: translate(var(--x), var(--y)) rotate(0deg) scale(0);
+            }
+            50%{
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--x), var(--y)) rotate(360deg) scale(1);
+            }
+        } 
+
+        form#rental-form {
+            box-shadow: rgb(0, 204, 255) 0px 0px 10px 5px, rgb(141, 191, 209) 0px 0px 20px 10px, rgb(180, 249, 255) 0px 0px 30px 15px;
         }
     </style>
 
+    <!-- About Section -->
     <section class="about" id="about">
         <div class="about-overlay"></div>
         <div class="about-content">
@@ -357,94 +625,255 @@
             <div class="about-text">
                 <h2>About Atiuttam Car Travels</h2>
                 <div class="heading-divider"></div>
-                <p>Discover <span class="highlight">unparalleled luxury</span> with Atiuttam Car Travels...</p>
+                <p>
+                    Discover <span class="highlight">unparalleled luxury</span> with Atiuttam Car Travels. Our handpicked fleet of modern and classic cars offers a seamless blend of style, comfort, and performance, tailored to elevate every journey. With expert maintenance and bespoke rental options, we ensure your drive is as exceptional as your destination. From city escapes to scenic adventures, we cater to every traveler’s dream. Our passion for excellence drives us to exceed your expectations. Ready for the ultimate travel experience? Book your ride today!
+                </p>
                 <a href="#services" class="see-more-btn">Explore Our Cars</a>
             </div>
         </div>
     </section>
 
+    <!-- Pick Your Rental Car Section -->
     <section class="pick-rental" id="services">
         <h2>Pick Your Rental Car</h2>
         <div class="carousel-container">
             <div class="carousel-track">
-                <div class="carousel-item"><img src="img/etii.png" alt="Etios"><div class="car-info"><h3>Etios</h3></div></div>
-                <div class="carousel-item"><img src="img/dzire.jpg" alt="Dzire vxi"><div class="car-info"><h3>Dzire vxi</h3></div></div>
-                <div class="carousel-item"><img src="img/uinn.png" alt="Innova crysta"><div class="car-info"><h3>Innova crysta</h3></div></div>
-                <div class="carousel-item"><img src="img/kiaa.png" alt="Kia Carens"><div class="car-info"><h3>Kia Carens</h3></div></div>
-                <div class="carousel-item"><img src="img/rum.png" alt="Toyta Rumion"><div class="car-info"><h3>Toyta Rumion</h3></div></div>
-                <div class="carousel-item"><img src="img/for1.png" alt="Fortuner"><div class="car-info"><h3>Fortuner</h3></div></div>
-                <div class="carousel-item"><img src="img/ERT.png" alt="Maruti Ertiga"><div class="car-info"><h3>Maruti Ertiga</h3></div></div>
-                <div class="carousel-item"><img src="img/furb.png" alt="Force Urbania"><div class="car-info"><h3>Force Urbania</h3></div></div>
-                <div class="carousel-item"><img src="img/ftr.png" alt="Force Traveller"><div class="car-info"><h3>Force Traveller</h3></div></div>
-                <div class="carousel-item"><img src="img/bus.png" alt="Bus"><div class="car-info"><h3>Bus</h3></div></div>
+                <div class="carousel-item">
+                    <img src="img/etii.png" alt="Mercedes S-Class" loading="lazy">
+                    <div class="car-info">
+                        <h3>Etios</h3>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="img/dzire.jpg" alt="BMW 7 Series" loading="lazy">
+                    <div class="car-info">
+                        <h3>Dzire vxi</h3>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="img/uinn.png" alt="Audi A8" loading="lazy">
+                    <div class="car-info">
+                        <h3>Innova crysta</h3>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="img/kiaa.png" alt="Porsche Panamera" loading="lazy">
+                    <div class="car-info">
+                        <h3>Kia Carens</h3>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="img/rum.png" alt="Tesla Model S" loading="lazy">
+                    <div class="car-info">
+                        <h3>Toyta Rumion</h3>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="img/for1.png" alt="Lexus LS" loading="lazy">
+                    <div class="car-info">
+                        <h3>Fortuner</h3>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="img/ERT.png" alt="Jaguar XJ" loading="lazy">
+                    <div class="car-info">
+                        <h3>Maruti Ertiga</h3>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="img/furb.png" alt="Rolls-Royce Ghost" loading="lazy">
+                    <div class="car-info">
+                        <h3>Force Urbania</h3>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="img/ftr.png" alt="Bentley Continental" loading="lazy">
+                    <div class="car-info">
+                        <h3>Force Traveller</h3>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="img/bus.png" alt="Maserati Quattroporte" loading="lazy">
+                    <div class="car-info">
+                        <h3>Bus</h3>
+                    </div>
+                </div>
             </div>
             <div class="carousel-dots" aria-label="Carousel navigation">
-                <span class="carousel-dot" data-index="0"></span><span class="carousel-dot" data-index="1"></span><span class="carousel-dot" data-index="2"></span><span class="carousel-dot" data-index="3"></span><span class="carousel-dot" data-index="4"></span><span class="carousel-dot" data-index="5"></span><span class="carousel-dot" data-index="6"></span><span class="carousel-dot" data-index="7"></span><span class="carousel-dot" data-index="8"></span><span class="carousel-dot" data-index="9"></span>
+                <span class="carousel-dot" data-index="0"></span>
+                <span class="carousel-dot" data-index="1"></span>
+                <span class="carousel-dot" data-index="2"></span>
+                <span class="carousel-dot" data-index="3"></span>
+                <span class="carousel-dot" data-index="4"></span>
+                <span class="carousel-dot" data-index="5"></span>
+                <span class="carousel-dot" data-index="6"></span>
+                <span class="carousel-dot" data-index="7"></span>
+                <span class="carousel-dot" data-index="8"></span>
+                <span class="carousel-dot" data-index="9"></span>
             </div>
         </div>
     </section>
 
+    <!-- Contact Section -->
     <section class="contact" id="contact" aria-labelledby="contact-heading">
         <h2 id="contact-heading">Contact Us</h2>
         <div class="contact-content">
             <form class="contact-form" id="contact-form" novalidate>
                 <div class="form-group">
                     <label for="name">Your Name</label>
-                    <input type="text" id="name" name="name" placeholder="Your Name" required>
-                    <span class="error-message" id="name-error"></span>
+                    <input type="text" id="name" name="name" placeholder="Your Name" required aria-required="true" autocomplete="name">
+                    <span class="error-message" id="name-error" aria-live="polite"></span>
                 </div>
                 <div class="form-group">
                     <label for="email">Your Email</label>
-                    <input type="email" id="email" name="email" placeholder="Your Email" required>
-                    <span class="error-message" id="email-error"></span>
+                    <input type="email" id="email" name="email" placeholder="Your Email" required aria-required="true" autocomplete="email">
+                    <span class="error-message" id="email-error" aria-live="polite"></span>
                 </div>
                 <div class="form-group">
                     <label for="message">Your Message</label>
-                    <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
-                    <span class="error-message" id="message-error"></span>
+                    <textarea id="message" name="message" placeholder="Your Message" rows="5" required aria-required="true"></textarea>
+                    <span class="error-message" id="message-error" aria-live="polite"></span>
                 </div>
-                <button type="submit" class="submit-btn">Send Message</button>
+                <button type="submit" class="submit-btn" aria-label="Send Message">Send Message</button>
             </form>
             <div class="contact-info">
-                <p>Email (Business): <a href="mailto:hari@atiuttamtravels.com">hari@atiuttamtravels.com</a></p>
-                <p>Gmail: <a href="mailto:atiuttamtravels@gmail.com">atiuttamtravels@gmail.com</a></p>
-                <p>Phone: <a href="tel:+917014434465">+91 70144 34465</a></p>
+                <p>Email (Business): <a href="mailto:hari@atiuttamtravels.com" aria-label="Email hari at atiuttamtravels.com">hari@atiuttamtravels.com</a></p>
+                <p>Gmail: <a href="mailto:atiuttamtravels@gmail.com" aria-label="Email info at atiuttamtravels.com">atiuttamtravels@gmail.com</a></p>
+                <p>Phone: <a href="tel:+917014434465" aria-label="Call at +91 70144 34465">+91 70144 34465</a></p>
                 <h3>Office Address:</h3>
                 <p>Green Heaven Resort, Jamni Kund Road, Pushkarni, Pushkar, Rajasthan, India 305022</p>
                 <div class="map-container">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3566.413897220392!2d74.56558627538453!3d26.479847176908747!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa4d0fbd8c597b87d%3A0xbdb3850cea12ddbe!2sGreen%20Heaven%20Resort!5e0!3m2!1sen!2sin!4v1742052690754!5m2!1sen!2sin" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map of Green Heaven Resort"></iframe>
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3566.413897220392!2d74.56558627538453!3d26.479847176908747!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa4d0fbd8c597b87d%3A0xbdb3850cea12ddbe!2sGreen%20Heaven%20Resort!5e0!3m2!1sen!2sin!4v1742052690754!5m2!1sen!2sin" 
+                        width="100%" 
+                        height="300" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="Map of Green Heaven Resort, Pushkar, Rajasthan, India">
+                    </iframe>
                 </div>
             </div>
         </div>
     </section>
-
+    
+    <!-- WhatsApp Contact Form Script -->
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            document.getElementById("contact-form").addEventListener("submit", function (event) {
-                event.preventDefault();
-                const name = document.getElementById("name").value.trim();
-                const email = document.getElementById("email").value.trim();
-                const message = document.getElementById("message").value.trim();
-                if (name && email && message) {
-                    const whatsappMessage = `Hello, I want to contact you.\n\n*Name:* ${name}\n*Email:* ${email}\n*Message:* ${message}`;
-                    const encodedMessage = encodeURIComponent(whatsappMessage);
-                    window.open(`https://wa.me/+917014434465?text=${encodedMessage}`, "_blank");
-                } else {
-                    alert("Please fill in all fields before sending.");
-                }
-            });
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("contact-form").addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent form from submitting normally
+    
+            // Get user input values
+            const name = document.getElementById("name").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const message = document.getElementById("message").value.trim();
+    
+            // Check if all fields are filled
+            if (name === "" || email === "" || message === "") {
+                alert("Please fill in all fields before sending.");
+                return;
+            }
+    
+            // Format WhatsApp message
+            const whatsappMessage = `Hello, I want to contact you.\n\n*Name:* ${name}\n*Email:* ${email}\n*Message:* ${message}`;
+    
+            // Encode message for URL
+            const encodedMessage = encodeURIComponent(whatsappMessage);
+    
+            // Your WhatsApp number
+            const phoneNumber = "+917014434465"; // Change to your WhatsApp number
+    
+            // WhatsApp URL
+            const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    
+            // Open WhatsApp chat in a new tab
+            window.open(whatsappURL, "_blank");
         });
+    });
+    </script>
 
-        const cities = ["Abu Road", "Agra", "Ahmedabad", /* ... */ "Warangal"];
+    <!-- Footer Section -->
+    <footer class="footer" id="footer">
+        <div class="footer-content">
+            <div class="footer-section footer-branding">
+                <h4>Atiuttam Travels</h4>
+                <p class="footer-description">Embark on Unforgettable Journeys Across India with Atiuttam Travels, Your Trusted Companion in Exploration.</p>
+                <div class="footer-contact">
+                    <p><span class="footer-icon" aria-hidden="true">📧</span><a href="mailto:hari@atiuttamtravels.com" aria-label="Email us at hari@atiuttamtravels.com">hari@atiuttamtravels.com</a></p>
+                    <p><span class="footer-icon" aria-hidden="true">📧</span><a href="mailto:atiuttamtravels@gmail.com" aria-label="Email us at atiuttamtravels@gmail.com">atiuttamtravels@gmail.com</a></p>
+                    <p><span class="footer-icon" aria-hidden="true">📞</span><a href="tel:+917014434465" aria-label="Call us at +91 70144 34465">+91 70144 34465</a></p>
+                </div>
+            </div>
+            <div class="footer-section footer-links">
+                <h4>Pages</h4>
+                <ul role="navigation" aria-label="Main navigation links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section footer-social">
+                <h4>Follow Us</h4>
+                <ul role="navigation" aria-label="Social media links">
+                    <li><a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Facebook"><span class="footer-icon" aria-hidden="true">📘</span>Facebook</a></li>
+                    <li><a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Twitter"><span class="footer-icon" aria-hidden="true">🐦</span>Twitter</a></li>
+                    <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram"><span class="footer-icon" aria-hidden="true">📸</span>Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="footer-text">© 2025 Atiuttam Travels | All Rights Reserved | <a href="#privacy" aria-label="View our Privacy Policy">Privacy Policy</a> | <a href="#terms" aria-label="View our Terms and Conditions">Terms & Conditions</a></p>
+            <p class="footer-back-to-top"><a href="#top" class="back-to-top" aria-label="Back to top of page">Back to Top <span class="footer-icon" aria-hidden="true">⬆️</span></a></p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // List of Indian cities (expand this as needed)
+        const cities = [
+            "Abu Road", "Agra", "kuchaman city", "", "Ahmedabad", "Aizawl", "Ajmer", "Aligarh", "Allahabad", "Alwar", "Ambala", 
+            "Amritsar", "Asansol", "Aurangabad", "Ayodhya", "Bagru", "Bali", "Bangalore", "Banswara", 
+            "Bareilly", "Baran", "Bari", "Barmer", "Baswa", "Bassi", "Bayana", "Beawar", "Begun", 
+            "Belgaum", "Bhadra", "Bhadesar", "Bharatpur", "Bhavnagar", "Bhilwara", "Bhinder", "Bhiwandi", 
+            "Bhopal", "Bhubaneswar", "Bikaner", "Bilaspur", "Bokaro Steel City", "Bulandshahr", "Chandigarh", 
+            "Chennai", "Chhabra", "Chittorgarh", "Chomu", "Churu", "Coimbatore", "Cuttack", "Dausa", 
+            "Davanagere", "Dehradun", "Deogarh", "Delhi", "Dhanbad", "Dharampur", "Dholpur", "Didwana", 
+            "Dungarpur", "Durg", "Durgapur", "Etawah", "Faizabad", "Falna", "Faridabad", "Fatehpur Shekhawati", 
+            "Firozabad", "Green Heaven Resort", "Gangapur City", "Gangtok", "Gaya", "Ghaziabad", "Gorakhpur", "Gulbarga", "Guntur", 
+            "Guwahati", "Gwalior", "Haldia", "Hanumangarh", "Haridwar", "Hindaun", "Hisar", "Hubli", 
+            "Hyderabad", "Imphal", "Indore", "Itanagar", "Jabalpur", "Jaipur", "Jaisalmer", "Jalandhar", 
+            "Jalgaon", "Jamnagar", "Jamshedpur", "Jaunpur", "Jhansi", "Jhalawar", "Jhunjhunu", "Jodhpur", 
+            "Kolkata", "Kanpur", "Kapasan", "Karauli", "Karnal", "Kekri", "Kharagpur", "Khetri", "Kishangarh", 
+            "Kochi", "Kohima", "Kolhapur", "Korba", "Kota", "Kurnool", "Latur", "Laxmangarh", "Loni", 
+            "Losal", "Lucknow", "Ludhiana", "Madurai", "Makrana", "Malda", "Malpura", "Mandawa", "Mangalore", 
+            "Mathura", "Mavli", "Meerut", "Merta City", "Mirzapur", "Moradabad", "Mumbai", "Muzaffarnagar", 
+            "Mysore", "Nanded", "Nagaur", "Nagpur", "Nasirabad", "Nashik", "Nathdwara", "Nawa", "Nellore", 
+            "Noida", "Nokha", "Pali", "Panipat", "Patiala", "Patna", "Phagi", "Phalodi", "Pilani", 
+            "Pindwara", "Pipar City", "Port Blair", "Pratapgarh", "Puducherry", "Pune", "Pushkar", "Raebareli", 
+            "Raigarh", "Raipur", "Rajkot", "Rajsamand", "Ramganj Mandi", "Rampur", "Ranchi", "Ratangarh", 
+            "Rawatbhata", "Rohtak", "Saharanpur", "Salem", "Salumber", "Sanchore", "Satna", "Sawai Madhopur", 
+            "Shahjahanpur", "Shahpura", "Shiliguri", "Shillong", "Shimla", "Sikar", "Siliguri", "Sirsa", 
+            "Sirohi", "Sitapur", "Sonipat", "Sri Ganganagar", "Srinagar", "Sujangarh", "Talwara", "Taranagar", 
+            "Thane", "Thiruvananthapuram", "Tiruchirappalli", "Tirupati", "Tiruppur", "Todaraisingh", "Tonk", 
+            "Tonk Khurd", "Udaipur", "Ujjain", "Vadodara", "Varanasi", "Vijayawada", "Visakhapatnam", "Warangal"
+        ];
+
+        // Function to setup autocomplete
         function setupAutocomplete(inputId, suggestionListId) {
             const input = document.getElementById(inputId);
             const suggestionList = document.getElementById(suggestionListId);
+
             input.addEventListener('input', function() {
                 const value = this.value.toLowerCase().trim();
                 suggestionList.innerHTML = '';
                 suggestionList.style.display = 'none';
+
                 if (value.length === 0) return;
+
                 const matches = cities.filter(city => city.toLowerCase().startsWith(value));
+
                 if (matches.length > 0) {
                     matches.forEach(city => {
                         const li = document.createElement('li');
@@ -458,56 +887,182 @@
                     suggestionList.style.display = 'block';
                 }
             });
+
             document.addEventListener('click', (e) => {
                 if (!input.contains(e.target) && !suggestionList.contains(e.target)) {
                     suggestionList.style.display = 'none';
                 }
             });
         }
+
+        // Function to set the minimum pickup time to the current date and time
         function setMinPickupTime() {
             const pickupTimeInput = document.getElementById('pickup-time');
             const now = new Date();
-            pickupTimeInput.min = now.toISOString().slice(0, 16);
+            
+            // Format: YYYY-MM-DDTHH:MM (for datetime-local input)
+            const formattedNow = now.toISOString().slice(0, 16);
+            
+            pickupTimeInput.min = formattedNow;
         }
+
+        // Initialize autocomplete and handle form submission
         document.addEventListener('DOMContentLoaded', () => {
             setupAutocomplete('pickup-location', 'pickup-suggestions');
             setupAutocomplete('drop-location', 'drop-suggestions');
-            setMinPickupTime();
+
+            setMinPickupTime(); // Set minimum pickup time when the page loads
+
             document.getElementById('rental-form').addEventListener('submit', (e) => {
-                e.preventDefault();
+                e.preventDefault(); // Prevent default form submission
+
                 const pickup = document.getElementById('pickup-location').value.trim();
                 const drop = document.getElementById('drop-location').value.trim();
                 const pickupTime = document.getElementById('pickup-time').value.trim();
                 const pickupDateTime = new Date(pickupTime);
                 const now = new Date();
+
+                // Check if the entered city exists in the predefined list
                 if (!cities.includes(pickup) || !cities.includes(drop)) {
                     alert('Please select a valid pickup and drop location.');
                     return;
                 }
+
+                // Check if pickup and drop locations are the same
                 if (pickup.toLowerCase() === drop.toLowerCase()) {
                     alert('Pickup and drop locations cannot be the same.');
                     return;
                 }
-                if (!pickupTime || pickupDateTime < now) {
-                    alert('Please choose a valid future pickup time.');
+
+                if (!pickupTime) {
+                    alert('Please enter a pickup time.');
                     return;
                 }
+
+                // Restriction: Pickup time must not be in the past
+                if (pickupDateTime < now) {
+                    alert('This Pickup time is cannot be applicable. Please choose a future time.');
+                    return;
+                }
+
+                // Store values in sessionStorage
                 sessionStorage.setItem("pickup-location", pickup);
                 sessionStorage.setItem("drop-location", drop);
                 sessionStorage.setItem("pickup-time", pickupTime);
-                window.location.href = 'book.html';
+
+                // Redirect to book.html
+                window.location.href = `book.html`;
             });
         });
+
+        // Navbar scroll effect
         window.addEventListener('scroll', () => {
             const navbar = document.querySelector('.navbar');
             navbar.classList.toggle('scrolled', window.scrollY > 50);
+            updateActiveLink();
         });
+
+        // Mobile menu toggle
         const menuToggle = document.querySelector('.menu-toggle');
         const navLinks = document.querySelector('.nav-links');
         menuToggle.addEventListener('click', () => {
             navLinks.classList.toggle('active');
             menuToggle.classList.toggle('open');
         });
+
+        // Update active link based on section visibility
+        function updateActiveLink() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-links a');
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionBottom = sectionTop + section.offsetHeight;
+                const scrollPosition = window.scrollY;
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    const targetId = section.getAttribute('id');
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${targetId}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }
+
+        // Set initial active link on page load
+        window.addEventListener('load', updateActiveLink);
+
+        // Function to initialize autocomplete for an input field
+        function addStarEffect() {
+            const element = document.querySelector('a.event-link');
+            const numberOfParticles = 15;
+            const duration = 1000;
+            function createStars() {
+                const existingContainer = element.querySelector('.star-container');
+                if (existingContainer) {
+                    existingContainer.remove();
+                }
+                const container = document.createElement('div');
+                container.classList.add('star-container');
+                for (let i = 0; i < numberOfParticles; i++) {
+                    const particle = document.createElement('span');
+                    particle.classList.add('star-particle');
+                    const angle = Math.random() * 2 * Math.PI;
+                    const distance = Math.random() * 3 + 1;
+                    const x = Math.cos(angle) * distance;
+                    const y = Math.sin(angle) * distance;
+                    particle.style.setProperty('--x', `${x}em`);
+                    particle.style.setProperty('--y', `${y}em`);
+                    container.appendChild(particle);
+                }
+                element.appendChild(container);
+            }
+            setInterval(createStars, duration);
+        }
+
+        function changeFirecrackerColor(colors) {
+            function addFirecrackerEffectLoop(colors) {
+                const element = document.querySelector('a.event-link');
+                const numberOfParticles = 20;
+                const duration = 1000;
+                function createFirecracker() {
+                    const existingContainer = element.querySelector('.star-container');
+                    if (existingContainer) {
+                        existingContainer.remove();
+                    }
+                    const container = document.createElement('div');
+                    container.classList.add('star-container');
+                
+                    for (let i = 0; i < numberOfParticles; i++) {
+                        const particle = document.createElement('span');
+                        particle.classList.add('star-particle');
+                
+                        const angle = Math.random() * 2 * Math.PI;
+                        const distance = Math.random() * 2 + 1;
+                        const x = Math.cos(angle) * distance;
+                        const y = Math.sin(angle) * distance;
+                        particle.style.setProperty('--x', `${x}em`);
+                        particle.style.setProperty('--y', `${y}em`);
+                        if (colors && colors.length > 0) {
+                            particle.style.backgroundColor = colors[i % colors.length];
+                        } else {
+                            particle.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                        }
+                        container.appendChild(particle);
+                    }
+                    element.appendChild(container);
+                }
+                setInterval(createFirecracker, duration);
+            }
+            addFirecrackerEffectLoop(colors);
+        }
+
+        addStarEffect();
+        changeFirecrackerColor(['red', 'blue', 'green', 'yellow', 'orange', 'indigo', 'red', 'blue', 'green', 'yellow', 'orange', 'indigo']);
     </script>
-</body>
+    <script src="script.js"></script>
+</body> 
 </html>
