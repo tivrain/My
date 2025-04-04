@@ -357,21 +357,66 @@
     }
 }
         /* CSS for Search Button */
-            .search-btn {
-    font-family: 'Montserrat', 'Arial', sans-serif;
+            /* Rental Form Container */
+.rental-form {
+    width: 100%;
+    max-width: 800px; /* Adjust as needed */
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #222;
+    border: 1px solid #444;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Form Row */
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: flex-end; /* Align items at the bottom */
+}
+
+/* Form Group */
+.form-group {
+    flex: 1;
+    min-width: 150px; /* Minimum width for each field */
+    position: relative;
+}
+
+/* Input Styling */
+.form-group input {
+    width: 100%;
+    height: 40px; /* Consistent height */
+    padding: 0.75rem 1rem;
+    border: 1px solid #555;
+    border-radius: 0.375rem;
+    background-color: #333;
+    color: #eee;
+    font-size: 0.875rem;
+    box-sizing: border-box;
+}
+
+/* Button Wrapper */
+.button-wrapper {
+    display: flex;
+    align-items: flex-end; /* Align button with bottom of inputs */
+}
+
+/* Search Button */
+.search-btn {
+    height: 40px; /* Match input height */
+    padding: 0 1.75rem;
     background: linear-gradient(135deg, #ffca28, #e0b000);
     color: #fff;
     border: none;
-    padding: 0.75rem 1.75rem;
     border-radius: 0.375rem;
     font-size: 1rem;
-    font-weight: 100;
-    cursor: center;
+    font-weight: 500;
+    cursor: pointer;
     transition: all 0.3s ease;
-    white-space: nowrap;
     box-shadow: 0 0.25rem 1.75rem rgba(255, 202, 40, 0.3);
-    bottom: -10px;
-                
+    white-space: nowrap;
 }
 
 .search-btn:hover {
@@ -380,62 +425,34 @@
     transform: translateY(-0.125rem);
 }
 
-/* Responsive for smaller screens */
+/* Responsive Design */
 @media (max-width: 768px) {
+    .form-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .form-group {
+        min-width: 100%;
+    }
+    
     .search-btn {
-        font-size: 14px;
-        padding: 10px 15px;
-        max-width: 150px; /* Smaller max width for mobile */
+        width: 100%;
+        margin-top: 10px;
     }
 }
 
-      
-            /* CSS for Pickup Location Input */
-            form#rental-form {
-  width: 100%;
-  align-items: center;
-  gap: 10px;
-  display: flex;
+@media (min-width: 769px) {
+    .form-group {
+        flex: 1;
+    }
+    
+    .button-wrapper {
+        flex: 0 0 auto;
+    }
 }
 
-form#rental-form > div.form-group.ai-style-change-3 {
-  flex-grow: 1;
-}
 
-form#rental-form > div.form-group.ai-style-change-4 {
-  flex-grow: 1;
-}
-
-form#rental-form > div.form-group.ai-style-change-3 > input#pickup-location {
-  width: 100%;
-  height: 40px;
-  box-sizing: border-box;
-}
-
-form#rental-form > div.form-group.ai-style-change-3 > ul#pickup-suggestions {
-  display: none;
-}
-
-form#rental-form > div.form-group.ai-style-change-4 > input#drop-location {
-  width: 100%;
-  height: 40px;
-  box-sizing: border-box;
-}
-
-form#rental-form > div.form-group.ai-style-change-4 > ul#drop-suggestions {
-  display: none;
-}
-
-form#rental-form > div.form-group.datetime-wrapper.ai-style-change-5 > input#pickup-time {
-  width: 100%;
-  padding: 12px 16px;
-  box-sizing: border-box;
-}
-
-form#rental-form > button.search-btn.ai-style-change-17 {
-  height: -40px;
-  flex-grow: 1;
-}
             /* Dark theme and hover effects */
 form#rental-form {
   background-color: #222;
