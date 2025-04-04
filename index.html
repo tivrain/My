@@ -11,14 +11,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <script>
-        /*bg music*/
-        document.addEventListener("DOMContentLoaded", function () {
-            const audio = document.getElementById("intro-music");
-            audio.volume = 0.5; // Adjust volume (0.0 to 1.0)
-
-            // Try autoplay
-            audio.play().catch(error => {
+    
                 console.log("Autoplay blocked, waiting for user interaction...");
 
                 // Play on first user click
@@ -41,7 +34,7 @@
 
         /*atiuttam.com ad*/
         // Sliding Ad Text
-        const adMessages = [
+       const adMessages = [
             "✈️ Book Flights & Holidays at the Best Price! 🌍",
             "🚆 Fast & Easy Train Ticket Booking! 🎟️",
             "🚗 Luxury Car Rentals Available Now! 🏎️",
@@ -79,7 +72,7 @@
         }
 
         setInterval(createSpark, 200);
-    </script>
+    
     
     <nav class="navbar">
         <div class="logo">
