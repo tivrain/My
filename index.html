@@ -4,80 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Atiuttam Travels | Premium Car Rental</title>
-     <link rel="icon" type="image/x-icon" href="img\atiubest.png">
-    <!-- Google Fonts Link -->
-<!-- Link to your CSS file -->
+    <link rel="icon" type="image/x-icon" href="img\atiubest.png">
+    <!-- Google Fonts Link (Note: You had it commented out, but I left it as is) -->
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@600&family=Open+Sans:wght@400&display=swap"> -->
+    <!-- Link to your CSS file -->
     <link rel="stylesheet" href="style.css">
-    
 </head>
 <body>
-        <script>
-          /*bg music*/
-    document.addEventListener("DOMContentLoaded", function () {
-        const audio = document.getElementById("intro-music");
-        audio.volume = 0.5; // Adjust volume (0.0 to 1.0)
+    <script>
+        /*bg music*/
+        document.addEventListener("DOMContentLoaded", function () {
+            const audio = document.getElementById("intro-music");
+            audio.volume = 0.5; // Adjust volume (0.0 to 1.0)
 
-        // Try autoplay
-        audio.play().catch(error => {
-            console.log("Autoplay blocked, waiting for user interaction...");
+            // Try autoplay
+            audio.play().catch(error => {
+                console.log("Autoplay blocked, waiting for user interaction...");
 
-            // Play on first user click
-            document.addEventListener("click", function playMusic() {
-                audio.play();
-                setTimeout(() => {
-                    audio.pause();
-                }, 20000); // Stop music after 5 seconds
+                // Play on first user click
+                document.addEventListener("click", function playMusic() {
+                    audio.play();
+                    setTimeout(() => {
+                        audio.pause();
+                    }, 20000); // Stop music after 20 seconds
 
-                // Remove event listener after first play
-                document.removeEventListener("click", playMusic);
+                    // Remove event listener after first play
+                    document.removeEventListener("click", playMusic);
+                });
             });
+
+            // Stop music after 20 seconds if autoplay works
+            setTimeout(() => {
+                audio.pause();
+            }, 20000);
         });
 
-        // Stop music after 5 seconds if autoplay works
-        setTimeout(() => {
-            audio.pause();
-        }, 20000);
-    });
-      /*atiuttam.com ad*/
-    // Sliding Ad Text
-    const adMessages = [
-        "✈️ Book Flights & Holidays at the Best Price! 🌍",
-        "🚆 Fast & Easy Train Ticket Booking! 🎟️",
-        "🚗 Luxury Car Rentals Available Now! 🏎️",
-        "🏝️ Exclusive Holiday Packages Just for You! 🏖️"
-    ];
+        /*atiuttam.com ad*/
+        // Sliding Ad Text
+        const adMessages = [
+            "✈️ Book Flights & Holidays at the Best Price! 🌍",
+            "🚆 Fast & Easy Train Ticket Booking! 🎟️",
+            "🚗 Luxury Car Rentals Available Now! 🏎️",
+            "🏝️ Exclusive Holiday Packages Just for You! 🏖️"
+        ];
 
-    let adIndex = 0;
-    function updateAdText() {
-        const adText = document.getElementById("adText");
-        adText.style.animation = "none"; // Reset animation
-        setTimeout(() => {
-            adText.innerHTML = adMessages[adIndex];
-            adText.style.animation = "fade 1s ease-in-out";
-            adIndex = (adIndex + 1) % adMessages.length;
-        }, 100); // Small delay for smooth transition
-    }
+        let adIndex = 0;
+        function updateAdText() {
+            const adText = document.getElementById("adText");
+            adText.style.animation = "none"; // Reset animation
+            setTimeout(() => {
+                adText.innerHTML = adMessages[adIndex];
+                adText.style.animation = "fade 1s ease-in-out";
+                adIndex = (adIndex + 1) % adMessages.length;
+            }, 100); // Small delay for smooth transition
+        }
 
-    // Change text every 4 seconds
-    setInterval(updateAdText, 4000);
+        // Change text every 4 seconds
+        setInterval(updateAdText, 4000);
 
-    // Create Spark Effect
-    function createSpark() {
-        const spark = document.createElement("div");
-        spark.classList.add("spark");
-        
-        const banner = document.getElementById("adBanner");
-        banner.appendChild(spark);
-        
-        spark.style.left = Math.random() * banner.clientWidth + "px";
-        spark.style.top = Math.random() * banner.clientHeight + "px";
+        // Create Spark Effect
+        function createSpark() {
+            const spark = document.createElement("div");
+            spark.classList.add("spark");
+            
+            const banner = document.getElementById("adBanner");
+            banner.appendChild(spark);
+            
+            spark.style.left = Math.random() * banner.clientWidth + "px";
+            spark.style.top = Math.random() * banner.clientHeight + "px";
 
-        setTimeout(() => {
-            spark.remove();
-        }, 1000);
-    }
+            setTimeout(() => {
+                spark.remove();
+            }, 1000);
+        }
 
-    setInterval(createSpark, 200);
+        setInterval(createSpark, 200);
     </script>
     
     <nav class="navbar">
@@ -105,198 +106,192 @@
         <h1>PREMIUM CAR RENTAL</h1>
         <p class="slogan">Your Journey, Our Excellence</p>
         <div class="tagline">
-             <audio id="intro-music">
+            <audio id="intro-music">
                 <source src="atmp.mp3" type="audio/mpeg">
                 Your browser does not support the audio element.
             </audio>
             <span class="tagline-text">Drive in Style, Arrive in Luxury</span>
         </div>
-         
-               
-            </a>
-        </div>
-       <form class="rental-form ai-style-change-2" id="rental-form">
+        <form class="rental-form ai-style-change-2" id="rental-form">
             <div class="form-group ai-style-change-3">
-              <label for="pickup-location">Pickup Location</label>
-              <input
-                type="text"
-                id="pickup-location"
-                name="pickup-location"
-                placeholder="Enter Pickup Location"
-                required=""
-                autocomplete="off"
-                class="ai-style-change-14"
-              />
-              <ul class="autocomplete-list" id="pickup-suggestions" style="display: none;"></ul>
+                <label for="pickup-location">Pickup Location</label>
+                <input
+                    type="text"
+                    id="pickup-location"
+                    name="pickup-location"
+                    placeholder="Enter Pickup Location"
+                    required=""
+                    autocomplete="off"
+                    class="ai-style-change-14"
+                />
+                <ul class="autocomplete-list" id="pickup-suggestions" style="display: none;"></ul>
             </div>
             <div class="form-group ai-style-change-4">
-              <label for="drop-location">Drop Location</label>
-              <input
-                type="text"
-                id="drop-location"
-                name="drop-location"
-                placeholder="Enter Drop Location"
-                required=""
-                autocomplete="off"
-                class="ai-style-change-15"
-              />
-              <ul class="autocomplete-list" id="drop-suggestions" style="display: none;"></ul>
+                <label for="drop-location">Drop Location</label>
+                <input
+                    type="text"
+                    id="drop-location"
+                    name="drop-location"
+                    placeholder="Enter Drop Location"
+                    required=""
+                    autocomplete="off"
+                    class="ai-style-change-15"
+                />
+                <ul class="autocomplete-list" id="drop-suggestions" style="display: none;"></ul>
             </div>
             <div class="form-group datetime-wrapper ai-style-change-5">
-              <label for="pickup-time">Pickup Date & Time</label>
-              <input
-                type="datetime-local"
-                id="pickup-time"
-                name="pickup-time"
-                required=""
-                class="ai-style-change-1"
-              />
+                <label for="pickup-time">Pickup Date & Time</label>
+                <input
+                    type="datetime-local"
+                    id="pickup-time"
+                    name="pickup-time"
+                    required=""
+                    class="ai-style-change-1"
+                />
             </div>
-            <button type="submit" class="search-btn" width="5">
-              Search Now
-            </button>
-          </form>
+            <button type="submit" class="search-btn">Search Now</button> <!-- Removed width="5" -->
+        </form>
         <a href="#services" class="explore-btn">Explore Our Fleet</a>
         <!-- Auto-Sliding Ad Banner with Sparks -->
         <div class="ad-banner" id="adBanner">
             <a href="https://atiuttam.com" target="_blank" class="ad-content" id="adText">
                 !CILCK HERE TO TRAVEL THE WORLD!
+            </a>
+        </div>
     </section>
-    
 
     <style>
-      /* Hero Section atiuttam ad */
-    .hero {
-        position: center;
-        text-align: center;
-        color: white;
-       
-        background: url('img/for1.png') center/cover no-repeat;
-        height: 90vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
+        /* Hero Section atiuttam ad */
+        .hero {
+            position: center;
+            text-align: center;
+            color: white;
+            background: url('img/for1.png') center/cover no-repeat;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
 
-    /* Dark Overlay to Improve Text Visibility */
-    .hero-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-    }
+        /* Dark Overlay to Improve Text Visibility */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
 
-    h1 {
-        font-size: 42px;
-        margin: 0;
-        position: relative;
-        z-index: 1;
-    }
+        h1 {
+            font-size: 42px;
+            margin: 0;
+            position: relative;
+            z-index: 1;
+        }
 
-    .slogan {
-        font-size: 18px;
-        position: relative;
-        z-index: 1;
-    }
+        .slogan {
+            font-size: 18px;
+            position: relative;
+            z-index: 1;
+        }
 
-    .tagline {
-        margin-top: -20px;
-        position: relative;
-        z-index: 1;
-    }
+        .tagline {
+            margin-top: -20px;
+            position: relative;
+            z-index: 1;
+        }
 
-    /* Floating Advertisement */
-    .ad-banner {
-        position: absolute;
-        bottom: -10px;
-        right: 5px;
-        background: rgba(173, 216, 230, 0.95); /* Light Blue */
-        padding: 15px 30px;
-        border-radius: 12px;
-        box-shadow: 0 0 20px rgba(173, 216, 230, 0.9);
-        animation: floatAd 5s infinite alternate ease-in-out;
-        transition: transform 0.3s, box-shadow 0.3s;
-        z-index: 2;
-        font-weight: bold;
-        text-align: center;
-        overflow: hidden;
-        position: relative;
-    }
+        /* Floating Advertisement */
+        .ad-banner {
+            position: absolute;
+            bottom: -10px;
+            right: 5px;
+            background: rgba(173, 216, 230, 0.95); /* Light Blue */
+            padding: 15px 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(173, 216, 230, 0.9);
+            animation: floatAd 5s infinite alternate ease-in-out;
+            transition: transform 0.3s, box-shadow 0.3s;
+            z-index: 2;
+            font-weight: bold;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
 
-    /* Clickable Ad Content */
-    .ad-content {
-        font-size: 16px;
-        font-weight: bold;
-        color: black;
-        text-decoration: none;
-    }
+        /* Clickable Ad Content */
+        .ad-content {
+            font-size: 16px;
+            font-weight: bold;
+            color: black;
+            text-decoration: none;
+        }
 
-    /* Hover Effect */
-    .ad-banner:hover {
-        transform: scale(1.1);
-        box-shadow: 0 0 25px rgba(173, 216, 230, 1);
-    }
+        /* Hover Effect */
+        .ad-banner:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px rgba(173, 216, 230, 1);
+        }
 
-    /* Floating Animation */
-    @keyframes floatAd {
-        0% { transform: translateY(-5px); }
-        100% { transform: translateY(5px); }
-    }
+        /* Floating Animation */
+        @keyframes floatAd {
+            0% { transform: translateY(-5px); }
+            100% { transform: translateY(5px); }
+        }
 
-    /* Sliding Text Animation */
-    @keyframes fade {
-        0% { opacity: 0; transform: translateY(10px); }
-        50% { opacity: 1; transform: translateY(0px); }
-        100% { opacity: 0; transform: translateY(-10px); }
-    }
+        /* Sliding Text Animation */
+        @keyframes fade {
+            0% { opacity: 0; transform: translateY(10px); }
+            50% { opacity: 1; transform: translateY(0px); }
+            100% { opacity: 0; transform: translateY(-10px); }
+        }
 
-    /* Spark Animation */
-    .spark {
-        position: absolute;
-        width: 5px;
-        height: 5px;
-        background: white;
-        border-radius: 50%;
-        box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-        animation: sparkMove 1s linear infinite;
-    }
+        /* Spark Animation */
+        .spark {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            animation: sparkMove 1s linear infinite;
+        }
 
-    @keyframes sparkMove {
-        0% { transform: translate(0, 0); opacity: 1; }
-        100% { transform: translate(calc(40px - 80px * random()), calc(40px - 80px * random())); opacity: 0; }
-    }
-    @media (max-width: 768px) {
-    /* Center the ad banner */
-    .ad-banner {
-        width: 90%;
-        max-width: 350px;
-        left: 0%;
-        bottom: -10px;
-        transform: translateX(-50%);
-        text-align: center;
-        font-size: 14px;
-        padding: 15px 20px;
-    }
+        @keyframes sparkMove {
+            0% { transform: translate(0, 0); opacity: 1; }
+            100% { transform: translate(calc(40px - 80px * random()), calc(40px - 80px * random())); opacity: 0; }
+        }
 
-    /* Adjust form input fields */
-    .hero form {
-        width: 90%;
-        max-width: 400px;
-    }
+        @media (max-width: 768px) {
+            /* Center the ad banner */
+            .ad-banner {
+                width: 90%;
+                max-width: 350px;
+                left: 50%;
+                bottom: -10px;
+                transform: translateX(-50%);
+                text-align: center;
+                font-size: 14px;
+                padding: 15px 20px;
+            }
 
-    .hero input,
-    .hero button {
-        width: 100%;
-        font-size: 16px;
-    }
-} 
- /* Hero Section atiuttam ad */
-    /*logo*/
-    
-      .navbar {
+            /* Adjust form input fields */
+            .hero form {
+                width: 90%;
+                max-width: 400px;
+            }
+
+            .hero input,
+            .hero button {
+                width: 100%;
+                font-size: 16px;
+            }
+        } 
+
+        /* Logo */
+        .navbar {
             display: flex;
             align-items: center;
             padding: 10px 20px;
@@ -314,342 +309,174 @@
         }
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
 
-.logo h1 {
-    font-size: 18px;
-    font-weight: 700;
-    font-family: 'Helvetica'; /* Elegant font */
-    color: #4678b6; /* Light Blue */
-    text-shadow: 
-        0 0 5px #62b0bc, 
-        0 0 10px #5aa6c4, 
-        0 0 20px #4a90a2; /* Enhanced Glow Effect */
-    animation: glowEffect 1.5s infinite alternate ease-in-out;
-}
+        .logo h1 {
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Helvetica'; /* Elegant font */
+            color: #4678b6; /* Light Blue */
+            text-shadow: 
+                0 0 5px #62b0bc, 
+                0 0 10px #5aa6c4, 
+                0 0 20px #4a90a2; /* Enhanced Glow Effect */
+            animation: glowEffect 1.5s infinite alternate ease-in-out;
+        }
 
-/* Animation for a smooth glowing effect */
-@keyframes glowEffect {
-    0% {
-        text-shadow: 
-            0 0 5px #62b0bc, 
-            0 0 10px #5aa6c4, 
-            0 0 15px #4a90a2;
-    }
-    100% {
-        text-shadow: 
-            0 0 10px #62b0bc, 
-            0 0 20px #5aa6c4, 
-            0 0 30px #4a90a2;
-    }
-}
-/* Optional: Animated Glowing Effect */
-@keyframes sparkEffect {
-    0% {
-        text-shadow: 
-            0 0 5px #62b0bc, 
-            0 0 10px #5aa6c4, 
-            0 0 15px #4a90a2;
-    }
-    100% {
-        text-shadow: 
-            0 0 10px #7cc6da, 
-            0 0 15px #5aa6c4, 
-            0 0 20px #4a90a2;
-    }
-}
-        /* CSS for Search Button */
-            /* Rental Form Container */
-.rental-form {
-    width: 100%;
-    max-width: 800px; /* Adjust as needed */
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #222;
-    border: 1px solid #444;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-}
+        /* Animation for a smooth glowing effect */
+        @keyframes glowEffect {
+            0% {
+                text-shadow: 
+                    0 0 5px #62b0bc, 
+                    0 0 10px #5aa6c4, 
+                    0 0 15px #4a90a2;
+            }
+            100% {
+                text-shadow: 
+                    0 0 10px #62b0bc, 
+                    0 0 20px #5aa6c4, 
+                    0 0 30px #4a90a2;
+            }
+        }
 
-/* Form Row */
-.form-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    align-items: flex-end; /* Align items at the bottom */
-}
+        /* Optional: Animated Glowing Effect */
+        @keyframes sparkEffect {
+            0% {
+                text-shadow: 
+                    0 0 5px #62b0bc, 
+                    0 0 10px #5aa6c4, 
+                    0 0 15px #4a90a2;
+            }
+            100% {
+                text-shadow: 
+                    0 0 10px #7cc6da, 
+                    0 0 15px #5aa6c4, 
+                    0 0 20px #4a90a2;
+            }
+        }
 
-/* Form Group */
-.form-group {
-    flex: 1;
-    min-width: 150px; /* Minimum width for each field */
-    position: relative;
-}
+        /* Rental Form Container */
+        .rental-form {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #222;
+            border: 1px solid #444;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: flex-end; /* Align items at the bottom */
+        }
 
-/* Input Styling */
-.form-group input {
-    width: 100%;
-    height: 40px; /* Consistent height */
-    padding: 0.75rem 1rem;
-    border: 1px solid #555;
-    border-radius: 0.375rem;
-    background-color: #333;
-    color: #eee;
-    font-size: 0.875rem;
-    box-sizing: border-box;
-}
+        /* Form Group */
+        .form-group {
+            flex: 1;
+            min-width: 150px;
+            position: relative;
+        }
 
-/* Button Wrapper */
-.button-wrapper {
-    display: flex;
-    align-items: flex-end; /* Align button with bottom of inputs */
-}
+        /* Input Styling */
+        .form-group input {
+            width: 100%;
+            height: 40px; /* Consistent height */
+            padding: 0.75rem 1rem;
+            border: 1px solid #555;
+            border-radius: 0.375rem;
+            background-color: #333;
+            color: #eee;
+            font-size: 0.875rem;
+            box-sizing: border-box;
+        }
 
-/* Search Button */
-.search-btn {
-    height: 40px; /* Match input height */
-    padding: 0 1.75rem;
-    background: linear-gradient(135deg, #ffca28, #e0b000);
-    color: #fff;
-    border: none;
-    border-radius: 0.375rem;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 0.25rem 1.75rem rgba(255, 202, 40, 0.3);
-    white-space: nowrap;
-}
+        /* Search Button */
+        .search-btn {
+            height: 40px; /* Match input height */
+            padding: 0 1.75rem;
+            background: linear-gradient(135deg, #ffca28, #e0b000);
+            color: #fff;
+            border: none;
+            border-radius: 0.375rem;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0.25rem 1.75rem rgba(255, 202, 40, 0.3);
+            white-space: nowrap;
+            flex: 0 0 auto; /* Prevent button from stretching */
+        }
 
-.search-btn:hover {
-    background: linear-gradient(135deg, #e0b000, #ffca28);
-    box-shadow: 0 0.375rem 1rem rgba(255, 202, 40, 0.5);
-    transform: translateY(-0.125rem);
-}
+        .search-btn:hover {
+            background: linear-gradient(135deg, #e0b000, #ffca28);
+            box-shadow: 0 0.375rem 1rem rgba(255, 202, 40, 0.5);
+            transform: translateY(-0.125rem);
+        }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .form-row {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    
-    .form-group {
-        min-width: 100%;
-    }
-    
-    .search-btn {
-        width: 100%;
-        margin-top: 10px;
-    }
-}
+        /* Dark Theme Enhancements */
+        .form-group label {
+            color: #ddd;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 0.375rem;
+        }
 
-@media (min-width: 769px) {
-    .form-group {
-        flex: 1;
-    }
-    
-    .button-wrapper {
-        flex: 0 0 auto;
-    }
-}
+        .form-group input:focus {
+            border-color: #FFCA28;
+            box-shadow: 0 0 5px #FFCA28;
+            background-color: #444;
+            color: #fff;
+        }
 
+        .form-group input:hover {
+            background-color: #444;
+            border-color: #FFCA28;
+        }
 
-            /* Dark theme and hover effects */
-form#rental-form {
-  background-color: #222;
-  border: 1px solid #444;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-}
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .rental-form {
+                flex-direction: column;
+                width: 90%;
+                max-width: 400px;
+                margin: 20px auto;
+                gap: 20px;
+            }
 
-.form-group label {
-  color: #ddd;
-}
+            .form-group {
+                width: 100%;
+            }
 
-.form-group input {
-  background-color: #333;
-  color: #eee;
-  border: 1px solid #555;
-  box-shadow: none;
-}
+            .form-group input {
+                height: 50px; /* Slightly larger for mobile */
+                font-size: 16px;
+            }
 
-.form-group input:focus {
-  border-color: #FFCA28;
-  box-shadow: 0 0 5px #FFCA28;
-  background-color: #444;
-  color: #fff;
-}
+            .search-btn {
+                width: 100%; /* Full width on mobile */
+                height: 50px; /* Match input height */
+                font-size: 16px;
+            }
+        }
 
-.form-group input:hover {
-    background-color: #444;
-    border-color: #FFCA28;
-}
+        @media (min-width: 769px) {
+            .rental-form {
+                flex-direction: row;
+                width: 584.393px; /* Maintain your preferred width */
+                margin: 20px auto;
+            }
 
-form#rental-form > button.search-btn.ai-style-change-17 {
-  background-color: #FF7F00;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  transition: background-color 0.3s, transform 0.2s;
-}
+            .form-group {
+                flex: 1; /* Equal growth for inputs */
+            }
 
-form#rental-form > button.search-btn.ai-style-change-17:hover {
-  background-color: #cc6600;
-  transform: scale(1.05);
-}
+            .search-btn {
+                width: auto; /* Fixed width on desktop */
+                padding: 0 1.75rem; /* Consistent padding */
+            }
+        }
 
-/* Mobile-specific styles (screens up to 768px wide) */
-@media (max-width: 768px) {
-  form#rental-form {
-    flex-direction: column;
-    gap: 20px;
-    width: 90%;
-    max-width: 400px;
-    margin: 20px auto;
-  }
-
-  .form-group {
-    width: 100%;
-  }
-
-  .form-group input {
-    padding: 15px;
-    font-size: 16px;
-        height: 50px;
-  }
-  .form-group input {
-      min-width: 100%;
-  }
-
-  .form-group label {
-    font-size: 14px;
-  }
-
-  form#rental-form > button.search-btn.ai-style-change-17 {
-    width: 100%;
-    height: 50px;
-    font-size: 16px;
-  }
-}
-
-/* Desktop/larger screen styles (screens 769px wide and up) */
-@media (min-width: 769px) {
-  form#rental-form {
-        width: 584.393px;
-        flex-direction: row;
-        gap: 10px;
-        margin: 0;
-  }
-
-    .form-group {
-        width: auto;
-    }
-
-    .form-group input {
-        padding: 0.75rem 1rem;
-        font-size: 0.875rem;
-        height: auto;
-    }
-
-    .form-group label {
-        font-size: 0.75rem;
-    }
-
-    form#rental-form > button.search-btn.ai-style-change-17 {
-        width: auto;
-        height: -40px;
-        font-size: inherit;
-    }
-}
-
-/* Original styles (added to make sure all the styles are presented) */
-.form-group label {
-    font-family: Montserrat, Arial, sans-serif;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: rgb(68, 68, 68);
-    margin-bottom: 0.375rem;
-    text-transform: uppercase;
-    letter-spacing: 0.0625rem;
-    transition: color 0.3s;
-}
-
-.form-group input {
-    font-family: "Open Sans", Helvetica, sans-serif;
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border: 1px solid rgb(224, 224, 224);
-    border-radius: 0.375rem;
-    font-size: 0.875rem;
-    font-weight: 400;
-    transition: 0.3s;
-    background-color: rgb(255, 255, 255);
-    min-width: 10rem;
-    color: rgb(51, 51, 51);
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 3px inset;
-}
-
-.form-group input:focus {
-    border-color: rgb(255, 202, 40);
-    box-shadow: rgba(255, 202, 40, 0.5) 0px 0px 0.375rem, rgba(0, 0, 0, 0.05) 0px 1px 3px inset;
-    outline: none;
-}
-
-.form-group input[type="datetime-local"] {
-    padding-right: 2.5rem;
-}
-
-.form-group input[type="datetime-local"]::-webkit-calendar-picker-indicator {
-    opacity: 0;
-}
-
-form#rental-form {
-    width: 100%;
-    align-items: center;
-    gap: 10px;
-    display: flex;
-}
-
-form#rental-form > div.form-group.ai-style-change-3 {
-    flex-grow: 1;
-}
-
-form#rental-form > div.form-group.ai-style-change-4 {
-    flex-grow: 1;
-}
-
-form#rental-form > div.form-group.ai-style-change-3 > input#pickup-location {
-    width: 100%;
-    height: 40px;
-    box-sizing: border-box;
-}
-
-form#rental-form > div.form-group.ai-style-change-3 > ul#pickup-suggestions {
-    display: none;
-}
-
-form#rental-form > div.form-group.ai-style-change-4 > input#drop-location {
-    width: 100%;
-    height: 40px;
-    box-sizing: border-box;
-}
-
-form#rental-form > div.form-group.ai-style-change-4 > ul#drop-suggestions {
-    display: none;
-}
-
-form#rental-form > div.form-group.datetime-wrapper.ai-style-change-5 > input#pickup-time {
-    width: 100%;
-    padding: 12px 16px;
-    box-sizing: border-box;
-}
-
-form#rental-form > button.search-btn.ai-style-change-17 {
-    height: 40px;
-    flex-grow: 1;
-}
-   
-/* Rental Form */
+        /* Autocomplete List */
         .autocomplete-list {
             position: absolute;
             background: #fff;
@@ -675,120 +502,116 @@ form#rental-form > button.search-btn.ai-style-change-17 {
             background-color: #ffca28;
             color: #fff;
         }
-        .form-group {
-            position: relative; /* For positioning the suggestion list */
-        }
-            /* event page styles */
+
+        /* Event Page Styles */
         a.event-link {
-    display: inline; /* Updated base style*/
-    position: relative;
-    overflow: visible;
-    padding: 5px 10px;
-    border: 0px none rgb(255, 255, 255);
-    border-radius: 5px;
-    background-color: rgb(142, 68, 173);
-    color: rgb(255, 255, 255);
-    box-shadow: rgba(49, 24, 60, 0.25) 0px 3.04323px 6.08646px 0px;
-    --borderRadius: 5px;
-    font-size: 1em;
-    animation: pulse 2s linear infinite;
-}
+            display: inline;
+            position: relative;
+            overflow: visible;
+            padding: 5px 10px;
+            border: 0px none rgb(255, 255, 255);
+            border-radius: 5px;
+            background-color: rgb(142, 68, 173);
+            color: rgb(255, 255, 255);
+            box-shadow: rgba(49, 24, 60, 0.25) 0px 3.04323px 6.08646px 0px;
+            --borderRadius: 5px;
+            font-size: 1em;
+            animation: pulse 2s linear infinite;
+        }
 
-@keyframes sparkle {
-  0% { transform: rotate(0deg); opacity: 0.5;}
-  50% { opacity: 1; }
-  100% { transform: rotate(360deg); opacity: 0.5;}
-}
+        @keyframes sparkle {
+            0% { transform: rotate(0deg); opacity: 0.5;}
+            50% { opacity: 1; }
+            100% { transform: rotate(360deg); opacity: 0.5;}
+        }
 
-a.event-link::before {
-    content: "";
-    position: absolute;
-    top: -1em;
-    left: -1em;
-    width: calc(100% + 2em);
-    height: calc(100% + 2em);
-    border-radius: calc(var(--borderRadius, 5px) + 1em);
-    background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 60%);
-    pointer-events: none;
-    animation: sparkle 2s linear infinite;
-    z-index: -1;
-}
+        a.event-link::before {
+            content: "";
+            position: absolute;
+            top: -1em;
+            left: -1em;
+            width: calc(100% + 2em);
+            height: calc(100% + 2em);
+            border-radius: calc(var(--borderRadius, 5px) + 1em);
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 60%);
+            pointer-events: none;
+            animation: sparkle 2s linear infinite;
+            z-index: -1;
+        }
 
-@keyframes flame {
-    0% { box-shadow: 0 0 10px 5px rgba(255, 100, 0, 0.8), 0 0 20px 10px rgba(255, 150, 0, 0.6), 0 0 30px 15px rgba(255, 200, 0, 0.4); }
-    25% { box-shadow: 0 -2px 10px 5px rgba(255, 100, 0, 0.8), 0 -2px 20px 10px rgba(255, 150, 0, 0.6), 0 -2px 30px 15px rgba(255, 200, 0, 0.4); }
-    50% { box-shadow: 0 2px 10px 5px rgba(255, 100, 0, 0.8), 0 2px 20px 10px rgba(255, 150, 0, 0.6), 0 2px 30px 15px rgba(255, 200, 0, 0.4); }
-    75% { box-shadow: 0 -1px 10px 5px rgba(255, 100, 0, 0.8), 0 -1px 20px 10px rgba(255, 150, 0, 0.6), 0 -1px 30px 15px rgba(255, 200, 0, 0.4); }
-    100% { box-shadow: 0 0 10px 5px rgba(255, 100, 0, 0.8), 0 0 20px 10px rgba(255, 150, 0, 0.6), 0 0 30px 15px rgba(255, 200, 0, 0.4); }
-}
-    
-     
- a.event-link::after {
-    content: '';
-    position: absolute;
-    top: calc(100% + 0.2em);
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0.8em;
-    height: 0.8em;
-    border-radius: 50%;
-    animation: flame 1s linear infinite;
-    z-index: -1;
-}
+        @keyframes flame {
+            0% { box-shadow: 0 0 10px 5px rgba(255, 100, 0, 0.8), 0 0 20px 10px rgba(255, 150, 0, 0.6), 0 0 30px 15px rgba(255, 200, 0, 0.4); }
+            25% { box-shadow: 0 -2px 10px 5px rgba(255, 100, 0, 0.8), 0 -2px 20px 10px rgba(255, 150, 0, 0.6), 0 -2px 30px 15px rgba(255, 200, 0, 0.4); }
+            50% { box-shadow: 0 2px 10px 5px rgba(255, 100, 0, 0.8), 0 2px 20px 10px rgba(255, 150, 0, 0.6), 0 2px 30px 15px rgba(255, 200, 0, 0.4); }
+            75% { box-shadow: 0 -1px 10px 5px rgba(255, 100, 0, 0.8), 0 -1px 20px 10px rgba(255, 150, 0, 0.6), 0 -1px 30px 15px rgba(255, 200, 0, 0.4); }
+            100% { box-shadow: 0 0 10px 5px rgba(255, 100, 0, 0.8), 0 0 20px 10px rgba(255, 150, 0, 0.6), 0 0 30px 15px rgba(255, 200, 0, 0.4); }
+        }
+        
+        a.event-link::after {
+            content: '';
+            position: absolute;
+            top: calc(100% + 0.2em);
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0.8em;
+            height: 0.8em;
+            border-radius: 50%;
+            animation: flame 1s linear infinite;
+            z-index: -1;
+        }
 
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-}
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
 
-.star-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 0;
-    height: 0;
-    overflow: visible;
-}
+        .star-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            overflow: visible;
+        }
 
-.star-particle {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0.5em;
-    height: 0.5em;
-    opacity: 1;
-    animation: star-twinkle 1000ms linear forwards;
-    
-}
-.star-particle::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: white;
-  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-}
-@keyframes star-twinkle {
-    0% {
-        opacity: 0;
-        transform: translate(var(--x), var(--y)) rotate(0deg) scale(0);
-    }
-    50%{
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-        transform: translate(var(--x), var(--y)) rotate(360deg) scale(1);
-    }
-} 
-    /* event page styles */
-  form#rental-form {
-  box-shadow: rgb(0, 204, 255) 0px 0px 10px 5px, rgb(141, 191, 209) 0px 0px 20px 10px, rgb(180, 249, 255) 0px 0px 30px 15px;
-}
+        .star-particle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0.5em;
+            height: 0.5em;
+            opacity: 1;
+            animation: star-twinkle 1000ms linear forwards;
+        }
+        .star-particle::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        }
+        @keyframes star-twinkle {
+            0% {
+                opacity: 0;
+                transform: translate(var(--x), var(--y)) rotate(0deg) scale(0);
+            }
+            50%{
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--x), var(--y)) rotate(360deg) scale(1);
+            }
+        } 
+
+        form#rental-form {
+            box-shadow: rgb(0, 204, 255) 0px 0px 10px 5px, rgb(141, 191, 209) 0px 0px 20px 10px, rgb(180, 249, 255) 0px 0px 30px 15px;
+        }
     </style>
 
     <!-- About Section -->
@@ -969,7 +792,6 @@ a.event-link::before {
         });
     });
     </script>
-    
 
     <!-- Footer Section -->
     <footer class="footer" id="footer">
@@ -1010,243 +832,237 @@ a.event-link::before {
     <!-- JavaScript -->
     <script>
         // List of Indian cities (expand this as needed)
-       // List of cities for autocomplete
-const cities = [
-    "Abu Road", "Agra","kuchaman city","", "Ahmedabad", "Aizawl", "Ajmer", "Aligarh", "Allahabad", "Alwar", "Ambala", 
-    "Amritsar", "Asansol", "Aurangabad", "Ayodhya", "Bagru", "Bali", "Bangalore", "Banswara", 
-    "Bareilly", "Baran", "Bari", "Barmer", "Baswa", "Bassi", "Bayana", "Beawar", "Begun", 
-    "Belgaum", "Bhadra", "Bhadesar", "Bharatpur", "Bhavnagar", "Bhilwara", "Bhinder", "Bhiwandi", 
-    "Bhopal", "Bhubaneswar", "Bikaner", "Bilaspur", "Bokaro Steel City", "Bulandshahr", "Chandigarh", 
-    "Chennai", "Chhabra", "Chittorgarh", "Chomu", "Churu", "Coimbatore", "Cuttack", "Dausa", 
-    "Davanagere", "Dehradun", "Deogarh", "Delhi", "Dhanbad", "Dharampur", "Dholpur", "Didwana", 
-    "Dungarpur", "Durg", "Durgapur", "Etawah", "Faizabad", "Falna", "Faridabad", "Fatehpur Shekhawati", 
-    "Firozabad","Green Heaven Resort", "Gangapur City", "Gangtok", "Gaya", "Ghaziabad", "Gorakhpur", "Gulbarga", "Guntur", 
-    "Guwahati", "Gwalior", "Haldia", "Hanumangarh", "Haridwar", "Hindaun", "Hisar", "Hubli", 
-    "Hyderabad", "Imphal", "Indore", "Itanagar", "Jabalpur", "Jaipur", "Jaisalmer", "Jalandhar", 
-    "Jalgaon", "Jamnagar", "Jamshedpur", "Jaunpur", "Jhansi", "Jhalawar", "Jhunjhunu", "Jodhpur", 
-    "Kolkata", "Kanpur", "Kapasan", "Karauli", "Karnal", "Kekri", "Kharagpur", "Khetri", "Kishangarh", 
-    "Kochi", "Kohima", "Kolhapur", "Korba", "Kota", "Kurnool", "Latur", "Laxmangarh", "Loni", 
-    "Losal", "Lucknow", "Ludhiana", "Madurai", "Makrana", "Malda", "Malpura", "Mandawa", "Mangalore", 
-    "Mathura", "Mavli", "Meerut", "Merta City", "Mirzapur", "Moradabad", "Mumbai", "Muzaffarnagar", 
-    "Mysore", "Nanded", "Nagaur", "Nagpur", "Nasirabad", "Nashik", "Nathdwara", "Nawa", "Nellore", 
-    "Noida", "Nokha", "Pali", "Panipat", "Patiala", "Patna", "Phagi", "Phalodi", "Pilani", 
-    "Pindwara", "Pipar City", "Port Blair", "Pratapgarh", "Puducherry", "Pune", "Pushkar", "Raebareli", 
-    "Raigarh", "Raipur", "Rajkot", "Rajsamand", "Ramganj Mandi", "Rampur", "Ranchi", "Ratangarh", 
-    "Rawatbhata", "Rohtak", "Saharanpur", "Salem", "Salumber", "Sanchore", "Satna", "Sawai Madhopur", 
-    "Shahjahanpur", "Shahpura", "Shiliguri", "Shillong", "Shimla", "Sikar", "Siliguri", "Sirsa", 
-    "Sirohi", "Sitapur", "Sonipat", "Sri Ganganagar", "Srinagar", "Sujangarh", "Talwara", "Taranagar", 
-    "Thane", "Thiruvananthapuram", "Tiruchirappalli", "Tirupati", "Tiruppur", "Todaraisingh", "Tonk", 
-    "Tonk Khurd", "Udaipur", "Ujjain", "Vadodara", "Varanasi", "Vijayawada", "Visakhapatnam", "Warangal"
-];
+        const cities = [
+            "Abu Road", "Agra", "kuchaman city", "", "Ahmedabad", "Aizawl", "Ajmer", "Aligarh", "Allahabad", "Alwar", "Ambala", 
+            "Amritsar", "Asansol", "Aurangabad", "Ayodhya", "Bagru", "Bali", "Bangalore", "Banswara", 
+            "Bareilly", "Baran", "Bari", "Barmer", "Baswa", "Bassi", "Bayana", "Beawar", "Begun", 
+            "Belgaum", "Bhadra", "Bhadesar", "Bharatpur", "Bhavnagar", "Bhilwara", "Bhinder", "Bhiwandi", 
+            "Bhopal", "Bhubaneswar", "Bikaner", "Bilaspur", "Bokaro Steel City", "Bulandshahr", "Chandigarh", 
+            "Chennai", "Chhabra", "Chittorgarh", "Chomu", "Churu", "Coimbatore", "Cuttack", "Dausa", 
+            "Davanagere", "Dehradun", "Deogarh", "Delhi", "Dhanbad", "Dharampur", "Dholpur", "Didwana", 
+            "Dungarpur", "Durg", "Durgapur", "Etawah", "Faizabad", "Falna", "Faridabad", "Fatehpur Shekhawati", 
+            "Firozabad", "Green Heaven Resort", "Gangapur City", "Gangtok", "Gaya", "Ghaziabad", "Gorakhpur", "Gulbarga", "Guntur", 
+            "Guwahati", "Gwalior", "Haldia", "Hanumangarh", "Haridwar", "Hindaun", "Hisar", "Hubli", 
+            "Hyderabad", "Imphal", "Indore", "Itanagar", "Jabalpur", "Jaipur", "Jaisalmer", "Jalandhar", 
+            "Jalgaon", "Jamnagar", "Jamshedpur", "Jaunpur", "Jhansi", "Jhalawar", "Jhunjhunu", "Jodhpur", 
+            "Kolkata", "Kanpur", "Kapasan", "Karauli", "Karnal", "Kekri", "Kharagpur", "Khetri", "Kishangarh", 
+            "Kochi", "Kohima", "Kolhapur", "Korba", "Kota", "Kurnool", "Latur", "Laxmangarh", "Loni", 
+            "Losal", "Lucknow", "Ludhiana", "Madurai", "Makrana", "Malda", "Malpura", "Mandawa", "Mangalore", 
+            "Mathura", "Mavli", "Meerut", "Merta City", "Mirzapur", "Moradabad", "Mumbai", "Muzaffarnagar", 
+            "Mysore", "Nanded", "Nagaur", "Nagpur", "Nasirabad", "Nashik", "Nathdwara", "Nawa", "Nellore", 
+            "Noida", "Nokha", "Pali", "Panipat", "Patiala", "Patna", "Phagi", "Phalodi", "Pilani", 
+            "Pindwara", "Pipar City", "Port Blair", "Pratapgarh", "Puducherry", "Pune", "Pushkar", "Raebareli", 
+            "Raigarh", "Raipur", "Rajkot", "Rajsamand", "Ramganj Mandi", "Rampur", "Ranchi", "Ratangarh", 
+            "Rawatbhata", "Rohtak", "Saharanpur", "Salem", "Salumber", "Sanchore", "Satna", "Sawai Madhopur", 
+            "Shahjahanpur", "Shahpura", "Shiliguri", "Shillong", "Shimla", "Sikar", "Siliguri", "Sirsa", 
+            "Sirohi", "Sitapur", "Sonipat", "Sri Ganganagar", "Srinagar", "Sujangarh", "Talwara", "Taranagar", 
+            "Thane", "Thiruvananthapuram", "Tiruchirappalli", "Tirupati", "Tiruppur", "Todaraisingh", "Tonk", 
+            "Tonk Khurd", "Udaipur", "Ujjain", "Vadodara", "Varanasi", "Vijayawada", "Visakhapatnam", "Warangal"
+        ];
 
-// // Function to setup autocomplete
-function setupAutocomplete(inputId, suggestionListId) {
-    const input = document.getElementById(inputId);
-    const suggestionList = document.getElementById(suggestionListId);
+        // Function to setup autocomplete
+        function setupAutocomplete(inputId, suggestionListId) {
+            const input = document.getElementById(inputId);
+            const suggestionList = document.getElementById(suggestionListId);
 
-    input.addEventListener('input', function() {
-        const value = this.value.toLowerCase().trim();
-        suggestionList.innerHTML = '';
-        suggestionList.style.display = 'none';
+            input.addEventListener('input', function() {
+                const value = this.value.toLowerCase().trim();
+                suggestionList.innerHTML = '';
+                suggestionList.style.display = 'none';
 
-        if (value.length === 0) return;
+                if (value.length === 0) return;
 
-        const matches = cities.filter(city => city.toLowerCase().startsWith(value));
+                const matches = cities.filter(city => city.toLowerCase().startsWith(value));
 
-        if (matches.length > 0) {
-            matches.forEach(city => {
-                const li = document.createElement('li');
-                li.textContent = city;
-                li.addEventListener('click', () => {
-                    input.value = city;
-                    suggestionList.style.display = 'none';
-                });
-                suggestionList.appendChild(li);
+                if (matches.length > 0) {
+                    matches.forEach(city => {
+                        const li = document.createElement('li');
+                        li.textContent = city;
+                        li.addEventListener('click', () => {
+                            input.value = city;
+                            suggestionList.style.display = 'none';
+                        });
+                        suggestionList.appendChild(li);
+                    });
+                    suggestionList.style.display = 'block';
+                }
             });
-            suggestionList.style.display = 'block';
-        }
-    });
 
-    document.addEventListener('click', (e) => {
-        if (!input.contains(e.target) && !suggestionList.contains(e.target)) {
-            suggestionList.style.display = 'none';
-        }
-    });
-}
-
-// Function to set the minimum pickup time to the current date and time
-function setMinPickupTime() {
-    const pickupTimeInput = document.getElementById('pickup-time');
-    const now = new Date();
-    
-    // Format: YYYY-MM-DDTHH:MM (for datetime-local input)
-    const formattedNow = now.toISOString().slice(0, 16);
-    
-    pickupTimeInput.min = formattedNow;
-}
-
-// Initialize autocomplete and handle form submission
-document.addEventListener('DOMContentLoaded', () => {
-    setupAutocomplete('pickup-location', 'pickup-suggestions');
-    setupAutocomplete('drop-location', 'drop-suggestions');
-
-    setMinPickupTime(); // Set minimum pickup time when the page loads
-
-    document.getElementById('rental-form').addEventListener('submit', (e) => { // Fixed incorrect 'Submit' event name
-        e.preventDefault(); // Prevent default form submission
-
-        const pickup = document.getElementById('pickup-location').value.trim();
-        const drop = document.getElementById('drop-location').value.trim();
-        const pickupTime = document.getElementById('pickup-time').value.trim();
-        const pickupDateTime = new Date(pickupTime);
-        const now = new Date();
-
-        // Check if the entered city exists in the predefined list
-        if (!cities.includes(pickup) || !cities.includes(drop)) {
-            alert('Please select a valid pickup and drop location.');
-            return;
-        }
-
-        // Check if pickup and drop locations are the same
-        if (pickup.toLowerCase() === drop.toLowerCase()) {
-            alert('Pickup and drop locations cannot be the same.');
-            return;
-        }
-
-        if (!pickupTime) {
-            alert('Please enter a pickup time.');
-            return;
-        }
-
-        // Restriction: Pickup time must not be in the past
-        if (pickupDateTime < now) {
-            alert('This Pickup time is cannot be applicable. Please choose a future time.');
-            return;
-        }
-
-        // Store values in sessionStorage
-        sessionStorage.setItem("pickup-location", pickup);
-        sessionStorage.setItem("drop-location", drop);
-        sessionStorage.setItem("pickup-time", pickupTime);
-
-        // Redirect to book.html
-        window.location.href = `book.html`;
-    });
-});
-
-
-// Navbar scroll effect
-window.addEventListener('scroll', () => {
-    const navbar = document.querySelector('.navbar');
-    navbar.classList.toggle('scrolled', window.scrollY > 50);
-    updateActiveLink();
-});
-
-// Mobile menu toggle
-const menuToggle = document.querySelector('.menu-toggle');
-const navLinks = document.querySelector('.nav-links');
-menuToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-    menuToggle.classList.toggle('open');
-});
-
-// Update active link based on section visibility
-function updateActiveLink() {
-    const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('.nav-links a');
-
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop - 100;
-        const sectionBottom = sectionTop + section.offsetHeight;
-        const scrollPosition = window.scrollY;
-
-        if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-            const targetId = section.getAttribute('id');
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${targetId}`) {
-                    link.classList.add('active');
+            document.addEventListener('click', (e) => {
+                if (!input.contains(e.target) && !suggestionList.contains(e.target)) {
+                    suggestionList.style.display = 'none';
                 }
             });
         }
-    });
-}
 
+        // Function to set the minimum pickup time to the current date and time
+        function setMinPickupTime() {
+            const pickupTimeInput = document.getElementById('pickup-time');
+            const now = new Date();
+            
+            // Format: YYYY-MM-DDTHH:MM (for datetime-local input)
+            const formattedNow = now.toISOString().slice(0, 16);
+            
+            pickupTimeInput.min = formattedNow;
+        }
 
+        // Initialize autocomplete and handle form submission
+        document.addEventListener('DOMContentLoaded', () => {
+            setupAutocomplete('pickup-location', 'pickup-suggestions');
+            setupAutocomplete('drop-location', 'drop-suggestions');
 
-// Set initial active link on page load
-window.addEventListener('load', updateActiveLink);
+            setMinPickupTime(); // Set minimum pickup time when the page loads
+
+            document.getElementById('rental-form').addEventListener('submit', (e) => {
+                e.preventDefault(); // Prevent default form submission
+
+                const pickup = document.getElementById('pickup-location').value.trim();
+                const drop = document.getElementById('drop-location').value.trim();
+                const pickupTime = document.getElementById('pickup-time').value.trim();
+                const pickupDateTime = new Date(pickupTime);
+                const now = new Date();
+
+                // Check if the entered city exists in the predefined list
+                if (!cities.includes(pickup) || !cities.includes(drop)) {
+                    alert('Please select a valid pickup and drop location.');
+                    return;
+                }
+
+                // Check if pickup and drop locations are the same
+                if (pickup.toLowerCase() === drop.toLowerCase()) {
+                    alert('Pickup and drop locations cannot be the same.');
+                    return;
+                }
+
+                if (!pickupTime) {
+                    alert('Please enter a pickup time.');
+                    return;
+                }
+
+                // Restriction: Pickup time must not be in the past
+                if (pickupDateTime < now) {
+                    alert('This Pickup time is cannot be applicable. Please choose a future time.');
+                    return;
+                }
+
+                // Store values in sessionStorage
+                sessionStorage.setItem("pickup-location", pickup);
+                sessionStorage.setItem("drop-location", drop);
+                sessionStorage.setItem("pickup-time", pickupTime);
+
+                // Redirect to book.html
+                window.location.href = `book.html`;
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+            updateActiveLink();
+        });
+
+        // Mobile menu toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuToggle.classList.toggle('open');
+        });
+
+        // Update active link based on section visibility
+        function updateActiveLink() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-links a');
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionBottom = sectionTop + section.offsetHeight;
+                const scrollPosition = window.scrollY;
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    const targetId = section.getAttribute('id');
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${targetId}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }
+
+        // Set initial active link on page load
+        window.addEventListener('load', updateActiveLink);
 
         // Function to initialize autocomplete for an input field
         function addStarEffect() {
-  const element = document.querySelector('a.event-link');
-  const numberOfParticles = 15;
-  const duration = 1000;
-  function createStars() {
-    const existingContainer = element.querySelector('.star-container');
-    if (existingContainer) {
-      existingContainer.remove();
-    }
-    const container = document.createElement('div');
-    container.classList.add('star-container');
-    for (let i = 0; i < numberOfParticles; i++) {
-      const particle = document.createElement('span');
-      particle.classList.add('star-particle');
-      const angle = Math.random() * 2 * Math.PI;
-      const distance = Math.random() * 3 + 1;
-      const x = Math.cos(angle) * distance;
-      const y = Math.sin(angle) * distance;
-      particle.style.setProperty('--x', `${x}em`);
-      particle.style.setProperty('--y', `${y}em`);
-      container.appendChild(particle);
-    }
-    element.appendChild(container);
-  }
-  setInterval(createStars, duration);
-}
+            const element = document.querySelector('a.event-link');
+            const numberOfParticles = 15;
+            const duration = 1000;
+            function createStars() {
+                const existingContainer = element.querySelector('.star-container');
+                if (existingContainer) {
+                    existingContainer.remove();
+                }
+                const container = document.createElement('div');
+                container.classList.add('star-container');
+                for (let i = 0; i < numberOfParticles; i++) {
+                    const particle = document.createElement('span');
+                    particle.classList.add('star-particle');
+                    const angle = Math.random() * 2 * Math.PI;
+                    const distance = Math.random() * 3 + 1;
+                    const x = Math.cos(angle) * distance;
+                    const y = Math.sin(angle) * distance;
+                    particle.style.setProperty('--x', `${x}em`);
+                    particle.style.setProperty('--y', `${y}em`);
+                    container.appendChild(particle);
+                }
+                element.appendChild(container);
+            }
+            setInterval(createStars, duration);
+        }
 
-function changeFirecrackerColor(colors) {
-    function addFirecrackerEffectLoop(colors) {
-      const element = document.querySelector('a.event-link');
-      const numberOfParticles = 20;
-      const duration = 1000;
-      function createFirecracker() {
-          const existingContainer = element.querySelector('.star-container');
-          if (existingContainer) {
-            existingContainer.remove();
-          }
-          const container = document.createElement('div');
-          container.classList.add('star-container');
-      
-          for (let i = 0; i < numberOfParticles; i++) {
-              const particle = document.createElement('span');
-              particle.classList.add('star-particle');
-      
-              const angle = Math.random() * 2 * Math.PI;
-              const distance = Math.random() * 2 + 1;
-              const x = Math.cos(angle) * distance;
-              const y = Math.sin(angle) * distance;
-              particle.style.setProperty('--x', `${x}em`);
-              particle.style.setProperty('--y', `${y}em`);
-              if (colors && colors.length > 0) {
-                  particle.style.backgroundColor = colors[i % colors.length];
-              } else {
-                particle.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-              }
-              container.appendChild(particle);
-          }
-          element.appendChild(container);
-      }
-      setInterval(createFirecracker, duration);
-  }
-  addFirecrackerEffectLoop(colors);
-}
+        function changeFirecrackerColor(colors) {
+            function addFirecrackerEffectLoop(colors) {
+                const element = document.querySelector('a.event-link');
+                const numberOfParticles = 20;
+                const duration = 1000;
+                function createFirecracker() {
+                    const existingContainer = element.querySelector('.star-container');
+                    if (existingContainer) {
+                        existingContainer.remove();
+                    }
+                    const container = document.createElement('div');
+                    container.classList.add('star-container');
+                
+                    for (let i = 0; i < numberOfParticles; i++) {
+                        const particle = document.createElement('span');
+                        particle.classList.add('star-particle');
+                
+                        const angle = Math.random() * 2 * Math.PI;
+                        const distance = Math.random() * 2 + 1;
+                        const x = Math.cos(angle) * distance;
+                        const y = Math.sin(angle) * distance;
+                        particle.style.setProperty('--x', `${x}em`);
+                        particle.style.setProperty('--y', `${y}em`);
+                        if (colors && colors.length > 0) {
+                            particle.style.backgroundColor = colors[i % colors.length];
+                        } else {
+                            particle.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                        }
+                        container.appendChild(particle);
+                    }
+                    element.appendChild(container);
+                }
+                setInterval(createFirecracker, duration);
+            }
+            addFirecrackerEffectLoop(colors);
+        }
 
-addStarEffect();
-changeFirecrackerColor(['red', 'blue', 'green', 'yellow', 'orange','indigo','red', 'blue', 'green', 'yellow', 'orange','indigo']);
-
+        addStarEffect();
+        changeFirecrackerColor(['red', 'blue', 'green', 'yellow', 'orange', 'indigo', 'red', 'blue', 'green', 'yellow', 'orange', 'indigo']);
     </script>
     <script src="script.js"></script>
-    
-</body>
+</body> 
 </html>
