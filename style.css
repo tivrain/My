@@ -461,7 +461,7 @@ body {
 /* Medium Screens (Phones/Tablets, 480px - 768px) */
 @media screen and (min-width: 480px) and (max-width: 768px) {
     .hero {
-        min-height: 70vh;
+        min-height: 50vh;
         padding: 1rem;
     }
 
