@@ -397,8 +397,8 @@ body {
 /* Small Screens (Old Phones, 0px - 479px) */
 @media screen and (max-width: 479px) {
     .hero {
-        min-height: 70vh;
-        padding: 0.75rem;
+        min-height: 90vh;
+        padding: 1.75rem;
     }
 
     .hero h1 {
