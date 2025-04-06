@@ -244,7 +244,7 @@ changeFirecrackerColor(['red', 'blue', 'green', 'yellow', 'orange','indigo','red
         setTimeout(() => {
             adText.innerHTML = adMessages[adIndex];
             adText.style.animation = "fade 0.5s ease-in-out";
-            adIndex = (adIndex + 1) % adMessages.length;
+            adIndex = (adIndex + 0.5) % adMessages.length;
         }, 100); // Small delay for smooth transition
     }
 
