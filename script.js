@@ -229,8 +229,7 @@ changeFirecrackerColor(['red', 'blue', 'green', 'yellow', 'orange','indigo','red
         }, 20000);
     });
       /*atiuttam.com ad*/
-    // Sliding Ad Text
-
+ 
 document.addEventListener("DOMContentLoaded", () => {
     const adMessages = [
         "✈️ Book Flights & Holidays at the Best Price! 🌍",
@@ -244,7 +243,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const adText = document.getElementById("adText");
         if (!adText) return;
 
-        adText.style.animation = "none"; // reset animation
+        adText.style.animation = "none"; // Reset animation
+        void adText.offsetWidth; // Force reflow (restarts animation)
 
         setTimeout(() => {
             adText.innerHTML = adMessages[adIndex];
@@ -254,9 +254,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     setInterval(updateAdText, 4000);
-    updateAdText(); // show first ad immediately
+    updateAdText(); // Show first ad immediately
 
-    // Create Spark Effect
+    // Spark effect
     function createSpark() {
         const banner = document.getElementById("adBanner");
         if (!banner) return;
@@ -264,9 +264,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const spark = document.createElement("div");
         spark.classList.add("spark");
 
-        banner.appendChild(spark);
         spark.style.left = Math.random() * banner.clientWidth + "px";
         spark.style.top = Math.random() * banner.clientHeight + "px";
+
+        banner.appendChild(spark);
 
         setTimeout(() => {
             spark.remove();
@@ -275,6 +276,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setInterval(createSpark, 200);
 });
+
 
 
 
