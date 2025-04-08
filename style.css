@@ -206,27 +206,23 @@ body {
 }
 
 /* Ad Banner */
-/* Floating and wave animation for the ad banner */
+/* Floating animation for the whole ad banner */
 #adBanner {
+    animation: floatAd 2s ease-in-out infinite alternate;
     position: relative;
     overflow: hidden;
-    padding: 1rem 2rem;
-    border-radius: 16px;
+    background: linear-gradient(90deg, #007bff, #00c6ff);
+    padding: 1rem;
+    border-radius: 12px;
     text-align: center;
-    animation: floatAd 2s ease-in-out infinite alternate;
-    background: linear-gradient(120deg, #cceeff, #b3e5fc, #e1f5fe);
-    background-size: 400% 400%;
-    animation: floatAd 2s ease-in-out infinite alternate, colorWave 10s ease infinite;
-    box-shadow: 0 4px 15px rgba(0, 187, 255, 0.2);
 }
 
 /* Ad text style */
 #adText {
     font-weight: bold;
-    font-size: 1.3rem;
-    color: #003366;
+    font-size: 1.2rem;
+    color: #fff;
     text-decoration: none;
-    letter-spacing: 0.5px;
 }
 
 /* Fading effect class for ad text */
@@ -240,17 +236,10 @@ body {
     to { opacity: 1; }
 }
 
-/* Floating bounce effect */
+/* Floating effect for banner */
 @keyframes floatAd {
     0% { transform: translateY(-5px); }
     100% { transform: translateY(5px); }
-}
-
-/* Soft shimmer color wave effect */
-@keyframes colorWave {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
 }
 
 /* Spark style */
@@ -258,7 +247,7 @@ body {
     position: absolute;
     width: 6px;
     height: 6px;
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.8);
     border-radius: 50%;
     pointer-events: none;
     animation: sparkMove 1s linear forwards;
@@ -275,19 +264,6 @@ body {
         transform: scale(2) translateY(-10px);
     }
 }
-
-/* Spark Effect */
-.spark {
-    position: absolute;
-    width: 5px;
-    height: 5px;
-    background: #fff;
-    border-radius: 50%;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-    animation: sparkMove 1s linear forwards;
-    z-index: 3;
-}
-
 
 
 /* Rental Form Styling */
