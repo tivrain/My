@@ -230,60 +230,84 @@ changeFirecrackerColor(['red', 'blue', 'green', 'yellow', 'orange','indigo','red
     });
       /*atiuttam.com ad*/
 
-document.addEventListener("DOMContentLoaded", () => {
-    const adMessages = [
-        "✈️ Book Flights & Holidays at the Best Price! 🌍",
-        "🚆 Fast & Easy Train Ticket Booking! 🎟️",
-        "🚗 Luxury Car Rentals Available Now! 🏎️",
-        "🏝️ Exclusive Holiday Packages Just for You! 🏖️"
-    ];
+const adMessages = [
+    "✈️ Book Flights & Holidays at the Best Price! 🌍",
+    "🚆 Fast & Easy Train Ticket Booking! 🎟️",
+    "🚗 Luxury Car Rentals Available Now! 🏎️",
+    "🏝️ Exclusive Holiday Packages Just for You! 🏖️"
+];
 
-    let adIndex = 0;
-
-    function updateAdText() {
-        const adText = document.getElementById("adText");
-        if (!adText) return;
-
-        adText.classList.remove("fade-text");
-        void adText.offsetWidth;
-        adText.classList.add("fade-text");
-
+let adIndex = 0;
+function updateAdText() {
+    const adText = document.getElementById("adText");
+    adText.style.animation = "none";
+    setTimeout(() => {
         adText.innerHTML = adMessages[adIndex];
+        adText.style.animation = "fade 1s ease-in-out";
         adIndex = (adIndex + 1) % adMessages.length;
+    }, 100);
+}
+
+setInterval(updateAdText, 4000);
+
+// Star Movement (unchanged)
+function createSpark() {
+    const spark = document.createElement("div");
+    spark.classList.add("spark");
+    const form = document.querySelector(".rental-form");
+    form.appendChild(spark);
+
+    const edge = Math.floor(Math.random() * 4);
+    const offset = Math.random() * 15 + 5;
+    const speed = Math.random() * 2 + 1;
+    let animationName;
+
+    switch (edge) {
+        case 0:
+            spark.style.left = "0";
+            spark.style.top = -offset + "px";
+            animationName = "moveTop";
+            break;
+        case 1:
+            spark.style.left = (form.clientWidth + offset) + "px";
+            spark.style.top = "0";
+            animationName = "moveRight";
+            break;
+        case 2:
+            spark.style.left = form.clientWidth + "px";
+            spark.style.top = (form.clientHeight + offset) + "px";
+            animationName = "moveBottom";
+            break;
+        case 3:
+            spark.style.left = -offset + "px";
+            spark.style.top = form.clientHeight + "px";
+            animationName = "moveLeft";
+            break;
     }
 
-    setInterval(updateAdText, 4000);
-    updateAdText();
+    spark.style.animation = `${animationName} ${speed}s linear forwards`;
+    spark.style.opacity = Math.random() * 0.5 + 0.5;
 
-    // Spark effect
-    function createSpark() {
-        const banner = document.getElementById("adBanner");
-        if (!banner) return;
-
-        const spark = document.createElement("div");
-        spark.classList.add("spark");
-
-        spark.style.left = Math.random() * banner.clientWidth + "px";
-        spark.style.top = Math.random() * banner.clientHeight + "px";
-
-        banner.appendChild(spark);
-
-        setTimeout(() => {
-            spark.remove();
-        }, 1000);
+    const sparks = form.querySelectorAll(".spark");
+    if (sparks.length > 300) {
+        sparks[0].remove();
     }
 
-    setInterval(createSpark, 200);
+    setTimeout(() => spark.remove(), speed * 1000);
+}
 
-    // 🔗 Make whole banner clickable
-    const banner = document.getElementById("adBanner");
-    if (banner) {
-        banner.style.cursor = "pointer";
-        banner.addEventListener("click", () => {
-            window.open("https://atiuttam.com", "_blank");
-        });
-    }
-});
+const colors = ["#ffca28", "#ff7f00", "#62b0bc", "#ffffff", "#ff66cc", "#66ff66", "#ff3333"];
+function changeSparkColors() {
+    const sparks = document.querySelectorAll(".spark");
+    sparks.forEach(spark => {
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        spark.style.backgroundColor = randomColor;
+        spark.style.boxShadow = `0 0 6px ${randomColor}`;
+    });
+}
+
+setInterval(createSpark, 10);
+setInterval(changeSparkColors, 1000);
 
 
 
