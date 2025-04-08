@@ -229,7 +229,7 @@ changeFirecrackerColor(['red', 'blue', 'green', 'yellow', 'orange','indigo','red
         }, 20000);
     });
       /*atiuttam.com ad*/
- 
+
 document.addEventListener("DOMContentLoaded", () => {
     const adMessages = [
         "✈️ Book Flights & Holidays at the Best Price! 🌍",
@@ -239,22 +239,22 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
 
     let adIndex = 0;
+
     function updateAdText() {
         const adText = document.getElementById("adText");
         if (!adText) return;
 
-        adText.style.animation = "none"; // Reset animation
-        void adText.offsetWidth; // Force reflow (restarts animation)
+        // Remove & re-add fade class to trigger animation
+        adText.classList.remove("fade-text");
+        void adText.offsetWidth; // force reflow to restart animation
+        adText.classList.add("fade-text");
 
-        setTimeout(() => {
-            adText.innerHTML = adMessages[adIndex];
-            adText.style.animation = "fade 0.5s ease-in-out";
-            adIndex = (adIndex + 1) % adMessages.length;
-        }, 100);
+        adText.innerHTML = adMessages[adIndex];
+        adIndex = (adIndex + 1) % adMessages.length;
     }
 
-    setInterval(updateAdText, 8000);
-    updateAdText(); // Show first ad immediately
+    setInterval(updateAdText, 4000);
+    updateAdText(); // Initial display
 
     // Spark effect
     function createSpark() {
@@ -276,6 +276,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setInterval(createSpark, 200);
 });
+
+
 
 
 
