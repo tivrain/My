@@ -253,7 +253,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 100);
     }
 
-    setInterval(updateAdText, 4000);
+    setInterval(updateAdText, 8000);
     updateAdText(); // Show first ad immediately
 
     // Spark effect
