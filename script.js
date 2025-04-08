@@ -244,9 +244,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const adText = document.getElementById("adText");
         if (!adText) return;
 
-        // Remove & re-add fade class to trigger animation
         adText.classList.remove("fade-text");
-        void adText.offsetWidth; // force reflow to restart animation
+        void adText.offsetWidth;
         adText.classList.add("fade-text");
 
         adText.innerHTML = adMessages[adIndex];
@@ -254,7 +253,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     setInterval(updateAdText, 4000);
-    updateAdText(); // Initial display
+    updateAdText();
 
     // Spark effect
     function createSpark() {
@@ -275,6 +274,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     setInterval(createSpark, 200);
+
+    // 🔗 Make whole banner clickable
+    const banner = document.getElementById("adBanner");
+    if (banner) {
+        banner.style.cursor = "pointer";
+        banner.addEventListener("click", () => {
+            window.open("https://atiuttam.com", "_blank");
+        });
+    }
 });
 
 
