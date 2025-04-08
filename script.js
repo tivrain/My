@@ -1,297 +1,303 @@
-// Ensure DOM is fully loaded
+// Ensure the DOM is fully loaded before running the script
 document.addEventListener('DOMContentLoaded', () => {
-    // Carousel Logic
+    // Select DOM elements
     const track = document.querySelector('.carousel-track');
     const container = document.querySelector('.carousel-container');
     const items = document.querySelectorAll('.carousel-item');
-    const dots = document.querySelectorAll('.carousel-dot');
+    const dots = document.querySelectorAll('.carousel-dot'); // Add dots selector
 
-    const config = {
-        totalUniqueItems: 10,
-        animationDuration: 80, // in seconds
-        marginRight: 40 // matches CSS gap
-    };
+    // Configuration
+    const totalUniqueItems = 10; // Number of unique items
+    const animationDuration = 80; // Animation duration in seconds (matches CSS)
+    const marginRight = 40; // Matches CSS gap (adjust if CSS changes)
 
+    // State variables
     let itemWidth = 0;
-    let currentIndex = 0;
+    let currentIndex = 0; // Track the current active item
 
-    const setCarouselWidth = () => {
-        if (!items.length) return;
-        itemWidth = items[0].offsetWidth + config.marginRight;
-        track.style.width = `${itemWidth * config.totalUniqueItems * 2}px`;
-    };
+    // Calculate and set carousel width dynamically
+    function setCarouselWidth() {
+        if (!items.length) return; // Exit if no items
+        itemWidth = items[0].offsetWidth + marginRight; // Item width + spacing
+        const totalWidth = itemWidth * totalUniqueItems * 2; // Double for seamless loop
+        track.style.width = `${totalWidth}px`;
+    }
 
-    const duplicateItems = () => {
-        if (!track || items.length !== config.totalUniqueItems) return;
-        items.forEach(item => track.appendChild(item.cloneNode(true)));
-    };
+    // Clone items for infinite loop
+    function duplicateItems() {
+        if (!track || items.length !== totalUniqueItems) return; // Safety check
+        const clonedItems = Array.from(items).map(item => item.cloneNode(true));
+        clonedItems.forEach(clone => track.appendChild(clone));
+    }
 
-    const startAnimation = () => {
-        track.style.animation = `carousel-slide ${config.animationDuration}s linear infinite`;
-    };
+    // Start or restart animation
+    function startAnimation() {
+        track.style.animation = `carousel-slide ${animationDuration}s linear infinite`;
+    }
 
-    const resetAnimation = () => {
+    // Reset animation for seamless looping
+    function resetAnimation() {
         track.style.animation = 'none';
         track.offsetHeight; // Trigger reflow
         startAnimation();
-    };
+    }
 
-    const toggleAnimation = state => {
-        if (track) track.style.animationPlayState = state;
-    };
+    // Toggle animation play state
+    function toggleAnimation(state) {
+        track.style.animationPlayState = state;
+    }
 
-    const updateActiveDot = () => {
-        dots.forутеEach(dot => dot.classList.remove('active'));
-        if (dots[currentIndex]) dots[currentIndex].classList.add('active');
-    };
+    // Update active dot
+    function updateActiveDot() {
+        dots.forEach(dot => dot.classList.remove('active'));
+        dots[currentIndex].classList.add('active');
+    }
 
-    const moveToItem = index => {
-        currentIndex = index % config.totalUniqueItems;
+    // Move to specific item
+    function moveToItem(index) {
+        currentIndex = index % totalUniqueItems; // Ensure index loops within unique items
         const translateX = -(itemWidth * currentIndex);
-        track.style.animation = 'none';
-        track.style.transform = `translateX(${translateX}px)`;
-        updateActiveDot();
+        track.style.animation = 'none'; // Stop animation
+        track.style.transform = `translateX(${translateX}px)`; // Move to position
+        updateActiveDot(); // Highlight active dot
         setTimeout(() => {
-            startAnimation();
-            track.style.transform = '';
-        }, 150); // Slightly increased for smoother transition
-    };
+            startAnimation(); // Restart animation
+            track.style.transform = ''; // Reset transform to let animation take over
+        }, 100); // Small delay for smooth transition
+    }
 
-    const debounce = (func, delay) => {
+    // Debounce utility for resize events
+    function debounce(func, delay) {
         let timeout;
         return (...args) => {
             clearTimeout(timeout);
             timeout = setTimeout(() => func(...args), delay);
         };
-    };
+    }
 
+    // Update carousel on resize
     const updateCarousel = debounce(() => {
         setCarouselWidth();
-        moveToItem(currentIndex);
+        moveToItem(currentIndex); // Maintain current position after resize
     }, 100);
 
-    const initCarousel = () => {
-        if (!track || !container) return console.warn('Carousel elements not found');
-        duplicateItems();
-        setCarouselWidth();
-        startAnimation();
-        updateActiveDot();
+    // Initialize carousel
+    function initCarousel() {
+        duplicateItems(); // Clone items once
+        setCarouselWidth(); // Set initial width
+        startAnimation(); // Start animation
+        updateActiveDot(); // Set initial active dot
+    }
 
+    // Event listeners
+    if (container && track) {
+        // Hover interactions
         container.addEventListener('mouseenter', () => toggleAnimation('paused'));
         container.addEventListener('mouseleave', () => toggleAnimation('running'));
+
+        // Touch support for mobile
         container.addEventListener('touchstart', () => toggleAnimation('paused'), { passive: true });
         container.addEventListener('touchend', () => toggleAnimation('running'), { passive: true });
+
+        // Resize handling
         window.addEventListener('resize', updateCarousel);
+
+        // Animation iteration for seamless looping and dot updates
         track.addEventListener('animationiteration', () => {
-            currentIndex = (currentIndex + 1) % config.totalUniqueItems;
-            updateActiveDot();
+            currentIndex = (currentIndex + 1) % totalUniqueItems; // Move to next item
+            updateActiveDot(); // Update dot
         });
+
+        // Dot navigation
         dots.forEach((dot, index) => {
             dot.addEventListener('click', () => {
-                toggleAnimation('paused');
-                moveToItem(index);
+                toggleAnimation('paused'); // Pause animation
+                moveToItem(index); // Move to clicked item
             });
         });
+
+        // Ensure clean start on full load
         window.addEventListener('load', () => {
             setCarouselWidth();
             resetAnimation();
         });
-
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            toggleAnimation('paused');
-        }
-    };
-
-    initCarousel();
-
-    // Combined Star/Firecracker Effect
-    const addParticleEffect = (colors = null) => {
-        const element = document.querySelector('a.event-link');
-        if (!element) return console.warn('Event link element not found');
-
-        const particleConfig = {
-            numberOfParticles: 20,
-            duration: 1000
-        };
-
-        const createParticles = () => {
-            const existingContainer = element.querySelector('.star-container');
-            if (existingContainer) existingContainer.remove();
-
-            const container = document.createElement('div');
-            container.classList.add('star-container');
-
-            for (let i = 0; i < particleConfig.numberOfParticles; i++) {
-                const particle = document.createElement('span');
-                particle.classList.add('star-particle');
-                const angle = Math.random() * 2 * Math.PI;
-                const distance = Math.random() * 3 + 1;
-                particle.style.setProperty('--x', `${Math.cos(angle) * distance}em`);
-                particle.style.setProperty('--y', `${Math.sin(angle) * distance}em`);
-                particle.style.backgroundColor = colors?.length
-                    ? colors[i % colors.length]
-                    : `hsl(${Math.random() * 360}, 100%, 50%)`;
-                container.appendChild(particle);
-            }
-            element.appendChild(container);
-        };
-
-        setInterval(createParticles, particleConfig.duration);
-    };
-
-    addParticleEffect(['red', 'blue', 'green', 'yellow', 'orange', 'indigo']);
-
-    // Background Music
-    const audio = document.getElementById("intro-music");
-    if (audio) {
-        audio.volume = 0.5;
-        audio.play().catch(() => {
-            console.log("Autoplay blocked, waiting for interaction...");
-            document.addEventListener('click', function playMusic() {
-                audio.play().then(() => setTimeout(() => audio.pause(), 20000));
-                document.removeEventListener('click', playMusic);
-            }, { once: true });
-        });
-        setTimeout(() => audio.pause(), 20000);
     }
 
-    // Advertisement
+    // Kick off the carousel
+    initCarousel();
+
+    // Accessibility: Pause animation if user prefers reduced motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        toggleAnimation('paused');
+    }
+});
+
+
+        // Function to initialize autocomplete for an input field
+        function addStarEffect() {
+  const element = document.querySelector('a.event-link');
+  const numberOfParticles = 15;
+  const duration = 1000;
+  function createStars() {
+    const existingContainer = element.querySelector('.star-container');
+    if (existingContainer) {
+      existingContainer.remove();
+    }
+    const container = document.createElement('div');
+    container.classList.add('star-container');
+    for (let i = 0; i < numberOfParticles; i++) {
+      const particle = document.createElement('span');
+      particle.classList.add('star-particle');
+      const angle = Math.random() * 2 * Math.PI;
+      const distance = Math.random() * 3 + 1;
+      const x = Math.cos(angle) * distance;
+      const y = Math.sin(angle) * distance;
+      particle.style.setProperty('--x', `${x}em`);
+      particle.style.setProperty('--y', `${y}em`);
+      container.appendChild(particle);
+    }
+    element.appendChild(container);
+  }
+  setInterval(createStars, duration);
+}
+
+function changeFirecrackerColor(colors) {
+    function addFirecrackerEffectLoop(colors) {
+      const element = document.querySelector('a.event-link');
+      const numberOfParticles = 20;
+      const duration = 1000;
+      function createFirecracker() {
+          const existingContainer = element.querySelector('.star-container');
+          if (existingContainer) {
+            existingContainer.remove();
+          }
+          const container = document.createElement('div');
+          container.classList.add('star-container');
+      
+          for (let i = 0; i < numberOfParticles; i++) {
+              const particle = document.createElement('span');
+              particle.classList.add('star-particle');
+      
+              const angle = Math.random() * 2 * Math.PI;
+              const distance = Math.random() * 2 + 1;
+              const x = Math.cos(angle) * distance;
+              const y = Math.sin(angle) * distance;
+              particle.style.setProperty('--x', `${x}em`);
+              particle.style.setProperty('--y', `${y}em`);
+              if (colors && colors.length > 0) {
+                  particle.style.backgroundColor = colors[i % colors.length];
+              } else {
+                particle.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+              }
+              container.appendChild(particle);
+          }
+          element.appendChild(container);
+      }
+      setInterval(createFirecracker, duration);
+  }
+  addFirecrackerEffectLoop(colors);
+}
+
+addStarEffect();
+changeFirecrackerColor(['red', 'blue', 'green', 'yellow', 'orange','indigo','red', 'blue', 'green', 'yellow', 'orange','indigo']);
+// event end//
+
+/*bg music*/
+    document.addEventListener("DOMContentLoaded", function () {
+        const audio = document.getElementById("intro-music");
+        audio.volume = 0.5; // Adjust volume (0.0 to 1.0)
+
+        // Try autoplay
+        audio.play().catch(error => {
+            console.log("Autoplay blocked, waiting for user interaction...");
+
+            // Play on first user click
+            document.addEventListener("click", function playMusic() {
+                audio.play();
+                setTimeout(() => {
+                    audio.pause();
+                }, 20000); // Stop music after 5 seconds
+
+                // Remove event listener after first play
+                document.removeEventListener("click", playMusic);
+            });
+        });
+
+        // Stop music after 5 seconds if autoplay works
+        setTimeout(() => {
+            audio.pause();
+        }, 20000);
+    });
+      /*atiuttam.com ad*/
+    // Sliding Ad Text
     const adMessages = [
         "✈️ Book Flights & Holidays at the Best Price! 🌍",
         "🚆 Fast & Easy Train Ticket Booking! 🎟️",
         "🚗 Luxury Car Rentals Available Now! 🏎️",
-        "🏝️ Exclusive Holiday Packages Just for You! 🏖️"
+        "🏝️ Exclusive Holiday Packages Just for You! 🏖️",
     ];
 
     let adIndex = 0;
     function updateAdText() {
         const adText = document.getElementById("adText");
-        if (!adText) return;
-        adText.style.animation = "none";
-        adText.offsetHeight; // Trigger reflow
+        adText.style.animation = "none"; // Reset animation
         setTimeout(() => {
             adText.innerHTML = adMessages[adIndex];
-            adText.style.animation = "fade 1s ease-in-out";
-            adIndex = (adIndex + 1) % adMessages.length;
-        }, 100);
+            adText.style.animation = "fade 0.5s ease-in-out";
+            adIndex = (adIndex + 0.5) % adMessages.length;
+        }, 100); // Small delay for smooth transition
     }
 
+    // Change text every 4 seconds
     setInterval(updateAdText, 4000);
 
-    // Orbiting Stars (Sparks)
+    // Create Spark Effect
     function createSpark() {
-        const form = document.querySelector(".rental-form");
-        if (!form) return;
-
         const spark = document.createElement("div");
         spark.classList.add("spark");
-        form.appendChild(spark);
+        
+        const banner = document.getElementById("adBanner");
+        banner.appendChild(spark);
+        
+        spark.style.left = Math.random() * banner.clientWidth + "px";
+        spark.style.top = Math.random() * banner.clientHeight + "px";
 
-        const edge = Math.floor(Math.random() * 4);
-        const offset = Math.random() * 15 + 5;
-        const speed = Math.random() * 2 + 1;
-        let animationName;
-
-        switch (edge) {
-            case 0:
-                spark.style.left = "0";
-                spark.style.top = `${-offset}px`;
-                animationName = "moveTop";
-                break;
-            case 1:
-                spark.style.left = `${form.clientWidth + offset}px`;
-                spark.style.top = "0";
-                animationName = "moveRight";
-                break;
-            case 2:
-                spark.style.left = `${form.clientWidth}px`;
-                spark.style.top = `${form.clientHeight + offset}px`;
-                animationName = "moveBottom";
-                break;
-            case 3:
-                spark.style.left = `${-offset}px`;
-                spark.style.top = `${form.clientHeight}px`;
-                animationName = "moveLeft";
-                break;
-        }
-
-        spark.style.animation = `${animationName} ${speed}s linear forwards`;
-        spark.style.opacity = Math.random() * 0.5 + 0.5;
-
-        const sparks = form.querySelectorAll(".spark");
-        if (sparks.length > 50) { // Reduced from 300
-            sparks[0].remove();
-        }
-
-        setTimeout(() => spark.remove(), speed * 1000);
+        setTimeout(() => {
+            spark.remove();
+        }, 1000);
     }
 
-    const colors = ["#ffca28", "#ff7f00", "#62b0bc", "#ffffff", "#ff66cc", "#66ff66", "#ff3333"];
-    function changeSparkColors() {
-        const sparks = document.querySelectorAll(".spark");
-        sparks.forEach(spark => {
-            const randomColor = colors[Math.floor(Math.random() * colors.length)];
-            spark.style.backgroundColor = randomColor;
-            spark.style.boxShadow = `0 0 6px ${randomColor}`;
-        });
-    }
+    setInterval(createSpark, 200);
 
-    setInterval(createSpark, 100); // Increased from 10ms to 100ms
-    setInterval(changeSparkColors, 1000);
-
-    // Moving Stars for Background
-    function createMovingStar() {
-        const hero = document.querySelector(".hero");
-        if (!hero) return;
-
-        const star = document.createElement("div");
-        star.classList.add("star");
-        hero.appendChild(star);
-
-        // Random size and position
-        const size = Math.random() * 2 + 1; // 1-3px
-        star.style.width = `${size}px`;
-        star.style.height = `${size}px`;
-        star.style.left = `${Math.random() * 100}vw`;
-        star.style.top = `${Math.random() * 100}vh`;
-
-        // Random speed and duration (5-15s)
-        const duration = Math.random() * 10 + 5;
-        star.style.animationDuration = `${duration}s`;
-
-        // Random opacity
-        star.style.opacity = Math.random() * 0.5 + 0.5;
-
-        // Remove star after animation
-        star.addEventListener("animationend", () => star.remove());
-
-        // Cap total stars
-        const stars = hero.querySelectorAll(".star");
-        if (stars.length > 50) { // Reduced from 100
-            stars[0].remove();
-        }
-    }
-
-    setInterval(createMovingStar, 100);
-
-    // WhatsApp Form
-    const contactForm = document.getElementById("contact-form");
-    if (contactForm) {
-        contactForm.addEventListener("submit", event => {
-            event.preventDefault();
-            const name = document.getElementById("name")?.value.trim() || '';
-            const email = document.getElementById("email")?.value.trim() || '';
-            const message = document.getElementById("message")?.value.trim() || '';
-
-            if (!name || !email || !message) {
-                alert(`Please fill in: ${!name ? "Name, " : ""}${!email ? "Email, " : ""}${!message ? "Message" : ""}`.replace(/, $/, ""));
+// WhatsApp link js 
+document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("contact-form").addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent form from submitting normally
+    
+            // Get user input values
+            const name = document.getElementById("name").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const message = document.getElementById("message").value.trim();
+    
+            // Check if all fields are filled
+            if (name === "" || email === "" || message === "") {
+                alert("Please fill in all fields before sending.");
                 return;
             }
-
+    
+            // Format WhatsApp message
             const whatsappMessage = `Hello, I want to contact you.\n\n*Name:* ${name}\n*Email:* ${email}\n*Message:* ${message}`;
+    
+            // Encode message for URL
             const encodedMessage = encodeURIComponent(whatsappMessage);
-            const phoneNumber = "+917014434465";
-            window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, "_blank");
+    
+            // Your WhatsApp number
+            const phoneNumber = "+917014434465"; // Change to your WhatsApp number
+    
+            // WhatsApp URL
+            const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    
+            // Open WhatsApp chat in a new tab
+            window.open(whatsappURL, "_blank");
         });
-    }
-});
+    });
