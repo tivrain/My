@@ -230,45 +230,52 @@ changeFirecrackerColor(['red', 'blue', 'green', 'yellow', 'orange','indigo','red
     });
       /*atiuttam.com ad*/
     // Sliding Ad Text
-   const adMessages = [
-    "✈️ Book Flights & Holidays at the Best Price! 🌍",
-    "🚆 Fast & Easy Train Ticket Booking! 🎟️",
-    "🚗 Luxury Car Rentals Available Now! 🏎️",
-    "🏝️ Exclusive Holiday Packages Just for You! 🏖️"
-];
 
-let adIndex = 0;
-function updateAdText() {
-    const adText = document.getElementById("adText");
-    adText.style.animation = "none"; // Reset animation
+document.addEventListener("DOMContentLoaded", () => {
+    const adMessages = [
+        "✈️ Book Flights & Holidays at the Best Price! 🌍",
+        "🚆 Fast & Easy Train Ticket Booking! 🎟️",
+        "🚗 Luxury Car Rentals Available Now! 🏎️",
+        "🏝️ Exclusive Holiday Packages Just for You! 🏖️"
+    ];
 
-    setTimeout(() => {
-        adText.innerHTML = adMessages[adIndex];
-        adText.style.animation = "fade 0.5s ease-in-out";
-        adIndex = (adIndex + 1) % adMessages.length; // ✅ Corrected from 0.5 to 1
-    }, 100); // Small delay for smooth transition
-}
+    let adIndex = 0;
+    function updateAdText() {
+        const adText = document.getElementById("adText");
+        if (!adText) return;
 
-// Change text every 4 seconds
-setInterval(updateAdText, 4000);
+        adText.style.animation = "none"; // reset animation
 
-// Create Spark Effect
-function createSpark() {
-    const spark = document.createElement("div");
-    spark.classList.add("spark");
+        setTimeout(() => {
+            adText.innerHTML = adMessages[adIndex];
+            adText.style.animation = "fade 0.5s ease-in-out";
+            adIndex = (adIndex + 1) % adMessages.length;
+        }, 100);
+    }
 
-    const banner = document.getElementById("adBanner");
-    banner.appendChild(spark);
+    setInterval(updateAdText, 4000);
+    updateAdText(); // show first ad immediately
 
-    spark.style.left = Math.random() * banner.clientWidth + "px";
-    spark.style.top = Math.random() * banner.clientHeight + "px";
+    // Create Spark Effect
+    function createSpark() {
+        const banner = document.getElementById("adBanner");
+        if (!banner) return;
 
-    setTimeout(() => {
-        spark.remove();
-    }, 1000);
-}
+        const spark = document.createElement("div");
+        spark.classList.add("spark");
 
-setInterval(createSpark, 200);
+        banner.appendChild(spark);
+        spark.style.left = Math.random() * banner.clientWidth + "px";
+        spark.style.top = Math.random() * banner.clientHeight + "px";
+
+        setTimeout(() => {
+            spark.remove();
+        }, 1000);
+    }
+
+    setInterval(createSpark, 200);
+});
+
 
 
 // WhatsApp link js 
