@@ -91,7 +91,7 @@
             </button>
           </form>
     
-       <div class="ad-banner" id="adBanner">
+        <div class="ad-banner" id="adBanner">
             <a href="https://atiuttam.com" target="_blank" class="ad-content" id="adText">
                 !CILCK HERE TO TRAVEL THE WORLD!
                
@@ -428,37 +428,7 @@ a.event-link::before {
     
     <!-- WhatsApp Contact Form Script -->
     <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        document.getElementById("contact-form").addEventListener("submit", function (event) {
-            event.preventDefault(); // Prevent form from submitting normally
-    
-            // Get user input values
-            const name = document.getElementById("name").value.trim();
-            const email = document.getElementById("email").value.trim();
-            const message = document.getElementById("message").value.trim();
-    
-            // Check if all fields are filled
-            if (name === "" || email === "" || message === "") {
-                alert("Please fill in all fields before sending.");
-                return;
-            }
-    
-            // Format WhatsApp message
-            const whatsappMessage = `Hello, I want to contact you.\n\n*Name:* ${name}\n*Email:* ${email}\n*Message:* ${message}`;
-    
-            // Encode message for URL
-            const encodedMessage = encodeURIComponent(whatsappMessage);
-    
-            // Your WhatsApp number
-            const phoneNumber = "+917014434465"; // Change to your WhatsApp number
-    
-            // WhatsApp URL
-            const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-    
-            // Open WhatsApp chat in a new tab
-            window.open(whatsappURL, "_blank");
-        });
-    });
+   
     </script>
     
 
@@ -511,7 +481,7 @@ const cities = [
     "Chennai", "Chhabra", "Chittorgarh", "Chomu", "Churu", "Coimbatore", "Cuttack", "Dausa", 
     "Davanagere", "Dehradun", "Deogarh", "Delhi", "Dhanbad", "Dharampur", "Dholpur", "Didwana", 
     "Dungarpur", "Durg", "Durgapur", "Etawah", "Faizabad", "Falna", "Faridabad", "Fatehpur Shekhawati", 
-    "Firozabad","Green Heaven Resort, pushkar", "Gangapur City", "Gangtok", "Gaya", "Ghaziabad", "Gorakhpur", "Gulbarga", "Guntur", 
+    "Firozabad","Green Heaven Resort", "Gangapur City", "Gangtok", "Gaya", "Ghaziabad", "Gorakhpur", "Gulbarga", "Guntur", 
     "Guwahati", "Gwalior", "Haldia", "Hanumangarh", "Haridwar", "Hindaun", "Hisar", "Hubli", 
     "Hyderabad", "Imphal", "Indore", "Itanagar", "Jabalpur", "Jaipur", "Jaisalmer", "Jalandhar", 
     "Jalgaon", "Jamnagar", "Jamshedpur", "Jaunpur", "Jhansi", "Jhalawar", "Jhunjhunu", "Jodhpur", 
