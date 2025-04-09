@@ -393,6 +393,45 @@ body {
 }
 
 /* Responsive Design with Min/Max Ranges */
+/* Orbiting Sparks */
+.spark {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
+    z-index: 3;
+}
+
+/* Movement Animations */
+@keyframes moveTop {
+    0% { left: 0; opacity: 1; }
+    100% { left: 100%; opacity: 0.7; }
+}
+
+@keyframes moveRight {
+    0% { top: 0; opacity: 1; }
+    100% { top: 100%; opacity: 0.7; }
+}
+
+@keyframes moveBottom {
+    0% { left: 100%; opacity: 1; }
+    100% { left: 0; opacity: 0.7; }
+}
+
+@keyframes moveLeft {
+    0% { top: 100%; opacity: 1; }
+    100% { top: 0; opacity: 0.7; }
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 479px) {
+    .spark {
+        width: 1px;
+        height: 1px;
+        box-shadow: 0 0 4px rgba(255, 255, 255, 0.9);
+    }
+}
 
 /* Small Screens (Old Phones, 0px - 479px) */
 @media screen and (max-width: 479px) {
